@@ -1,25 +1,29 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import { Container, Row, Col } from './components/Grid';
+import Nav from './components/Nav';
+import Jumbotron from './components/Jumbotron';
 import './App.css';
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <div>
+        <Container fluid>
+          <Nav children="Welcome To This React App!" />
+          <Jumbotron>
+            <Row>
+              <Col size="md-12">
+                <p className="bioText">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero voluptatem esse iure
+                </p>
+                <p className="bioText">
+                  praesentium animi ea quaerat earum accusamus odit, facere ut quidem dolorem, sed,
+                </p>
+                <p className="bioText">blanditiis veniam expedita magni vitae necessitatibus!</p>
+              </Col>
+            </Row>
+          </Jumbotron>
+        </Container>
       </div>
     );
   }
