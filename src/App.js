@@ -1,29 +1,73 @@
 import React, { Component } from 'react';
-import { Container, Row, Col } from './components/Grid';
-import Nav from './components/Nav';
-import Jumbotron from './components/Jumbotron';
-import './App.css';
+import ReactDOM from 'react-dom';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      articles: [],
+    };
+  }
+
+  componentDidMount() {
+    axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
+    axios
+      .get('/api/article')
+      .then(res => {
+        this.setState({ articles: res.data });
+        console.log(this.state.articles);
+      })
+      .catch(error => {
+        if (error.response.status === 401) {
+          this.props.history.push('/login');
+        }
+      });
+  }
+
+  logout = () => {
+    localStorage.removeItem('jwtToken');
+    window.location.reload();
+  };
+
   render() {
     return (
-      <div>
-        <Container fluid>
-          <Nav children="Welcome To This React App!" />
-          <Jumbotron>
-            <Row>
-              <Col size="md-12">
-                <p className="bioText">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero voluptatem esse iure
-                </p>
-                <p className="bioText">
-                  praesentium animi ea quaerat earum accusamus odit, facere ut quidem dolorem, sed,
-                </p>
-                <p className="bioText">blanditiis veniam expedita magni vitae necessitatibus!</p>
-              </Col>
-            </Row>
-          </Jumbotron>
-        </Container>
+      <div class="container">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              ARTICLE CATALOG &nbsp;
+              {localStorage.getItem('jwtToken') && (
+                <button class="btn btn-primary" onClick={this.logout}>
+                  Logout
+                </button>
+              )}
+            </h3>
+          </div>
+          <div class="panel-body">
+            <table class="table table-stripe">
+              <thead>
+                <tr>
+                  <th>ISBN</th>
+                  <th>Title</th>
+                  <th>Author</th>
+                </tr>
+              </thead>
+              <tbody>
+                {this.state.books.map(book => (
+                  <tr>
+                    <td>
+                      <Link to={`/show/${book._id}`}>{book.isbn}</Link>
+                    </td>
+                    <td>{book.title}</td>
+                    <td>{book.author}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     );
   }
