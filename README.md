@@ -1,4 +1,4 @@
-#  < INSERT APP NAME >
+#  Best Seller Finder
 
 Authors: Wyatt Cochran, Matt Zuckerman, Case Griffiths, Rudy Rodriguez, Eric Chen
 
