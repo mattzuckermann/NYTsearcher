@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
+// import ReactDOM from 'react-dom';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import './Login.css';
 
-class Login extends Component {
+class Create extends Component {
   constructor() {
     super();
     this.state = {
       username: '',
       password: '',
-      message: '',
     };
   }
   onChange = e => {
@@ -24,31 +23,17 @@ class Login extends Component {
 
     const { username, password } = this.state;
 
-    axios
-      .post('/api/auth/login', { username, password })
-      .then(result => {
-        localStorage.setItem('jwtToken', result.data.token);
-        this.setState({ message: '' });
-        this.props.history.push('/');
-      })
-      .catch(error => {
-        if (error.response.status === 401) {
-          this.setState({ message: 'Login failed. Username or password not match' });
-        }
-      });
+    axios.post('/api/auth/register', { username, password }).then(result => {
+      this.props.history.push('/login');
+    });
   };
 
   render() {
-    const { username, password, message } = this.state;
+    const { username, password } = this.state;
     return (
       <div class="container">
         <form class="form-signin" onSubmit={this.onSubmit}>
-          {message !== '' && (
-            <div class="alert alert-warning alert-dismissible" role="alert">
-              {message}
-            </div>
-          )}
-          <h2 class="form-signin-heading">Please sign in</h2>
+          <h2 class="form-signin-heading">Register</h2>
           <label for="inputEmail" class="sr-only">
             Email address
           </label>
@@ -74,18 +59,12 @@ class Login extends Component {
             required
           />
           <button class="btn btn-lg btn-primary btn-block" type="submit">
-            Login
+            Register
           </button>
-          <p>
-            Not a member?{' '}
-            <Link to="/register">
-              <span class="glyphicon glyphicon-plus-sign" aria-hidden="true" /> Register here
-            </Link>
-          </p>
         </form>
       </div>
     );
   }
 }
 
-export default Login;
+export default Create;
