@@ -7,13 +7,19 @@
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "react": "^16.8.2",
     "react-dom": "^16.8.2",
-    "react-scripts": "2.1.5"
+    "react-scripts": "2.1.5",
+    "concurrently": "^3.5.0",
+    "nodemon": "^1.11.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "server": "node server.js",
+    "client": "node scripts/start-client.js",
+    "start": "concurrently \"nodemon server.js\" \"npm run client\" \"react-scripts start\"",
+    "build": "node scripts/build.js",
+    "test": "react-scripts test \"echo\" \"Error: no test specified\" && exit 1",
+    "seed": "node scripts/seedDB.js",
+    "eject": "react-scripts eject",
+    "installDeps": "yarn && cd client && yarn"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -24,7 +30,16 @@
     "not ie <= 11",
     "not op_mini all"
   ],
+  "author": "Wyatt Cochran, Matt Zuckerman, Case Griffiths, Rudy Rodriguez, Eric Chen",
+  "license": "ISC",
   "devDependencies": {
+    "axios": "^0.16.2",
+    "body-parser": "^1.17.2",
+    "express": "^4.15.4",
+    "moment": "^2.20.1",
+    "mongoose": "^4.11.7",
+    "morgan": "^1.9.0",
+    "react-router-dom": "^4.1.2",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-prettier": "^4.0.0",
     "eslint-plugin-import": "^2.16.0",
