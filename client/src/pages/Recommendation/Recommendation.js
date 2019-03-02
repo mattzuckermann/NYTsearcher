@@ -31,8 +31,9 @@ export default class SavedArticles extends Component {
         API.getUser("1").then(user1 => {
             API.getUser("2").then(user2 => {
                 var message = "this is a test message";
-                console.log(user1 + ' ' + user2)
-                API.createRecommendation({ sender: user1, receiver: user2, message: message }).then(results => {
+                console.log("user1 : " + user1.data);
+                console.log("user2 ; " + user2.data);
+                API.createRecommendation({ sender: user1.data, receiver: user2.data, message: message }).then(results => {
                     console.log(results);
                 }).catch(err => console.log("message delivery failed"));
             }).catch(err => console.log("receiver does not exist"));
@@ -61,7 +62,7 @@ export default class SavedArticles extends Component {
                                             url={article.url}
                                             summary={article.summary}
                                             date={article.date}
-                                            type='Delete'
+                                            type='Recommend'
                                             onClick={() => this.recommendArticle(article._id)}
                                         />
                                     )
