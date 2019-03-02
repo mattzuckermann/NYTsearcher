@@ -4,6 +4,7 @@ import Articles from "./pages/Articles";
 import SavedArticles from "./pages/SavedArticles";
 import NoMatch from "./pages/NoMatch";
 import Nav from './components/Nav';
+import Recommendation from "./pages/Recommendation";
 
 const App = () =>
   <Router>
@@ -13,6 +14,7 @@ const App = () =>
         <Route exact path="/" component={Articles} />
         <Route exact path="/articles" component={Articles} />
         <Route exact path="/savedArticles" component={SavedArticles} />
+        <Route exact path="/recommendation" component={Recommendation} />
         <Route component={NoMatch}/>
       </Switch>
     </div>

@@ -7,6 +7,9 @@ const Nav = () =>
     <Link className="navbar-brand" to="/">NYT Article Search</Link>
     <ul className="navbar-nav" style={{float: 'right'}}>
       <li className="nav-item">
+          <Link to="/recommendation"><button type="button" className="btn btn-info">Recommendation</button></Link>
+        </li>
+      <li className="nav-item">
         <Link to="/"><button type="button" className="btn btn-info">Home</button></Link>
       </li>
       <li className="nav-item">
