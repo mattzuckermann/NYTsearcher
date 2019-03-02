@@ -24,6 +24,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: 'false' }));
 app.use(express.static(path.join(__dirname, 'build')));
 
+
 app.use('/api/article', article);
 app.use('/api/auth', auth);
 
