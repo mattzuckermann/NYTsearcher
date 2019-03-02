@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import API from "../../utils/API";
-import { Article } from '../../components/Article'
+import { Article } from '../../components/Books'
 import Jumbotron from "../../components/Jumbotron";
 import { H1, H3, H4 } from '../../components/Headings';
 import { Container, Row, Col } from "../../components/Grid";
@@ -8,7 +8,7 @@ import { Panel, PanelHeading, PanelBody } from '../../components/Panel';
 import { Form, Input, FormBtn, FormGroup, Label } from "../../components/Form";
 
 
-export default class Articles extends Component {
+export default class Books extends Component {
   state = {
     topic: '',//main search term
     sYear: '',//start year for search
@@ -21,9 +21,9 @@ export default class Articles extends Component {
 
 
   //function to save an article
-  saveArticle = (article) => {
+  saveBook = (book) => {
     //creating new article object
-    let newArticle = {
+    let newBook = {
       date: article.pub_date,
       title: article.headline.main,
       url: article.web_url,
@@ -32,11 +32,11 @@ export default class Articles extends Component {
 
     //calling the API
     API
-      .saveArticle(newArticle)
+      .saveBook(newBook)
       .then(results => {
         //removing the saved article from the results in state
-        let unsavedArticles = this.state.results.filter(article => article.headline.main !== newArticle.title)
-        this.setState({results: unsavedArticles})
+        let unsavedBooks = this.state.results.filter(book => book.headline.main !== newBook.title)
+        this.setState({results: unsavedBooks})
       })
       .catch(err => console.log(err));
   }
@@ -52,12 +52,12 @@ export default class Articles extends Component {
     event.preventDefault();
     let { topic, sYear, eYear } = this.state;
     let query = { topic, sYear, eYear }
-    this.getArticles(query)
+    this.getBooks(query)
 
   };
 
   //function that queries the NYT API
-  getArticles = query => {
+  getBooks = query => {
     //clearing the results array if the user changes search terms
     if (query.topic !== this.state.previousSearch.topic ||
         query.eYear !==this.state.previousSearch.eYear ||
@@ -65,9 +65,9 @@ export default class Articles extends Component {
       this.setState({results: []})
     }
     let { topic, sYear, eYear } = query
-
-    let queryUrl = `https://api.nytimes.com/svc/search/v2/articlesearch.json?sort=newest&page=${this.state.page}`
-    let key = `&api-key=0kc43d2ELOWiqzQYxbWK24FwYJwHXyJk`
+    let queryUrl = `https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json?api-key=you${this.state.page}`
+    // let queryUrl = `https://api.nytimes.com/svc/search/v2/articlesearch.json?sort=newest&page=${this.state.page}`
+    let key = `&api-key=TZBzEuyISaV432LqBahDZC1YwILc41s7`
 
     //removing spaces and building the query url conditionally
     //based on presence of optional search terms

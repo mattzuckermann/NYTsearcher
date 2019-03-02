@@ -2,17 +2,17 @@ import axios from "axios";
 
 //abstracted API methods
 export default {
-  getArticles: function() {
-    return axios.get("/api/articles");
+  getBooks: function() {
+    return axios.get("/api/books");
   },
-  getArticle: function(id) {
-    return axios.get("/api/articles/" + id);
+  getBook: function(id) {
+    return axios.get("/api/books/" + id);
   },
-  deleteArticle: function(id) {
-    return axios.delete("/api/articles/" + id);
+  deleteBook: function(id) {
+    return axios.delete("/api/books/" + id);
   },
-  saveArticle: function(articleData) {
-    return axios.post("/api/articles", articleData);
+  saveBook: function(bookData) {
+    return axios.post("/api/books", bookData);
   },
   queryNYT: function (queryUrl) {
     return axios.get(queryUrl);
