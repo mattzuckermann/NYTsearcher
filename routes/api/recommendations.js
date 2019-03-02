@@ -1,12 +1,13 @@
 const router = require("express").Router();
-const articlesController = require("../../controllers/messagingController");
+const rC = require("../../controllers/recommendationController");
 
-// Matches with "/api/messaging"
+// Matches with "/api/recommendations"
 router.route("/")
-  .post(articlesController.creatRecommendation)
+  .post(rC.creatRecommendation)
 
-// Matches with "/api/messaging/:id"
+// Matches with "/api/recommendations/:id"
 router.route("/:id")
-    .post(articlesController.createUser)
+    .post(rC.createUser)
+    .get(rC.getUser)
 
 module.exports = router;

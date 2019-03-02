@@ -5,4 +5,4 @@ const userSchema = new Schema({
   id: { type: String, required: true }
 });
 
-const Article = module.exports = mongoose.model("User", articleSchema);
+const User = module.exports = mongoose.model("User", userSchema);

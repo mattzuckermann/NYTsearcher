@@ -8,70 +8,70 @@ import { Panel, PanelHeading, PanelBody } from '../../components/Panel'
 
 
 export default class SavedArticles extends Component {
-  state = {
-    savedArticles: []//stores saved articles in state for rendering
-  };
+    state = {
+        savedArticles: []//stores saved articles in state for rendering
+    };
 
-  //initial loading of saved articles
-  componentWillMount() {
-    this.loadArticles();
-  };
-
-  //function that queries the API server and retrieves saved articles
-  loadArticles = () => {
-    API
-      .getArticles()
-      .then(results => {
-        this.setState({savedArticles: results.data})
-      })
-  };
-
-  //function that queries API server and deletes articles
-  recommendArticle = id => {
-    API
-      .deleteArticle(id)
-      .then(results => {
-        //once deleted, they are removed from the state and articles are rendered
-        let savedArticles = this.state.savedArticles.filter(article => article._id !== id)
-        this.setState({savedArticles: savedArticles})
+    //initial loading of saved articles
+    componentWillMount() {
         this.loadArticles();
-      })
-      .catch(err => console.log(err));
-  };
+    };
 
-  render() {
-    return (
-      <Container fluid>
-        <Row>
-          <Col size="sm-10" offset='sm-1'>
-            <Jumbotron>
-              <H1 className="text-center">Saved New York Times Articles</H1>
-              <hr style={{width: '60%'}}/>
-            </Jumbotron>
-            <Panel>
-              <PanelHeading>
-                <H3>Make A Recommendation</H3>
-              </PanelHeading>
-              <PanelBody>
-                { this.state.savedArticles.length > 0 ?
-                  (this.state.savedArticles.map((article, i) => (
-                    <Article
-                      key={i}
-                      title={article.title}
-                      url={article.url}
-                      summary={article.summary}
-                      date={article.date}
-                      type='Delete'
-                      onClick={() => this.recommendArticle(article._id)}
-                    />
-                    )
-                  )) : <H1>You have no saved articles.</H1>
-                }
-              </PanelBody>
-            </Panel>
-          </Col>
-        </Row>
-      </Container>
-    );
-  };
+    //function that queries the API server and retrieves saved articles
+    loadArticles = () => {
+        API
+            .getArticles()
+            .then(results => {
+                this.setState({ savedArticles: results.data })
+            })
+    };
+
+    //function that queries API server and deletes articles
+    recommendArticle = id => {
+        API.getUser("1").then(user1 => {
+            API.getUser("2").then(user2 => {
+                var message = "this is a test message";
+                console.log(user1 + ' ' + user2)
+                API.createRecommendation({ sender: user1, receiver: user2, message: message }).then(results => {
+                    console.log(results);
+                }).catch(err => console.log("message delivery failed"));
+            }).catch(err => console.log("receiver does not exist"));
+        }).catch(err => console.log("sender does not exist"));
+    };
+
+    render() {
+        return (
+            <Container fluid>
+                <Row>
+                    <Col size="sm-10" offset='sm-1'>
+                        <Jumbotron>
+                            <H1 className="text-center">Make A Recommendation</H1>
+                            <hr style={{ width: '60%' }} />
+                        </Jumbotron>
+                        <Panel>
+                            <PanelHeading>
+                                <H3>Make A Recommendation</H3>
+                            </PanelHeading>
+                            <PanelBody>
+                                {this.state.savedArticles.length > 0 ?
+                                    (this.state.savedArticles.map((article, i) => (
+                                        <Article
+                                            key={i}
+                                            title={article.title}
+                                            url={article.url}
+                                            summary={article.summary}
+                                            date={article.date}
+                                            type='Delete'
+                                            onClick={() => this.recommendArticle(article._id)}
+                                        />
+                                    )
+                                    )) : <H1>You have no saved articles.</H1>
+                                }
+                            </PanelBody>
+                        </Panel>
+                    </Col>
+                </Row>
+            </Container>
+        );
+    };
 };
