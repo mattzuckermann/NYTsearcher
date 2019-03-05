@@ -3,7 +3,7 @@ import moment from 'moment';
 import { ListItem } from '../List'
 
 
-export const Article = props => (
+export const Book = props => (
 
   <div className="list-group" style={{margin: '30px 0'}}>
     <a href={props.url} className="bg-dark list-group-item list-group-item-action flex-column align-items-start active" target="_blank">
