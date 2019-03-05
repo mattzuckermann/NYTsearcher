@@ -1,1 +1,2 @@
-export { default } from "./Recommendation";
+export { default } from "./Recommendation.js";
+

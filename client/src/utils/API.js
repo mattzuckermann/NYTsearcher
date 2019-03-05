@@ -25,5 +25,8 @@ export default {
   },
   createRecommendation : function(recommendationData){
     return axios.post("/api/recommendations/", recommendationData)
+  },
+  getRecommendation : function(recommendationData){
+    return axios.get("/api/recommendations/", recommendationData)
   }
 };

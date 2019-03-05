@@ -4,7 +4,7 @@ const rC = require("../../controllers/recommendationController");
 // Matches with "/api/recommendations"
 router.route("/")
   .post(rC.creatRecommendation)
-
+  .get(rC.creatRecommendation)
 // Matches with "/api/recommendations/:id"
 router.route("/:id")
     .post(rC.createUser)
