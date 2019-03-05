@@ -61,6 +61,12 @@ class Create extends Component {
           <button class="btn btn-lg btn-primary btn-block" type="submit">
             Register
           </button>
+          <p>
+            Already a member?{' '}
+            <Link to="/login">
+              <span class="glyphicon glyphicon-plus-sign" aria-hidden="true" /> Login here
+            </Link>
+          </p>
         </form>
       </div>
     );
