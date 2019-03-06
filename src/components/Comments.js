@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 class Comments extends Component {
@@ -66,6 +67,9 @@ class Comments extends Component {
                 </tr>
               </tbody>
             </table>
+          </div>
+          <div>
+            <Link to={`/`}>See All Articles</Link>
           </div>
         </div>
       </div>
