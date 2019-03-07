@@ -2,21 +2,21 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-class App extends Component {
+class Comments extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      articles: [],
+      article: [],
     };
   }
 
   componentDidMount() {
     axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
     axios
-      .get('/api/article')
+      .get(`/api/article/${this.props.match.params.id}`)
       .then(res => {
-        this.setState({ articles: res.data });
-        console.log(this.state.articles);
+        this.setState({ article: res.data });
+        console.log(this.state.article);
       })
       .catch(error => {
         if (error.response.status === 401) {
@@ -57,20 +57,19 @@ class App extends Component {
                 </tr>
               </thead>
               <tbody>
-                {this.state.articles.map(article => (
-                  <tr>
-                    <td>
-                      <Link to={`/comments/${article._id}`}>{article.isbn}</Link>
-                    </td>
-                    <td>{article.title}</td>
-                    <td>{article.author}</td>
-                    <td>{article.description}</td>
-                    <td>{article.published_date}</td>
-                    <td>{article.publisher}</td>
-                  </tr>
-                ))}
+                <tr>
+                  <td>{this.state.article.isbn}</td>
+                  <td>{this.state.article.title}</td>
+                  <td>{this.state.article.author}</td>
+                  <td>{this.state.article.description}</td>
+                  <td>{this.state.article.published_date}</td>
+                  <td>{this.state.article.publisher}</td>
+                </tr>
               </tbody>
             </table>
+          </div>
+          <div>
+            <Link to={`/`}>See All Articles</Link>
           </div>
         </div>
       </div>
@@ -78,4 +77,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default Comments;

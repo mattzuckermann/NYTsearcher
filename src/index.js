@@ -6,8 +6,9 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './index.css';
 import App from './App';
 import register from './registerServiceWorker';
-import Login from './components/Login.js';
+import Login from './components/Login';
 import Register from './components/Register';
+import Comments from './components/Comments';
 
 ReactDOM.render(
   <Router>
@@ -15,6 +16,7 @@ ReactDOM.render(
       <Route exact path="/" component={App} />
       <Route path="/login" component={Login} />
       <Route path="/register" component={Register} />
+      <Route path="/comments/:id" component={Comments} />
     </div>
   </Router>,
   document.getElementById('root')
