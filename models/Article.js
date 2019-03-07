@@ -1,21 +1,12 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
-const ArticleSchema = new mongoose.Schema({
-  isbn: String,
-  title: String,
-  author: String,
-  summary: String,
-  published_date: { type: Date },
-  publisher: String,
-  // // `comment` is an object that stores a Comment id
-  // // The ref property links the ObjectId to the Note model
-  // // This allows us to populate the Article with an associated Comment
-  // note: [
-  //   {
-  //     type: Schema.Types.ObjectId,
-  //     ref: `Comment`,
-  //   },
-  // ],
+const articleSchema = new Schema({
+  title: { type: String, required: true },
+  url: { type: String, required: true },
+  saved: { type: Boolean, default: false },
+  summary: {type: String, required: false},
+  date: { type: Date, required: true }
 });
 
-module.exports = mongoose.model('Article', ArticleSchema);
+const Article = module.exports = mongoose.model("Article", articleSchema);
