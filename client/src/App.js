@@ -4,6 +4,7 @@ import Books from "./pages/Books";
 import SavedBooks from "./pages/SavedBooks";
 import NoMatch from "./pages/NoMatch";
 import Nav from './components/Nav';
+import Recommendation from "./pages/Recommendation";
 
 const App = () =>
   <Router>
@@ -11,8 +12,9 @@ const App = () =>
       <Nav />
       <Switch>
         <Route exact path="/" component={Books} />
-        <Route exact path="/articles" component={Books} />
-        <Route exact path="/savedArticles" component={SavedBooks} />
+        <Route exact path="/books" component={Books} />
+        <Route exact path="/savedBooks" component={SavedBooks} />
+        <Route exact path="/recommendation" component={Recommendation} />
         <Route component={NoMatch}/>
       </Switch>
     </div>

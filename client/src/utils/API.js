@@ -16,5 +16,17 @@ export default {
   },
   queryNYT: function (queryUrl) {
     return axios.get(queryUrl);
+  },
+  createUser : function(id){
+    return axios.post("/api/recommendations/" + id);
+  },
+  getUser : function(id){
+    return axios.get("/api/recommendations/" + id);
+  },
+  createRecommendation : function(recommendationData){
+    return axios.post("/api/recommendations/", recommendationData)
+  },
+  getRecommendation : function(recommendationData){
+    return axios.get("/api/recommendations/", recommendationData)
   }
 };
