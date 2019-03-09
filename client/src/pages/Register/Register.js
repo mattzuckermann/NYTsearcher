@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 // import ReactDOM from 'react-dom';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import './Login.css';
+import './../../components/Login/Login.css';
 
 class Create extends Component {
   constructor() {
@@ -31,7 +31,7 @@ class Create extends Component {
   render() {
     const { username, password } = this.state;
     return (
-      <div class="container">
+      <div class="container-fluid">
         <form class="form-signin" onSubmit={this.onSubmit}>
           <h2 class="form-signin-heading">Register</h2>
           <label for="inputEmail" class="sr-only">
