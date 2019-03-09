@@ -32,6 +32,10 @@ class Create extends Component {
     const { username, password } = this.state;
     return (
       <div class="container-fluid">
+        <div class="jumbotron">
+
+
+        </div>
         <form class="form-signin" onSubmit={this.onSubmit}>
           <h2 class="form-signin-heading">Register</h2>
           <label for="inputEmail" class="sr-only">
@@ -68,6 +72,7 @@ class Create extends Component {
             </Link>
           </p>
         </form>
+
       </div>
     );
   }
