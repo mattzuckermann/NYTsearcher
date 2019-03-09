@@ -9,14 +9,18 @@
     "react-dom": "^16.8.2",
     "react-scripts": "2.1.5",
     "concurrently": "^3.5.0",
-    "nodemon": "^1.11.0"
+    "nodemon": "^1.11.0",
+    "mongoose": "^4.13.18",
+    "react-router-dom": "^4.1.2",
+    "prettier": "^1.16.4",
+    "morgan": "^1.9.0"
   },
   "scripts": {
     "server": "node server.js",
     "client": "cd client && npm run start",
     "start": "concurrently \"nodemon server.js\" \"npm run client\"",
     "start:dev": "concurrently \"nodemon server.js\" \"npm run client\"",
-    
+    "heroku-postbuild": "npm run build",
     "build": "node scripts/build.js",
     "test": "react-scripts test \"echo\" \"Error: no test specified\" && exit 1",
     "seed": "node scripts/seedDB.js",
@@ -37,16 +41,16 @@
   "devDependencies": {
     "axios": "^0.16.2",
     "body-parser": "^1.17.2",
-    "express": "^4.15.4",
-    "moment": "^2.20.1",
-    "mongoose": "^4.11.7",
-    "morgan": "^1.9.0",
-    "react-router-dom": "^4.1.2",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-prettier": "^4.0.0",
     "eslint-plugin-import": "^2.16.0",
     "eslint-plugin-prettier": "^3.0.1",
     "eslint-plugin-react": "^7.12.4",
-    "prettier": "^1.16.4"
+    "express": "^4.15.4",
+    "moment": "^2.20.1",
+    "mongoose": "^4.13.18",
+    "morgan": "^1.9.0",
+    "prettier": "^1.16.4",
+    "react-router-dom": "^4.1.2"
   }
 }
