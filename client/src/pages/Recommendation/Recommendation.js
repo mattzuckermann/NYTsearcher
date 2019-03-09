@@ -6,7 +6,8 @@ import Jumbotron from "../../components/Jumbotron";
 import { H1, H3 } from '../../components/Headings';
 import { Panel, PanelHeading, PanelBody } from '../../components/Panel';
 import { RecommendationArticle } from "../../components/Recommendations";
-import {Message} from "../../components/Message"
+import {MessagePanel} from "../../components/Message"
+import { RecommendationPanel } from "./RecommendationPanel";
 
 export default class Recommendation extends Component {
 
@@ -18,7 +19,6 @@ export default class Recommendation extends Component {
     //initial loading of saved articles
     componentWillMount() {
         this.loadArticles();
-        console.log(localStorage.getItem("jwtToken"));
     };
 
     //function that queries the API server and retrieves saved articles
@@ -41,32 +41,10 @@ export default class Recommendation extends Component {
                             <H1 className="text-center">Make A Recommendation</H1>
                             <hr style={{ width: '60%' }} />
                         </Jumbotron>
-                        <Panel>
-                            <PanelHeading>
-                                <H3>Make A Recommendation</H3>
-                            </PanelHeading>
-                            <PanelBody>
-                                {this.state.savedArticles.length > 0 ?
-                                    (this.state.savedArticles.map((article, i) => (
-                                        <div>
-                                            <RecommendationArticle
-                                                key={i}
-                                                title={article.title}
-                                                url={article.url}
-                                                summary={article.summary}
-                                                date={article.date}
-                                                type='Recommend'
 
-                                            />
-
-                                        </div>
-                                    )
-                                    )) : <H1>You have no saved articles.</H1>
-                                }
-                            </PanelBody>
-                        </Panel>
+                        <RecommendationPanel savedArticles = {this.state.savedArticles}/>
+                        <MessagePanel/>
                         
-                        <Message/>
 
                     </Col>
                 </Row>

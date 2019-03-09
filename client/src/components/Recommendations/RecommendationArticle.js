@@ -37,12 +37,13 @@ export class RecommendationArticle extends Component {
           <div className=" w-75" style={{ display: 'inline-block' }}>
             <h5 className="mb-1">{this.props.summary}</h5>
           </div>
+
           <div className="btn-group" role="group" aria-label="Basic example" style={{ float: 'right' }}>
-            <a href={this.props.url} target='_blank'><button type="button" className="btn btn-info">Read</button></a>
+            <a href={this.props.url} target='_blank'><button type="button" className="btn btn-info">Save</button></a>
             <button type="button" className="btn btn-primary" onClick={this.openCommentField}>{this.props.type}</button>
           </div>
         </ListItem>
-        <RecommendationComment commentsVisible = {this.state.commentsVisible}/>
+        <RecommendationComment article = {this.props} commentsVisible = {this.state.commentsVisible}/>
       </div>
 
     );

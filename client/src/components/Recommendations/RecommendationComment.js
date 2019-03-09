@@ -6,13 +6,14 @@ export class RecommendationComment extends Component {
 
     state = {
         receiver: '',
-        messageBody: ''
+        message: '',
+        article : ''
 
     }
 
     constructor(props) {
         super(props);
-
+        this.state.article = props.article;
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -25,7 +26,15 @@ export class RecommendationComment extends Component {
     }
 
     handleSubmit(event) {
-        //API.getUser()
+        API.createRecommendation({
+            sender : "1",
+            receiver : this.state.receiver,
+            message : this.state.message,
+            title : this.state.article.title,
+            url : this.state.article.url
+        }).then(function(res){
+            console.log(res);
+        })
         event.preventDefault();
 
     }
@@ -42,7 +51,7 @@ export class RecommendationComment extends Component {
                                     <label> Make a Comment!</label>
                                 </div>
                                 <div>
-                                    <textarea name="messageBody" value={this.state.messageBody} onChange={this.handleChange} lass="comments" rows="12" cols="50" form="usrform">
+                                    <textarea name="message" value={this.state.message} onChange={this.handleChange} lass="comments" rows="12" cols="50" form="usrform">
                                     </textarea>
                                 </div>
                             </div>
