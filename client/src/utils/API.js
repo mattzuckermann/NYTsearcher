@@ -29,4 +29,5 @@ export default {
   getRecommendation : function(recommendationData){
     return axios.get("/api/recommendations/", recommendationData)
   }
+  
 };

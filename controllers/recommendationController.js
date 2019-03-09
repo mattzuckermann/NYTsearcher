@@ -1,5 +1,6 @@
 const db = require("../models");
-
+const passport = require('passport');
+require('../config/passport')(passport);
 
 //Mongoose query abstractions
 module.exports = {

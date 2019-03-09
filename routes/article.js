@@ -20,6 +20,7 @@ router.get('/:id', passport.authenticate('jwt', { session: false }), function(re
 
 /* GET ALL ARTICLES */
 router.get('/', passport.authenticate('jwt', { session: false }), function(req, res) {
+  
   const token = getToken(req.headers);
   if (token) {
     Article.find(function(err, articles) {

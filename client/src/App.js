@@ -7,6 +7,7 @@ import Nav from './components/Nav';
 import Recommendation from "./pages/Recommendation";
 import Login from "./pages/Login"
 import Register from "./pages/Register"
+import Comments from "./pages/Comments"
 
 const App = () =>
   <Router>
@@ -19,6 +20,7 @@ const App = () =>
         <Route exact path="/recommendation" component={Recommendation} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/register" component={Register} />
+        <Route exact path="/comments" component={Comments} />
         <Route component={NoMatch}/>
       </Switch>
     </div>

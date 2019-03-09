@@ -6,6 +6,7 @@ import Jumbotron from "../../components/Jumbotron";
 import { H1, H3 } from '../../components/Headings';
 import { Panel, PanelHeading, PanelBody } from '../../components/Panel';
 import { RecommendationArticle } from "../../components/Recommendations";
+import {Message} from "../../components/Message"
 
 export default class Recommendation extends Component {
 
@@ -17,7 +18,7 @@ export default class Recommendation extends Component {
     //initial loading of saved articles
     componentWillMount() {
         this.loadArticles();
-
+        console.log(localStorage.getItem("jwtToken"));
     };
 
     //function that queries the API server and retrieves saved articles
@@ -64,7 +65,9 @@ export default class Recommendation extends Component {
                                 }
                             </PanelBody>
                         </Panel>
-                     
+                        
+                        <Message/>
+
                     </Col>
                 </Row>
             </Container>
