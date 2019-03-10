@@ -4,7 +4,7 @@ require('../config/passport')(passport);
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const settings = require('../config/settings');
-const User = require('../models/User');
+const db = require('../models');
 
 const router = express.Router();
 
@@ -27,7 +27,7 @@ router.post('/api/auth/register', function(req, res) {
 });
 
 router.post('api/auth/login', function(req, res) {
-  User.findOne(
+  db.User.findOne(
     {
       username: req.body.username,
     },
