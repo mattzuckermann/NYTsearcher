@@ -26,16 +26,19 @@ class Create extends Component {
     axios.post('/api/auth/register', { username, password }).then(result => {
       this.props.history.push('/login');
     });
+
+    this.setState({
+      username: '',
+      password: '',
+      message: '',
+    });
   };
 
   render() {
     const { username, password } = this.state;
     return (
       <div class="container-fluid">
-        <div class="jumbotron">
-
-
-        </div>
+        <div class="jumbotron" />
         <form class="form-signin" onSubmit={this.onSubmit}>
           <h2 class="form-signin-heading">Register</h2>
           <label for="inputEmail" class="sr-only">
@@ -72,7 +75,6 @@ class Create extends Component {
             </Link>
           </p>
         </form>
-
       </div>
     );
   }

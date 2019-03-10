@@ -1,14 +1,14 @@
-import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Articles from "./pages/Articles";
-import SavedArticles from "./pages/SavedArticles";
-import NoMatch from "./pages/NoMatch";
+import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Articles from './pages/Articles';
+import SavedArticles from './pages/SavedArticles';
+import NoMatch from './pages/NoMatch';
 import Nav from './components/Nav';
-import Recommendation from "./pages/Recommendation";
-import Login from "./pages/Login"
-import Register from "./pages/Register"
+import Recommendation from './pages/Recommendation';
+import Login from './pages/Login';
+import Register from './pages/Register';
 
-const App = () =>
+const App = () => (
   <Router>
     <div>
       <Nav />
@@ -19,10 +19,10 @@ const App = () =>
         <Route exact path="/recommendation" component={Recommendation} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/register" component={Register} />
-        <Route component={NoMatch}/>
+        <Route component={NoMatch} />
       </Switch>
     </div>
-  </Router>;
-
+  </Router>
+);
 
 export default App;
