@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt-nodejs');
 
-// eslint-disable-next-line prefer-destructuring
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
@@ -13,6 +12,10 @@ const UserSchema = new Schema({
   password: {
     type: String,
     required: true,
+  },
+  currentJWT: {
+    type: String,
+    required: false,
   },
 });
 
