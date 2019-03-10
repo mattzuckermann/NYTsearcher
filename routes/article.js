@@ -1,6 +1,6 @@
 const express = require('express');
 const passport = require('passport');
-const Article = require('../models/Article.js');
+const db = require('../models');
 require('../config/passport')(passport);
 
 const router = express.Router();
@@ -9,7 +9,7 @@ const router = express.Router();
 router.get('/:id', passport.authenticate('jwt', { session: false }), function(req, res) {
   const token = getToken(req.headers);
   if (token) {
-    Article.findOne({ _id: req.params.id }, function(err, article) {
+    db.Article.findOne({ _id: req.params.id }, function(err, article) {
       if (err) return err;
       res.json(article);
     });
@@ -22,9 +22,10 @@ router.get('/:id', passport.authenticate('jwt', { session: false }), function(re
 router.get('/', passport.authenticate('jwt', { session: false }), function(req, res) {
   const token = getToken(req.headers);
   if (token) {
-    Article.find(function(err, articles) {
+    db.Article.find(function(err, articles) {
       if (err) return err;
-      res.json(articles);
+      console.log(articles);
+      console.log('Authorized.');
     });
   } else {
     return res.status(403).send({ success: false, msg: 'Unauthorized.' });
@@ -35,7 +36,7 @@ router.get('/', passport.authenticate('jwt', { session: false }), function(req, 
 router.post('/', passport.authenticate('jwt', { session: false }), function(req, res) {
   const token = getToken(req.headers);
   if (token) {
-    Article.create(req.body, function(err, post) {
+    db.Article.create(req.body, function(err, post) {
       if (err) return err;
       res.json(post);
     });
