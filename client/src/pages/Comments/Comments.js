@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
+import Jumbotron from '../../components/Jumbotron';
+import { Container, Row, Col } from '../../components/Grid';
+import { H1, H3 } from '../../components/Headings';
+import { Panel, PanelHeading, PanelBody } from '../../components/Panel';
+import { Article } from '../../components/Article';
 import { Link } from 'react-router-dom';
+import API from '../../utils/API';
 import axios from 'axios';
 
 class Comments extends Component {
@@ -25,54 +31,45 @@ class Comments extends Component {
       });
   }
 
-  logout = () => {
-    localStorage.removeItem('jwtToken');
-    window.location.reload();
+  //function that queries API server and deletes articles
+  deleteArticle = id => {
+    API.deleteArticle(id)
+      .then(results => {
+        //once deleted, user redirected to savedArticles page
+        this.props.history.push('/savedArticles');
+      })
+      .catch(err => console.log(err));
   };
 
   render() {
     return (
-      <div className="container">
-        <div className="panel panel-default">
-          <div className="panel-heading">
-            <h3 className="panel-title">
-              ARTICLE CATALOG &nbsp;
-              {localStorage.getItem('jwtToken') && (
-                <button className="btn btn-primary" onClick={this.logout}>
-                  Logout
-                </button>
-              )}
-            </h3>
-          </div>
-          <div className="panel-body">
-            <table className="table table-stripe">
-              <thead>
-                <tr>
-                  <th>ISBN</th>
-                  <th>Title</th>
-                  <th>Author</th>
-                  <th>Description</th>
-                  <th>Published Date</th>
-                  <th>Publisher</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>{this.state.article.isbn}</td>
-                  <td>{this.state.article.title}</td>
-                  <td>{this.state.article.author}</td>
-                  <td>{this.state.article.description}</td>
-                  <td>{this.state.article.published_date}</td>
-                  <td>{this.state.article.publisher}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div>
-            <Link to={`/`}>See All Articles</Link>
-          </div>
-        </div>
-      </div>
+      <Container fluid>
+        <Row>
+          <Col size="sm-10" offset="sm-1">
+            <Jumbotron>
+              <H1 className="text-center">Saved New York Times Articles</H1>
+              <hr style={{ width: '60%' }} />
+            </Jumbotron>
+            <Panel>
+              <PanelHeading>
+                <H3>Comment On Article</H3>
+              </PanelHeading>
+              <PanelBody>
+                <Article
+                  _id={this.state.article._id}
+                  title={this.state.article.title}
+                  url={this.state.article.url}
+                  summary={this.state.article.summary}
+                  date={this.state.article.date}
+                  type="Delete"
+                  onClick={() => this.deleteArticle(this.state.article._id)}
+                />
+                <Link to={`/savedArticles`}>See All Saved Articles</Link>
+              </PanelBody>
+            </Panel>
+          </Col>
+        </Row>
+      </Container>
     );
   }
 }

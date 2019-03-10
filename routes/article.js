@@ -32,19 +32,6 @@ router.get('/', passport.authenticate('jwt', { session: false }), function(req, 
   }
 });
 
-/* SAVE ARTICLE */
-router.post('/', passport.authenticate('jwt', { session: false }), function(req, res) {
-  const token = getToken(req.headers);
-  if (token) {
-    db.Article.create(req.body, function(err, post) {
-      if (err) return err;
-      res.json(post);
-    });
-  } else {
-    return res.status(403).send({ success: false, msg: 'Unauthorized.' });
-  }
-});
-
 const getToken = function(headers) {
   if (headers && headers.authorization) {
     const parted = headers.authorization.split(' ');
