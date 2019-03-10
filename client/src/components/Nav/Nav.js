@@ -40,11 +40,11 @@ class Nav extends Component {
           </li>
 
           <li className="nav-item">
-            <Link to="/login">
-              <button type="button" className="btn btn-info">
-                Logout
-              </button>
-            </Link>
+            {/* <Link to="/login"> */}
+            <button onClick={this.logout} type="button" className="btn btn-info">
+              Logout
+            </button>
+            {/* </Link> */}
           </li>
         </ul>
       </nav>

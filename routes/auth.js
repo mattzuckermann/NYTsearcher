@@ -8,7 +8,7 @@ const User = require('../models/User');
 
 const router = express.Router();
 
-router.post('/register', function(req, res) {
+router.post('/api/auth/register', function(req, res) {
   if (!req.body.username || !req.body.password) {
     res.json({ success: false, msg: 'Please pass username and password.' });
   } else {
@@ -26,7 +26,7 @@ router.post('/register', function(req, res) {
   }
 });
 
-router.post('/login', function(req, res) {
+router.post('api/auth/login', function(req, res) {
   User.findOne(
     {
       username: req.body.username,

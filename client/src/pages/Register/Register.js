@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import './../../components/Login/Login.css';
 
-class Create extends Component {
+class Register extends Component {
   constructor() {
     super();
     this.state = {
@@ -20,10 +20,8 @@ class Create extends Component {
 
   onSubmit = e => {
     e.preventDefault();
-
     const { username, password } = this.state;
-
-    axios.post('/api/auth/register', { username, password }).then(result => {
+    axios.post('/api/auth/register', { username, password }).then(() => {
       this.props.history.push('/login');
     });
 
@@ -37,41 +35,41 @@ class Create extends Component {
   render() {
     const { username, password } = this.state;
     return (
-      <div class="container-fluid">
-        <div class="jumbotron" />
-        <form class="form-signin" onSubmit={this.onSubmit}>
-          <h2 class="form-signin-heading">Register</h2>
-          <label for="inputEmail" class="sr-only">
+      <div className="container-fluid">
+        <div className="jumbotron" />
+        <form className="form-signin" onSubmit={this.onSubmit}>
+          <h2 className="form-signin-heading">Register</h2>
+          <label htmlFor="inputEmail" className="sr-only">
             Email address
           </label>
           <input
             type="email"
-            class="form-control"
+            className="form-control"
             placeholder="Email address"
             name="username"
             value={username}
             onChange={this.onChange}
             required
           />
-          <label for="inputPassword" class="sr-only">
+          <label htmlFor="inputPassword" className="sr-only">
             Password
           </label>
           <input
             type="password"
-            class="form-control"
+            className="form-control"
             placeholder="Password"
             name="password"
             value={password}
             onChange={this.onChange}
             required
           />
-          <button class="btn btn-lg btn-primary btn-block" type="submit">
+          <button className="btn btn-lg btn-primary btn-block" type="submit">
             Register
           </button>
           <p>
             Already a member?{' '}
             <Link to="/login">
-              <span class="glyphicon glyphicon-plus-sign" aria-hidden="true" /> Login here
+              <span className="glyphicon glyphicon-plus-sign" aria-hidden="true" /> Login here
             </Link>
           </p>
         </form>
@@ -80,4 +78,4 @@ class Create extends Component {
   }
 }
 
-export default Create;
+export default Register;
