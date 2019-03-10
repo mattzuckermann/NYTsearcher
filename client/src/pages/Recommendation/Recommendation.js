@@ -23,12 +23,10 @@ export default class Recommendation extends Component {
     axios
       .get('/api/article')
       .then(res => {
-        console.log('Authorized.');
         // console.log(res);
       })
       .catch(error => {
         if (error.response.status === 401) {
-          console.log('Unauthorized');
           this.props.history.push('/login');
         }
       });

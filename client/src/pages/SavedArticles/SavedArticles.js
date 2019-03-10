@@ -22,12 +22,10 @@ export default class SavedArticles extends Component {
     axios
       .get('/api/article')
       .then(res => {
-        console.log('Authorized.');
         // console.log(res);
       })
       .catch(error => {
         if (error.response.status === 401) {
-          console.log('Unauthorized');
           this.props.history.push('/login');
         }
       });
@@ -70,6 +68,7 @@ export default class SavedArticles extends Component {
                   this.state.savedArticles.map((article, i) => (
                     <Article
                       key={i}
+                      _id={article._id}
                       title={article.title}
                       url={article.url}
                       summary={article.summary}

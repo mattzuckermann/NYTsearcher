@@ -24,12 +24,10 @@ export default class Articles extends Component {
     axios
       .get('/api/article')
       .then(res => {
-        console.log('Authorized.');
         // console.log(res);
       })
       .catch(error => {
         if (error.response.status === 401) {
-          console.log('Unauthorized');
           this.props.history.push('/login');
         }
       });
@@ -39,10 +37,10 @@ export default class Articles extends Component {
   saveArticle = article => {
     //creating new article object
     let newArticle = {
-      date: article.pub_date,
       title: article.headline.main,
       url: article.web_url,
       summary: article.snippet,
+      date: article.pub_date,
     };
 
     //calling the API
