@@ -4,11 +4,11 @@ require('../config/passport')(passport);
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const settings = require('../config/settings');
-const db = require('../models');
+const User = require('../models/User');
 
 const router = express.Router();
 
-router.post('/api/auth/register', function(req, res) {
+router.post('/register', function(req, res) {
   if (!req.body.username || !req.body.password) {
     res.json({ success: false, msg: 'Please pass username and password.' });
   } else {
@@ -21,13 +21,13 @@ router.post('/api/auth/register', function(req, res) {
       if (err) {
         return res.json({ success: false, msg: 'Username already exists.' });
       }
-      res.json({ success: true, msg: 'Successful created new user.' });
+      res.json({ success: true, msg: 'Successfully created new user.' });
     });
   }
 });
 
-router.post('api/auth/login', function(req, res) {
-  db.User.findOne(
+router.post('/login', function(req, res) {
+  User.findOne(
     {
       username: req.body.username,
     },
