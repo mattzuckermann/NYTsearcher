@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const logger = require('morgan');
 const path = require('path');
 const routes = require('./routes');
+
 const app = express();
 
 // configure body parser
@@ -19,9 +20,7 @@ app.use(routes);
 // Set up promises with mongoose
 mongoose.Promise = global.Promise;
 // Connect to the Mongo DB
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/nytreact', {
-  useMongoClient: true,
-});
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/nytreact');
 
 // Start the API server
 const PORT = process.env.PORT || 3001;
