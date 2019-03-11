@@ -26,7 +26,7 @@ export const Article = props => (
             Read
           </button>
         </a>
-        <Link to={`/savedArticle/${props._id}`}>
+        <Link to={`/savedArticles/${props._id}`}>
           <button type="button" className="btn btn-dark">
             Comment
           </button>

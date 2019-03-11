@@ -37,7 +37,6 @@ class Comments extends Component {
     this.setState({ [name]: value });
   };
 
-  //generating the query for the search from store state
   handleFormSubmit = event => {
     event.preventDefault();
     axios
@@ -65,7 +64,6 @@ class Comments extends Component {
   deleteArticle = id => {
     API.deleteArticle(id)
       .then(results => {
-        //once deleted, user redirected to savedArticles page
         this.props.history.push('/savedArticles');
       })
       .catch(err => console.log(err));
@@ -133,9 +131,7 @@ class Comments extends Component {
                     Submit
                   </FormBtn>
                 </Form>
-
                 <Link to={`/savedArticles`}>See All Saved Articles</Link>
-
                 <br />
                 <br />
               </PanelBody>
