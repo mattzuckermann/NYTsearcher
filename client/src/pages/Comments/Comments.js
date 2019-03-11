@@ -3,6 +3,7 @@ import Jumbotron from '../../components/Jumbotron';
 import { Container, Row, Col } from '../../components/Grid';
 import { H1, H3 } from '../../components/Headings';
 import { Panel, PanelHeading, PanelBody } from '../../components/Panel';
+import { Form, Input, FormBtn, FormGroup, Label } from '../../components/Form';
 import { Article } from '../../components/Article';
 import { Link } from 'react-router-dom';
 import API from '../../utils/API';
@@ -22,7 +23,6 @@ class Comments extends Component {
       .get(`/api/article/${this.props.match.params.id}`)
       .then(res => {
         this.setState({ article: res.data });
-        console.log(this.state.article);
       })
       .catch(error => {
         if (error.response.status === 401) {
@@ -30,6 +30,36 @@ class Comments extends Component {
         }
       });
   }
+
+  //capturing state of inputs on change
+  handleInputChange = event => {
+    let { name, value } = event.target;
+    this.setState({ [name]: value });
+  };
+
+  //generating the query for the search from store state
+  handleFormSubmit = event => {
+    event.preventDefault();
+    axios
+      .post(`/api/article/comment/${this.props.match.params.id}`, {
+        subject: this.state.subjectForm,
+        author: this.state.authorForm,
+        comment: this.state.commentForm,
+      })
+      .then(res => {
+        this.setState({ comments: res.data });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+
+    this.setState({
+      subject: '',
+      author: '',
+      comment: '',
+    });
+    window.location.reload();
+  };
 
   //function that queries API server and deletes articles
   deleteArticle = id => {
@@ -64,7 +94,50 @@ class Comments extends Component {
                   type="Delete"
                   onClick={() => this.deleteArticle(this.state.article._id)}
                 />
+
+                <Form style={{ marginBottom: '30px' }}>
+                  <FormGroup>
+                    <Label htmlFor="subjectForm">Enter a subject for the comment:</Label>
+                    <Input
+                      onChange={this.handleInputChange}
+                      name="subjectForm"
+                      value={this.state.subject}
+                      placeholder="Subject"
+                    />
+                  </FormGroup>
+                  <FormGroup>
+                    <Label htmlFor="authorForm">Enter your name as the author of this note:</Label>
+                    <Input
+                      onChange={this.handleInputChange}
+                      name="authorForm"
+                      value={this.state.author}
+                      placeholder="Author"
+                    />
+                  </FormGroup>
+                  <FormGroup>
+                    <Label htmlFor="commentForm">Enter your comment here:</Label>
+                    <Input
+                      onChange={this.handleInputChange}
+                      name="commentForm"
+                      value={this.state.comment}
+                      placeholder="Comment"
+                    />
+                  </FormGroup>
+                  <FormBtn
+                    disabled={
+                      !this.state.subjectForm || !this.state.authorForm || !this.state.commentForm
+                    }
+                    onClick={this.handleFormSubmit}
+                    type="info"
+                  >
+                    Submit
+                  </FormBtn>
+                </Form>
+
                 <Link to={`/savedArticles`}>See All Saved Articles</Link>
+
+                <br />
+                <br />
               </PanelBody>
             </Panel>
           </Col>

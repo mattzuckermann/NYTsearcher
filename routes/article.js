@@ -18,6 +18,33 @@ router.get('/:id', passport.authenticate('jwt', { session: false }), function(re
   }
 });
 
+/* SAVE COMMENT */
+router.post('/comment/:id', passport.authenticate('jwt', { session: false }), function(req, res) {
+  const token = getToken(req.headers);
+  if (token) {
+    db.Comment.create(req.body)
+      .then(function(dbComment) {
+        // * If a Comment was created successfully, find one Article with an `_id` equal to `req.params.id`. Update the Article to be associated with the new Comment
+        // * { new: true } tells the query that we want it to return the updated User -- it returns the original by default
+        // * Since our mongoose query returns a promise, we can chain another `.then` which receives the result of the query
+        return db.Article.update(
+          { _id: req.params.id },
+          { $push: { comments: dbComment } },
+          { new: true }
+        );
+      })
+      .then(function(dbArticle) {
+        res.json(dbArticle);
+      })
+      .catch(function(err) {
+        // If an error occurred, log it
+        console.log(err);
+      });
+  } else {
+    return res.status(403).send({ success: false, msg: 'Unauthorized.' });
+  }
+});
+
 /* GET ALL ARTICLES */
 router.get('/', passport.authenticate('jwt', { session: false }), function(req, res) {
   const token = getToken(req.headers);
