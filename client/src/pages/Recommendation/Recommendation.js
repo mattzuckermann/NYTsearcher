@@ -55,16 +55,14 @@ export default class Recommendation extends Component {
               <PanelBody>
                 {this.state.savedArticles.length > 0 ? (
                   this.state.savedArticles.map((article, i) => (
-                    <div>
-                      <RecommendationArticle
-                        key={i}
-                        title={article.title}
-                        url={article.url}
-                        summary={article.summary}
-                        date={article.date}
-                        type="Recommend"
-                      />
-                    </div>
+                    <RecommendationArticle
+                      key={i}
+                      title={article.title}
+                      url={article.url}
+                      summary={article.summary}
+                      date={article.date}
+                      type="Recommend"
+                    />
                   ))
                 ) : (
                   <H1>You have no saved articles.</H1>
