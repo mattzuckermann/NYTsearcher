@@ -19,19 +19,19 @@ export default class Articles extends Component {
     noResults: false, //boolean used as flag for conditional rendering
   };
 
-  componentDidMount() {
-    axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
-    axios
-      .get('/api/article')
-      .then(res => {
-        // console.log(res);
-      })
-      .catch(error => {
-        if (error.response.status === 401) {
-          this.props.history.push('/login');
-        }
-      });
-  }
+  // componentDidMount() {
+  //   axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
+  //   axios
+  //     .get('/api/article/user')
+  //     .then(res => {
+  //       console.log(res);
+  //     })
+  //     .catch(error => {
+  //       if (error.response.status === 401) {
+  //         this.props.history.push('/login');
+  //       }
+  //     });
+  // }
 
   //function to save an article
   saveArticle = article => {
