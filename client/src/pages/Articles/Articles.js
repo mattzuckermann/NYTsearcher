@@ -126,6 +126,7 @@ export default class Articles extends Component {
       .catch(err => console.log(err));
   };
 
+
   //function that is called when user clicks the get more results button
   getMoreResults = () => {
     let { topic, eYear, sYear } = this.state.previousSearch;

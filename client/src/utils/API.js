@@ -15,17 +15,15 @@ export default {
     return axios.post("/api/articles", articleData);
   },
   queryNYT: function (queryUrl) {
-
-    return axios({
+    return axios.get(queryUrl);
+    /*return axios({
       method: "GET",
       url: queryUrl,
       headers: {
         'Access-Control-Allow-Origin': '*',
         'Content-Type': 'application/json',
       }
-    }
-
-    );
+    }*/
   },
   createUser: function (id) {
     return axios.post("/api/recommendations/" + id);
