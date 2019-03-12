@@ -72,59 +72,51 @@ export default class Articles extends Component {
   //function that queries the NYT API
   getArticles = query => {
     //clearing the results array if the user changes search terms
-    if (
-      query.topic !== this.state.previousSearch.topic ||
-      query.eYear !== this.state.previousSearch.eYear ||
-      query.sYear !== this.state.previousSearch.sYear
-    ) {
-      this.setState({ results: [] });
+    if (query.topic !== this.state.previousSearch.topic ||
+        query.eYear !==this.state.previousSearch.eYear ||
+        query.sYear !==this.state.previousSearch.sYear) {
+      this.setState({results: []})
     }
-    let { topic, sYear, eYear } = query;
+    let { topic, sYear, eYear } = query
 
-    let queryUrl = `https://api.nytimes.com/svc/search/v2/articlesearch.json?sort=newest&page=${
-      this.state.page
-    }`;
-    let key = `&api-key=0kc43d2ELOWiqzQYxbWK24FwYJwHXyJk`;
+    let queryUrl = `https://api.nytimes.com/svc/search/v2/articlesearch.json?sort=newest&page=${this.state.page}`
+    let key = `&api-key=0kc43d2ELOWiqzQYxbWK24FwYJwHXyJk`
 
     //removing spaces and building the query url conditionally
     //based on presence of optional search terms
-    if (topic.indexOf(' ') >= 0) {
+    if(topic.indexOf(' ')>=0){
       topic = topic.replace(/\s/g, '+');
     }
-    if (topic) {
-      queryUrl += `&fq=${topic}`;
+    if (topic){
+      queryUrl+= `&fq=${topic}`
     }
-    if (sYear) {
-      queryUrl += `&begin_date=${sYear}`;
+    if(sYear){
+      queryUrl+= `&begin_date=${sYear}`
     }
-    if (eYear) {
-      queryUrl += `&end_date=${eYear}`;
+    if(eYear){
+      queryUrl+= `&end_date=${eYear}`
     }
-    queryUrl += key;
+    queryUrl+=key;
 
     //calling the API
-    API.queryNYT(queryUrl)
+    API
+      .queryNYT(queryUrl)
       .then(results => {
-        //concatenating new results to the current state of results.  If empty will just show results,
-        //but if search was done to get more, it shows all results.  Also stores current search terms
-        //for conditional above, and sets the noResults flag for conditional rendering of components below
-        this.setState(
-          {
+          //concatenating new results to the current state of results.  If empty will just show results,
+          //but if search was done to get more, it shows all results.  Also stores current search terms
+          //for conditional above, and sets the noResults flag for conditional rendering of components below
+          this.setState({
             results: [...this.state.results, ...results.data.response.docs],
             previousSearch: query,
             topic: '',
             sYear: '',
-            eYear: '',
-          },
-          function() {
-            this.state.results.length === 0
-              ? this.setState({ noResults: true })
-              : this.setState({ noResults: false });
-          }
-        );
+            eYear: ''
+          }, function (){
+            this.state.results.length === 0 ? this.setState({noResults: true}) : this.setState({noResults: false})
+          });
       })
-      .catch(err => console.log(err));
-  };
+      .catch(err=> console.log(err))
+  }
 
 
   //function that is called when user clicks the get more results button

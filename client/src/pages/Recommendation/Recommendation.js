@@ -6,13 +6,12 @@ import { Panel, PanelHeading, PanelBody } from '../../components/Panel';
 import API from '../../utils/API';
 import axios from 'axios';
 import { RecommendationArticle } from "../../components/Recommendations";
-import {MessagePanel} from "../../components/Message"
+import { MessagePanel } from "../../components/Message"
 import { RecommendationPanel } from "./RecommendationPanel";
 
 export default class Recommendation extends Component {
   state = {
-    savedArticles: [],
-    //recommendedForYou : []
+    savedArticles: []
   };
 
   componentDidMount() {
@@ -20,7 +19,9 @@ export default class Recommendation extends Component {
     axios
       .get('/api/article')
       .then(res => {
-          this.setState({ savedArticles: res.data })
+        
+        this.setState({ savedArticles: res.data })
+        console.log(this.state.savedArticles);
       })
       .catch(error => {
         if (error.response.status === 401) {
@@ -28,73 +29,68 @@ export default class Recommendation extends Component {
         }
       });
   }
-    state = {
-        savedArticles: []
-        //recommendedForYou : []
-    };
-
-
-    render() {
-        return (
-            <Container fluid>
-                <Row>
-                    <Col size="sm-10" offset='sm-1'>
-                        <Jumbotron>
-                            <H1 className="text-center">Make A Recommendation</H1>
-                            <hr style={{ width: '60%' }} />
-                        </Jumbotron>
-
-                        <RecommendationPanel savedArticles = {this.state.savedArticles}/>
-                        <MessagePanel/>
-                        
-
-                    </Col>
-                </Row>
-            </Container>
-        );
-    };
-};
-
-  //function that queries the API server and retrieves saved articles
- /* loadArticles = () => {
-    API.getArticles().then(results => {
-      this.setState({ savedArticles: results.data });
-    });
-  };
 
   render() {
     return (
       <Container fluid>
         <Row>
-          <Col size="sm-10" offset="sm-1">
+          <Col size="sm-10" offset='sm-1'>
             <Jumbotron>
               <H1 className="text-center">Make A Recommendation</H1>
               <hr style={{ width: '60%' }} />
             </Jumbotron>
-            <Panel>
-              <PanelHeading>
-                <H3>Make A Recommendation</H3>
-              </PanelHeading>
-              <PanelBody>
-                {this.state.savedArticles.length > 0 ? (
-                  this.state.savedArticles.map((article, i) => (
-                    <RecommendationArticle
-                      key={i}
-                      title={article.title}
-                      url={article.url}
-                      summary={article.summary}
-                      date={article.date}
-                      type="Recommend"
-                    />
-                  ))
-                ) : (
-                  <H1>You have no saved articles.</H1>
-                )}
-              </PanelBody>
-            </Panel>
+
+            <RecommendationPanel savedArticles={this.state.savedArticles} />
+            <MessagePanel />
+
+
           </Col>
         </Row>
       </Container>
     );
-  }
+  };
+};
+
+  //function that queries the API server and retrieves saved articles
+/* loadArticles = () => {
+   API.getArticles().then(results => {
+     this.setState({ savedArticles: results.data });
+   });
+ };
+
+ render() {
+   return (
+     <Container fluid>
+       <Row>
+         <Col size="sm-10" offset="sm-1">
+           <Jumbotron>
+             <H1 className="text-center">Make A Recommendation</H1>
+             <hr style={{ width: '60%' }} />
+           </Jumbotron>
+           <Panel>
+             <PanelHeading>
+               <H3>Make A Recommendation</H3>
+             </PanelHeading>
+             <PanelBody>
+               {this.state.savedArticles.length > 0 ? (
+                 this.state.savedArticles.map((article, i) => (
+                   <RecommendationArticle
+                     key={i}
+                     title={article.title}
+                     url={article.url}
+                     summary={article.summary}
+                     date={article.date}
+                     type="Recommend"
+                   />
+                 ))
+               ) : (
+                 <H1>You have no saved articles.</H1>
+               )}
+             </PanelBody>
+           </Panel>
+         </Col>
+       </Row>
+     </Container>
+   );
+ }
 }*/

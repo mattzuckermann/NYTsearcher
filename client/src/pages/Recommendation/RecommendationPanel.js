@@ -12,8 +12,14 @@ export class RecommendationPanel extends Component {
 
 
 
-    //function that queries API server and deletes articles
+    constructor(props){
+        super(props);
+        console.log(this.props);
+    }
 
+    componentDidMount() {
+        
+    }
 
     render() {
         return (
