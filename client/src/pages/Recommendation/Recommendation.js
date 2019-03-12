@@ -14,21 +14,34 @@ export default class Recommendation extends Component {
     savedArticles: []
   };
 
-  componentDidMount() {
+ /* componentDidMount() {
     axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
-    axios
-      .get('/api/article')
+
+    console.log(this.state.savedArticles);
+    axios.get('/api/article')
       .then(res => {
-        
         this.setState({ savedArticles: res.data })
         console.log(this.state.savedArticles);
       })
       .catch(error => {
+        console.log(error);
         if (error.response.status === 401) {
           this.props.history.push('/login');
         }
       });
+  }*/
+
+  
+  componentWillMount() {
+    this.loadArticles();
   }
+
+  loadArticles = () => {
+    API.getArticles().then(results => {
+      console.log(results.data);
+      this.setState({ savedArticles: results.data });
+    });
+  };
 
   render() {
     return (
