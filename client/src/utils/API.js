@@ -2,32 +2,42 @@ import axios from "axios";
 
 //abstracted API methods
 export default {
-  getArticles: function() {
+  getArticles: function () {
     return axios.get("/api/articles");
   },
-  getArticle: function(id) {
+  getArticle: function (id) {
     return axios.get("/api/articles/" + id);
   },
-  deleteArticle: function(id) {
+  deleteArticle: function (id) {
     return axios.delete("/api/articles/" + id);
   },
-  saveArticle: function(articleData) {
+  saveArticle: function (articleData) {
     return axios.post("/api/articles", articleData);
   },
   queryNYT: function (queryUrl) {
-    return axios.get(queryUrl);
+
+    return axios({
+      method: "GET",
+      url: queryUrl,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json',
+      }
+    }
+
+    );
   },
-  createUser : function(id){
+  createUser: function (id) {
     return axios.post("/api/recommendations/" + id);
   },
-  getUser : function(id){
+  getUser: function (id) {
     return axios.get("/api/recommendations/" + id);
   },
-  createRecommendation : function(recommendationData){
+  createRecommendation: function (recommendationData) {
     return axios.post("/api/recommendations/", recommendationData)
   },
-  getRecommendation : function(id){
+  getRecommendation: function (id) {
     return axios.get("/api/recommendations/" + id)
   }
-  
+
 };

@@ -20,7 +20,7 @@ const App = () => (
         <Route exact path="/savedArticles/:id" component={Comments} />
         <Route exact path="/recommendation" component={Recommendation} />
         <Route exact path="/register" component={Register} />
-        <Route exact path="/" component={Login} />
+        <Route exact path="/login" component={Login} />
         <Route component={NoMatch} />
       </Switch>
     </div>
