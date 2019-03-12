@@ -1,22 +1,23 @@
 import React, { Component } from 'react';
 import LoggedIn from './LoggedIn';
 import LoggedOut from './LoggedOut';
+import { Link } from "react-router-dom";
 
 class Nav extends Component {
-  chooseNav = () => {
-    if (this.isLoggedIn()) {
-      return <LoggedIn />;
-    }
-    return <LoggedOut />;
-  };
 
   isLoggedIn = () => {
-    return localStorage.getItem('jwtToken');
+    console.log(localStorage.getItem('jwtToken') !== null);
+    return localStorage.getItem('jwtToken') !== null;
   };
 
   render() {
-    return this.chooseNav();
+    return <div>
+    {this.isLoggedIn() ? <LoggedIn/> : <LoggedOut/>}
+    </div>
+          
+
   }
 }
 
 export default Nav;
+
