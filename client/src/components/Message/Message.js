@@ -1,27 +1,41 @@
 
 import { Container, Row, Col } from "../../components/Grid";
 import React, { Component } from "react";
-import API from "../../utils/API";
-import { H1, H3 } from '../../components/Headings';
+import { ListItem } from '../List'
 import { Panel, PanelHeading, PanelBody } from '../../components/Panel';
-import { RecommendationArticle } from "../../components/Recommendations";
+import "./Message.css"
+
+
 
 export class Message extends Component {
 
 
+    addToRecommendations(add) {
+        console.log(add);
+    }
 
     render() {
         return (
-            <PanelBody  className="bg-dark list-group-item list-group-item-action flex-column align-items-start active">
-              <div>
-                 {this.props.sender} has recommended you read <a href = {this.props.url}> {this.props.title}  </a> with the following comments
+            <div className="messageContainer">
+                <div className="messageHeader ">
+                    {this.props.sender} has recommended you read <a style = {{color:"white"}} href={this.props.url}> {this.props.title}  </a> with the following comments
+                </div>
+                <div className="messageBody">
+                    <div >
+                        {this.props.message}
+                    </div>
+                    <div style={{ float: 'right' }}>
 
-                 <div>
-                     {this.props.message}
-                 </div>
+                        <button type="button" className="btn btn-primary" style = {{backgroundColor:"green"}}onClick={() => this.addToRecommendations(true)}>Accept</button>
+                        <button type="button" className="btn btn-primary"  style = {{backgroundColor:"red"}}onClick={() => this.addToRecommendations(false)}>     Decline</button>
+                    </div>
+                </div>
 
-              </div>
-            </PanelBody>
+            </div>
+
+
+
+
 
         );
     };
