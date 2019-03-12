@@ -5,9 +5,9 @@ import SavedArticles from './pages/SavedArticles';
 import NoMatch from './pages/NoMatch';
 import Nav from './components/Nav';
 import Recommendation from './pages/Recommendation';
-import Login from './pages/Login';
-import Register from './pages/Register';
-import Comments from './pages/Comments';
+import Login from "./pages/Login"
+import Register from "./pages/Register"
+import Comments from "./pages/Comments"
 
 const App = () => (
   <Router>

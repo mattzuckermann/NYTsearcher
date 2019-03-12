@@ -1,0 +1,21 @@
+
+    .messageContainer {
+        font-family: "Nunito Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        font-size: 0.875rem;
+        font-weight: bold;
+        
+        overflow : auto;
+        margin-top:10px;
+        margin-bottom: 10px;
+    }
+
+    .messageHeader{
+        color : #DDDDE1;
+        background-color: #2D3942;
+        padding:10px;
+    }
+    .messageBody{
+        color:#2D3942;;
+        background-color: white;
+        padding:10px;
+    }

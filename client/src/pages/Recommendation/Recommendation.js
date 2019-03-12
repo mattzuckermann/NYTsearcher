@@ -5,7 +5,9 @@ import { H1, H3 } from '../../components/Headings';
 import { Panel, PanelHeading, PanelBody } from '../../components/Panel';
 import API from '../../utils/API';
 import axios from 'axios';
-import { RecommendationArticle } from '../../components/Recommendations';
+import { RecommendationArticle } from "../../components/Recommendations";
+import {MessagePanel} from "../../components/Message"
+import { RecommendationPanel } from "./RecommendationPanel";
 
 export default class Recommendation extends Component {
   state = {
@@ -13,17 +15,12 @@ export default class Recommendation extends Component {
     //recommendedForYou : []
   };
 
-  //initial loading of saved articles
-  componentWillMount() {
-    this.loadArticles();
-  }
-
   componentDidMount() {
     axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
     axios
       .get('/api/article')
       .then(res => {
-        // console.log(res);
+          this.setState({ savedArticles: res.data })
       })
       .catch(error => {
         if (error.response.status === 401) {
@@ -31,9 +28,35 @@ export default class Recommendation extends Component {
         }
       });
   }
+    state = {
+        savedArticles: []
+        //recommendedForYou : []
+    };
+
+
+    render() {
+        return (
+            <Container fluid>
+                <Row>
+                    <Col size="sm-10" offset='sm-1'>
+                        <Jumbotron>
+                            <H1 className="text-center">Make A Recommendation</H1>
+                            <hr style={{ width: '60%' }} />
+                        </Jumbotron>
+
+                        <RecommendationPanel savedArticles = {this.state.savedArticles}/>
+                        <MessagePanel/>
+                        
+
+                    </Col>
+                </Row>
+            </Container>
+        );
+    };
+};
 
   //function that queries the API server and retrieves saved articles
-  loadArticles = () => {
+ /* loadArticles = () => {
     API.getArticles().then(results => {
       this.setState({ savedArticles: results.data });
     });
@@ -74,4 +97,4 @@ export default class Recommendation extends Component {
       </Container>
     );
   }
-}
+}*/

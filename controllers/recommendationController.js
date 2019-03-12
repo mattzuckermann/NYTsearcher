@@ -1,5 +1,6 @@
 const db = require("../models");
-
+const passport = require('passport');
+require('../config/passport')(passport);
 
 //Mongoose query abstractions
 module.exports = {
@@ -8,15 +9,15 @@ module.exports = {
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
     },
-    creatRecommendation: function (req, res) {
-        console.log(req.body);
+    createRecommendation: function (req, res) {
+        console.log(req.body.data);
         db.Recommendation.create(req.body)
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
     }, 
     getRecommendation: function (req, res) {
-        console.log(req.body);
-        db.Recommendation.find()
+        var id = req.params.id;
+        db.Recommendation.find({receiver : id})
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
     },
