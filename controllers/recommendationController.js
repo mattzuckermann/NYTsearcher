@@ -16,13 +16,13 @@ module.exports = {
             .catch(err => res.status(422).json(err));
     }, 
     getRecommendation: function (req, res) {
-        var username = req.params.username;
-        db.Recommendation.find({receiver : username})
+        var user = req.params.user;
+        db.Recommendation.find({receiver : user})
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
     },
     getUser: function(req,res){
-        db.User.findOne({username : req.params.username})
+        db.User.findOne({user : req.params.user})
         .then(dbModel => res.json(dbModel))
         .catch(err => res.status(422).json(err));
     }

@@ -28,7 +28,7 @@ class Login extends Component {
       .then(result => {
 
         localStorage.setItem('jwtToken', result.data.token);
-        localStorage.setItem('username',username);
+        localStorage.setItem('user',username);
         this.setState({ message: '' });
         this.props.history.push('/');
       })

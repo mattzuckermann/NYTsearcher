@@ -24,7 +24,7 @@ export class RecommendationComment extends Component {
 
   handleSubmit(event) {
 
-    var username = localStorage.getItem("username");
+    var user = localStorage.getItem("user");
     API.getUser(this.state.receiver).then(user => {
       console.log(user);
       this.setState({userFound : user === null});
@@ -32,7 +32,7 @@ export class RecommendationComment extends Component {
 
       } else {
         API.createRecommendation({
-          sender: username,
+          sender: user,
           receiver: this.state.receiver,
           message: this.state.message,
           title : this.props.articleData.title,

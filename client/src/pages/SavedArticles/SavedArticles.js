@@ -6,6 +6,7 @@ import { Panel, PanelHeading, PanelBody } from '../../components/Panel';
 import API from '../../utils/API';
 import axios from 'axios';
 import { Article } from '../../components/Article';
+import { FormalArticle } from '../../components/FormalArticle';
 
 export default class SavedArticles extends Component {
   state = {
@@ -17,30 +18,19 @@ export default class SavedArticles extends Component {
     this.loadArticles();
   }
 
-  componentDidMount() {
-    axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
-    axios
-      .get('/api/article')
-      .then(res => {
-        // console.log(res);
-      })
-      .catch(error => {
-        if (error.response.status === 401) {
-          this.props.history.push('/login');
-        }
-      });
-  }
-
   //function that queries the API server and retrieves saved articles
   loadArticles = () => {
-    API.getArticles().then(results => {
+    var user = localStorage.getItem("user");
+    console.log(user);
+    API.getArticlesU(user).then(results => {
       this.setState({ savedArticles: results.data });
     });
   };
 
   //function that queries API server and deletes articles
   deleteArticle = id => {
-    API.deleteArticle(id)
+    var user = localStorage.getItem("user");
+    API.deleteArticleU(user,id)
       .then(results => {
         //once deleted, they are removed from the state and articles are rendered
         let savedArticles = this.state.savedArticles.filter(article => article._id !== id);
@@ -66,7 +56,7 @@ export default class SavedArticles extends Component {
               <PanelBody>
                 {this.state.savedArticles.length > 0 ? (
                   this.state.savedArticles.map((article, i) => (
-                    <Article
+                    <FormalArticle
                       key={i}
                       _id={article._id}
                       title={article.title}

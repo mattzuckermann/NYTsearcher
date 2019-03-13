@@ -7,6 +7,7 @@ import { Form, Input, FormBtn, FormGroup, Label } from '../../components/Form';
 import API from '../../utils/API';
 import axios from 'axios';
 import { Article } from '../../components/Article';
+import { FormalArticle } from '../../components/FormalArticle';
 
 export default class Articles extends Component {
   state = {
@@ -35,16 +36,19 @@ export default class Articles extends Component {
 
   //function to save an article
   saveArticle = article => {
+    var user = localStorage.getItem("user");
+    console.log(user);
     //creating new article object
     let newArticle = {
       title: article.headline.main,
       url: article.web_url,
       summary: article.snippet,
       date: article.pub_date,
+      user : user
     };
-
+    
     //calling the API
-    API.saveArticle(newArticle)
+    API.saveArticleU(user,newArticle)
       .then(results => {
         //removing the saved article from the results in state
         let unsavedArticles = this.state.results.filter(
@@ -190,7 +194,7 @@ export default class Articles extends Component {
                 </PanelHeading>
                 <PanelBody>
                   {this.state.results.map((article, i) => (
-                    <Article
+                    <FormalArticle
                       key={i}
                       title={article.headline.main}
                       url={article.web_url}

@@ -2,6 +2,7 @@ import axios from "axios";
 
 //abstracted API methods
 export default {
+
   getArticles: function () {
     return axios.get("/api/articles");
   },
@@ -30,6 +31,21 @@ export default {
   },
   getRecommendation: function (id) {
     return axios.get("/api/recommendations/" + id)
+  },
+
+  getArticlesU: function (user) {
+    return axios.post("/api/articles/findAll", {user : user});
+  },
+  getArticleU: function (user,id) {
+    return axios.post("/api/articles/find", {user : user, id : id});
+  },
+  deleteArticleU: function (user,id) {
+    return axios.post("/api/articles/delete", { user : user, id : id});
+  },
+  saveArticleU: function (user,articleData) {
+    console.log(user);
+    console.log( articleData);
+    return axios.post("/api/articles/create", {user : user, articleData : articleData});
   }
 
 };

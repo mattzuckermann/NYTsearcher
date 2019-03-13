@@ -14,31 +14,14 @@ export default class Recommendation extends Component {
     savedArticles: []
   };
 
- /* componentDidMount() {
-    axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
-
-    console.log(this.state.savedArticles);
-    axios.get('/api/article')
-      .then(res => {
-        this.setState({ savedArticles: res.data })
-        console.log(this.state.savedArticles);
-      })
-      .catch(error => {
-        console.log(error);
-        if (error.response.status === 401) {
-          this.props.history.push('/login');
-        }
-      });
-  }*/
-
-  
   componentWillMount() {
     this.loadArticles();
   }
 
   loadArticles = () => {
-    API.getArticles().then(results => {
-      console.log(results.data);
+    var user = localStorage.getItem("user");
+    console.log(user);
+    API.getArticlesU(user).then(results => {
       this.setState({ savedArticles: results.data });
     });
   };
@@ -52,7 +35,6 @@ export default class Recommendation extends Component {
               <H1 className="text-center">Make A Recommendation</H1>
               <hr style={{ width: '60%' }} />
             </Jumbotron>
-
             <RecommendationPanel savedArticles={this.state.savedArticles} />
             <MessagePanel />
 

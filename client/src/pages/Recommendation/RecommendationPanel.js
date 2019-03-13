@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import API from "../../utils/API";
-import { Article } from '../../components/Article';
+import { Article } from '../../components/FormalArticle';
 import Jumbotron from "../../components/Jumbotron";
 import { H1, H3 } from '../../components/Headings';
 import { Container, Row, Col } from "../../components/Grid";
@@ -14,17 +14,11 @@ export class RecommendationPanel extends Component {
 
     constructor(props){
         super(props);
-        console.log(this.props);
-    }
-
-    componentDidMount() {
-        
     }
 
     render() {
         return (
             <Panel>
-
                 <PanelHeading>
                     <H3>Make A Recommendation</H3>
                 </PanelHeading>
