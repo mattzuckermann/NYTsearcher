@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 class LoggedIn extends Component {
   logout = () => {
     localStorage.removeItem('jwtToken');
-    window.location.reload();
+   // window.location.reload();
   };
 
   render() {
@@ -38,12 +38,13 @@ class LoggedIn extends Component {
               </button>
             </Link>
           </li>
-
+          <Link to="/login">
           <li className="nav-item">
             <button onClick={this.logout} type="button" className="btn btn-info">
               Logout
             </button>
           </li>
+          </Link>
         </ul>
       </nav>
     );

@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
-// import API from "../../utils/API";
+ import API from "../../utils/API";
 
 export class RecommendationComment extends Component {
   state = {
     receiver: '',
-    messageBody: '',
+    message: '',
+    articleData : '',
+    userFound : true
   };
 
   constructor(props) {
     super(props);
-
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -22,7 +23,26 @@ export class RecommendationComment extends Component {
   }
 
   handleSubmit(event) {
-    //API.getUser()
+
+    var username = localStorage.getItem("username");
+    API.getUser(this.state.receiver).then(user => {
+      console.log(user);
+      this.setState({userFound : user === null});
+      if (user === null){
+
+      } else {
+        API.createRecommendation({
+          sender: username,
+          receiver: this.state.receiver,
+          message: this.state.message,
+          title : this.props.articleData.title,
+          url : this.props.articleData.url
+        }).then(result => {
+          console.log(result);
+        });
+      }
+      
+    });
     event.preventDefault();
   }
   render() {
@@ -36,14 +56,14 @@ export class RecommendationComment extends Component {
               name="receiver"
               value={this.state.receiver}
               onChange={this.handleChange}
-            />
+            /> <div> { this.state.userFound ? <div></div> : <div> Receiver Not Found</div>}</div>
             <div>
               <div>
                 <label> Make a Comment!</label>
               </div>
               <div>
                 <textarea
-                  name="messageBody"
+                  name="message"
                   value={this.state.messageBody}
                   onChange={this.handleChange}
                   lass="comments"

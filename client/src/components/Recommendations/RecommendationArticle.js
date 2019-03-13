@@ -49,7 +49,7 @@ export class RecommendationArticle extends Component {
             </button>
           </div>
         </ListItem>
-        <RecommendationComment commentsVisible={this.state.commentsVisible} />
+        <RecommendationComment articleData = {this.props} commentsVisible={this.state.commentsVisible} />
       </div>
     );
   }

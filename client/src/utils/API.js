@@ -23,7 +23,7 @@ export default {
     return axios.post("/api/recommendations/" + id);
   },
   getUser: function (id) {
-    return axios.get("/api/recommendations/" + id);
+    return axios.get("/api/recommendations/user/" + id);
   },
   createRecommendation: function (recommendationData) {
     return axios.post("/api/recommendations/", recommendationData)

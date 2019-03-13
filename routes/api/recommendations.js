@@ -3,10 +3,11 @@ const rC = require("../../controllers/recommendationController");
 
 
 // Matches with "/api/recommendations"
-router.route("/")
-  .post( rC.createRecommendation)
-  
+router.route("/").post( rC.createRecommendation);
+
+router.route("/user/:username").get(rC.getUser);
+
 // Matches with "/api/recommendations/:id"
-router.route("/:id").get(rC.getRecommendation);
+router.route("/:username").get(rC.getRecommendation);
 
 module.exports = router;

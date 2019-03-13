@@ -12,9 +12,7 @@ router.use('/api', apiRoutes);
 router.use('/api/auth', auth);
 
 router.use("/api/query/", function (req, res) {
-  console.log(req.body.url);
   axios.get(req.body.url).then(function (data) {
-    console.log(data.data);
     res.json(data.data);
   });
 });
