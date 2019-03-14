@@ -18,6 +18,7 @@ const App = () => (
         <Route exact path="/(|articles)" component={Articles} />
         <Route exact path="/savedArticles" component={SavedArticles} />
         <Route exact path="/savedArticles/:id" component={Comments} />
+        <Route exact path="/recommendation" component={Recommendation} />
         <Route exact path="/register" component={Register} />
         <Route exact path="/login" component={Login} />
         <Route component={NoMatch} />

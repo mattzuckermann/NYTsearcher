@@ -81,7 +81,34 @@ export default class Articles extends Component {
 
   getBooks = query => {
     let key = `&api-key=0kc43d2ELOWiqzQYxbWK24FwYJwHXyJk`;
+    let queryUrl = "https://api.nytimes.com/svc/books/v3/lists.json?list="
+    let {topic} = query;
+    if(topic.indexOf(' ')>=0){
+      topic = topic.replace(/\s/g, '+');
+    }
+    if (topic){
+      queryUrl+= `&fq=${topic}`
+    }
+    queryUrl+=key;
 
+    //calling the API
+    API
+      .queryNYT(queryUrl)
+      .then(results => {
+          //concatenating new results to the current state of results.  If empty will just show results,
+          //but if search was done to get more, it shows all results.  Also stores current search terms
+          //for conditional above, and sets the noResults flag for conditional rendering of components below
+          this.setState({
+            results: [...this.state.results, ...results.data.response.docs],
+            previousSearch: query,
+            topic: '',
+            sYear: '',
+            eYear: ''
+          }, function (){
+            this.state.results.length === 0 ? this.setState({noResults: true}) : this.setState({noResults: false})
+          });
+      })
+      .catch(err=> console.log(err))
   }
 
 

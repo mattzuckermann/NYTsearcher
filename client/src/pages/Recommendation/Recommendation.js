@@ -35,7 +35,6 @@ export default class Recommendation extends Component {
               <H1 className="text-center">Make A Recommendation</H1>
               <hr style={{ width: '60%' }} />
             </Jumbotron>
-            <RecommendationPanel savedArticles={this.state.savedArticles} />
             <MessagePanel />
 
 
