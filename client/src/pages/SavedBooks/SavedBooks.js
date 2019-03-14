@@ -58,9 +58,9 @@ export default class SavedBooks extends Component {
                     <Book
                       key={i}
                       title={book.title}
-                      url={book.url}
-                      summary={book.summary}
-                      date={book.date}
+                      author={book.author}
+                      publisher={book.publisher}
+                      description={book.description}
                       type='Delete'
                       onClick={() => this.deleteBook(book._id)}
                     />

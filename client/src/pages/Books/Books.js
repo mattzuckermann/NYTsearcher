@@ -10,11 +10,9 @@ import { Form, Input, FormBtn, FormGroup, Label } from "../../components/Form";
 
 export default class Books extends Component {
   state = {
-    topic: '',//main search term
-    sYear: '',//start year for search
-    eYear: '',//end year for search
+    format: '', // book format i.e. hardcover-fiction
     page: '0',//page of search results
-    results: [],//array of results returned from api
+    books: [],//array of results returned from api
     previousSearch: {},//previous search term saved after search completed
     noResults: false,//boolean used as flag for conditional rendering
   };
@@ -110,8 +108,8 @@ export default class Books extends Component {
 
   //function that is called when user clicks the get more results button
   getMoreResults = () => {
-    let { topic, eYear, sYear } = this.state.previousSearch;
-    let query = { topic, eYear, sYear }
+    let { bookType } = this.state.previousSearch;
+    let query = { bookType }
     //increments page number for search and then runs query
     let page = this.state.page;
     page++
@@ -127,7 +125,7 @@ export default class Books extends Component {
           <Col size="sm-10" offset='sm-1'>
             <Jumbotron>
               <H1 className='page-header text-center'>New York Times Best Seller Searcher</H1>
-              <H4 className='text-center'>Search for and save books of interest</H4>
+              <H4 className='text-center'>Search for and save books of interest. For example </H4>
             </Jumbotron>
             <Panel>
               <PanelHeading>
@@ -136,36 +134,17 @@ export default class Books extends Component {
               <PanelBody>
                 <Form style={{ marginBottom: '30px' }}>
                   <FormGroup>
-                    <Label htmlFor="topic">Enter a topic to search for:</Label>
+                    <Label htmlFor="bookType">Enter a book type to search for: (e.g., e-book-fiction or hardcover-fiction, not
+        E-Book Fiction or Hardcover Fiction)</Label>
                     <Input
                       onChange={this.handleInputChange}
-                      name='topic'
-                      value={this.state.topic}
-                      placeholder='Topic'
-                    />
-                  </FormGroup>
-                  <FormGroup >
-                    <Label htmlFor="sYear">Enter a beginning date to search for (optional):</Label>
-                    <Input
-                      onChange={this.handleInputChange}
-                      type='date'
-                      name='sYear'
-                      value={this.state.sYear}
-                      placeholder='Start Year'
-                    />
-                  </FormGroup>
-                  <FormGroup >
-                    <Label htmlFor="eYear">Enter an end date to search for (optional):</Label>
-                    <Input
-                      onChange={this.handleInputChange}
-                      type='date'
-                      name='eYear'
-                      value={this.state.eYear}
-                      placeholder='End Year'
+                      name='Book Type'
+                      value={this.state.bookType}
+                      placeholder='Book Type'
                     />
                   </FormGroup>
                   <FormBtn
-                    disabled={!(this.state.topic)}
+                    disabled={!(this.state.bookType)}
                     onClick={this.handleFormSubmit}
                     type='info'
                   >Submit
