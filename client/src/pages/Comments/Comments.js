@@ -13,7 +13,7 @@ class Comments extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      article: [],
+      article: {},
     };
   }
 
@@ -62,7 +62,8 @@ class Comments extends Component {
 
   //function that queries API server and deletes articles
   deleteArticle = id => {
-    API.deleteArticle(id)
+    var user = localStorage.getItem('user');
+    API.deleteArticleU(user, id)
       .then(results => {
         this.props.history.push('/savedArticles');
       })

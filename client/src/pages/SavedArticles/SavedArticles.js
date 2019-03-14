@@ -18,9 +18,23 @@ export default class SavedArticles extends Component {
     this.loadArticles();
   }
 
+  componentDidMount() {
+    axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
+    axios
+      .get('/api/article/user')
+      .then(res => {
+        // console.log(res);
+      })
+      .catch(error => {
+        if (error.response.status === 401) {
+          this.props.history.push('/login');
+        }
+      });
+  }
+
   //function that queries the API server and retrieves saved articles
   loadArticles = () => {
-    var user = localStorage.getItem("user");
+    var user = localStorage.getItem('user');
     console.log(user);
     API.getArticlesU(user).then(results => {
       this.setState({ savedArticles: results.data });
@@ -29,8 +43,8 @@ export default class SavedArticles extends Component {
 
   //function that queries API server and deletes articles
   deleteArticle = id => {
-    var user = localStorage.getItem("user");
-    API.deleteArticleU(user,id)
+    var user = localStorage.getItem('user');
+    API.deleteArticleU(user, id)
       .then(results => {
         //once deleted, they are removed from the state and articles are rendered
         let savedArticles = this.state.savedArticles.filter(article => article._id !== id);
