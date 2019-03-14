@@ -136,6 +136,16 @@ class Comments extends Component {
                 <br />
                 <br />
               </PanelBody>
+              <sectioin>
+                {this.state.article.comments.map(comment => (
+                  <div>
+                    <div>Subject: {comment.subject}</div>
+                    <div>Author: {comment.author}</div>
+                    <div>Comment: {comment.comment}</div>
+                    <div>======================</div>
+                  </div>
+                ))}
+              </sectioin>
             </Panel>
           </Col>
         </Row>
