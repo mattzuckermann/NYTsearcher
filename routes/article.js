@@ -45,19 +45,6 @@ router.post('/comment/:id', passport.authenticate('jwt', { session: false }), fu
   }
 });
 
-/* GET ALL ARTICLES */
-router.get('/', passport.authenticate('jwt', { session: false }), function(req, res) {
-  const token = getToken(req.headers);
-  if (token) {
-    db.Article.find(function(err, articles) {
-      if (err) return err;
-      console.log(articles);
-      console.log('Authorized.');
-    });
-  } else {
-    return res.status(403).send({ success: false, msg: 'Unauthorized.' });
-  }
-});
 
 const getToken = function(headers) {
   if (headers && headers.authorization) {

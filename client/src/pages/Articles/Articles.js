@@ -8,6 +8,11 @@ import API from '../../utils/API';
 import axios from 'axios';
 import { Article } from '../../components/Article';
 import { FormalArticle } from '../../components/FormalArticle';
+import { Tabs } from 'react-tabs';
+import { TabList } from 'react-tabs';
+import { Tab } from 'react-tabs';
+import { TabPanel } from 'react-tabs';
+
 
 export default class Articles extends Component {
   state = {
@@ -18,6 +23,7 @@ export default class Articles extends Component {
     results: [], //array of results returned from api
     previousSearch: {}, //previous search term saved after search completed
     noResults: false, //boolean used as flag for conditional rendering
+    serachType : 'article'
   };
 
    componentDidMount() {
@@ -73,6 +79,13 @@ export default class Articles extends Component {
     this.getArticles(query);
   };
 
+  getBooks = query => {
+    let key = `&api-key=0kc43d2ELOWiqzQYxbWK24FwYJwHXyJk`;
+
+  }
+
+
+
   //function that queries the NYT API
   getArticles = query => {
     //clearing the results array if the user changes search terms
@@ -83,8 +96,13 @@ export default class Articles extends Component {
     }
     let { topic, sYear, eYear } = query
 
+
+
+    
+
+
     let queryUrl = `https://api.nytimes.com/svc/search/v2/articlesearch.json?sort=newest&page=${this.state.page}`
-    let key = `&api-key=0kc43d2ELOWiqzQYxbWK24FwYJwHXyJk`
+    let key = `&api-key=0kc43d2ELOWiqzQYxbWK24FwYJwHXyJk`;
 
     //removing spaces and building the query url conditionally
     //based on presence of optional search terms
@@ -179,9 +197,18 @@ export default class Articles extends Component {
                       placeholder="End Year"
                     />
                   </FormGroup>
+
+              
+
                   <FormBtn disabled={!this.state.topic} onClick={this.handleFormSubmit} type="info">
                     Submit
                   </FormBtn>
+
+                  <Tabs>
+                    <Tab> Article</Tab>
+                    <Tab> Books</Tab>
+                  </Tabs>
+
                 </Form>
               </PanelBody>
             </Panel>
