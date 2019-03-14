@@ -1,0 +1,36 @@
+.btn {
+  border: 1px solid darkcyan;
+  background: white;
+}
+
+#btn1,#btn2 {
+  color: darkcyan;   
+}
+
+#btn1:hover, #btn2:hover {
+  color: #fff;
+}
+
+.btn::before{
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 0%;
+    background: darkcyan;
+    z-index: -1;
+    transition: 0.8s;
+}
+#btn1::before {
+    top:0;
+    border-radius: 00 50% 50%;
+}
+
+#btn2::before {
+    bottom: 0;
+    border-radius: 50% 50% 0 0;
+}
+
+#btn1:hover::before {
+    height: 180%;
+}
