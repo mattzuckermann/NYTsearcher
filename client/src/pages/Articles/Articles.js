@@ -12,35 +12,37 @@ import { Tabs } from 'react-tabs';
 import { TabList } from 'react-tabs';
 import { Tab } from 'react-tabs';
 import { TabPanel } from 'react-tabs';
-
+import { ArticleSearch } from "../../components/Article/ArticleSearchComponents/ArticleSearch";
+import 'react-tabs/style/react-tabs.css';
+import { BookSearch } from '../../components/Article/ArticleSearchComponents/BookSearch';
 
 export default class Articles extends Component {
+
+  articleType = "articles";
+  bookType = "books";
+
   state = {
-    topic: '', //main search term
-    sYear: '', //start year for search
-    eYear: '', //end year for search
     page: '0', //page of search results
     results: [], //array of results returned from api
     previousSearch: {}, //previous search term saved after search completed
     noResults: false, //boolean used as flag for conditional rendering
-    serachType : 'article'
   };
 
-   componentDidMount() {
-     axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
-     axios
+  componentDidMount() {
+    axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
+    axios
       .get('/api/article/user')
-       .then(res => {
-         console.log(res);
-       })
-       .catch(error => {
-         if (error.response.status === 401) {
-           this.props.history.push('/login');
-         }
-       });
-   }
+      .then(res => {
+        console.log(res);
+      })
+      .catch(error => {
+        if (error.response.status === 401) {
+          this.props.history.push('/login');
+        }
+      });
+  }
 
-  //function to save an article
+
   saveArticle = article => {
     var user = localStorage.getItem("user");
     console.log(user);
@@ -50,11 +52,11 @@ export default class Articles extends Component {
       url: article.web_url,
       summary: article.snippet,
       date: article.pub_date,
-      user : user
+      user: user
     };
-    
-    //calling the API
-    API.saveArticleU(user,newArticle)
+
+
+    API.saveArticleU(user, newArticle)
       .then(results => {
         //removing the saved article from the results in state
         let unsavedArticles = this.state.results.filter(
@@ -65,108 +67,43 @@ export default class Articles extends Component {
       .catch(err => console.log(err));
   };
 
-  //capturing state of inputs on change
-  handleInputChange = event => {
-    let { name, value } = event.target;
-    this.setState({ [name]: value });
-  };
-
-  //generating the query for the search from store state
-  handleFormSubmit = event => {
-    event.preventDefault();
-    let { topic, sYear, eYear } = this.state;
-    let query = { topic, sYear, eYear };
-    this.getArticles(query);
-  };
-
   getBooks = query => {
-    let key = `&api-key=0kc43d2ELOWiqzQYxbWK24FwYJwHXyJk`;
-    let queryUrl = "https://api.nytimes.com/svc/books/v3/lists.json?list="
-    let {topic} = query;
-    if(topic.indexOf(' ')>=0){
+    let key = `&api-key=TZBzEuyISaV432LqBahDZC1YwILc41s7`;
+    let queryUrl = "https://api.nytimes.com/svc/books/v3/reviews.json?title=";
+    let { topic } = query;
+    if (topic.indexOf(' ') >= 0) {
       topic = topic.replace(/\s/g, '+');
     }
-    if (topic){
-      queryUrl+= `&fq=${topic}`
+    if (topic) {
+      queryUrl += `  ${topic}`
     }
-    queryUrl+=key;
-
-    //calling the API
+    queryUrl += key;
+    console.log(queryUrl);
     API
       .queryNYT(queryUrl)
       .then(results => {
-          //concatenating new results to the current state of results.  If empty will just show results,
-          //but if search was done to get more, it shows all results.  Also stores current search terms
-          //for conditional above, and sets the noResults flag for conditional rendering of components below
-          this.setState({
-            results: [...this.state.results, ...results.data.response.docs],
-            previousSearch: query,
-            topic: '',
-            sYear: '',
-            eYear: ''
-          }, function (){
-            this.state.results.length === 0 ? this.setState({noResults: true}) : this.setState({noResults: false})
-          });
+        console.log(results);
+        this.setState({
+          results: [...this.state.results, ...results.data.results],
+          previousSearch: query,
+          topic: ''
+        }, function () {
+          this.state.results.length === 0 ? this.setState({ noResults: true }) : this.setState({ noResults: false })
+        });
       })
-      .catch(err=> console.log(err))
+      .catch(err => console.log(err))
   }
 
+  updateResults(parent, results, query) {
 
-
-  //function that queries the NYT API
-  getArticles = query => {
-    //clearing the results array if the user changes search terms
-    if (query.topic !== this.state.previousSearch.topic ||
-        query.eYear !==this.state.previousSearch.eYear ||
-        query.sYear !==this.state.previousSearch.sYear) {
-      this.setState({results: []})
-    }
-    let { topic, sYear, eYear } = query
-
-
-
-    
-
-
-    let queryUrl = `https://api.nytimes.com/svc/search/v2/articlesearch.json?sort=newest&page=${this.state.page}`
-    let key = `&api-key=0kc43d2ELOWiqzQYxbWK24FwYJwHXyJk`;
-
-    //removing spaces and building the query url conditionally
-    //based on presence of optional search terms
-    if(topic.indexOf(' ')>=0){
-      topic = topic.replace(/\s/g, '+');
-    }
-    if (topic){
-      queryUrl+= `&fq=${topic}`
-    }
-    if(sYear){
-      queryUrl+= `&begin_date=${sYear}`
-    }
-    if(eYear){
-      queryUrl+= `&end_date=${eYear}`
-    }
-    queryUrl+=key;
-
-    //calling the API
-    API
-      .queryNYT(queryUrl)
-      .then(results => {
-          //concatenating new results to the current state of results.  If empty will just show results,
-          //but if search was done to get more, it shows all results.  Also stores current search terms
-          //for conditional above, and sets the noResults flag for conditional rendering of components below
-          this.setState({
-            results: [...this.state.results, ...results.data.response.docs],
-            previousSearch: query,
-            topic: '',
-            sYear: '',
-            eYear: ''
-          }, function (){
-            this.state.results.length === 0 ? this.setState({noResults: true}) : this.setState({noResults: false})
-          });
-      })
-      .catch(err=> console.log(err))
+    parent.setState({
+      results: [...parent.state.results, ...results.data.response.docs],
+      previousSearch: query
+    }, function () {
+      parent.state.results.length === 0 ? parent.setState({ noResults: true }) : parent.setState({ noResults: false })
+    });
+    console.log(parent.state.results);
   }
-
 
   //function that is called when user clicks the get more results button
   getMoreResults = () => {
@@ -175,10 +112,14 @@ export default class Articles extends Component {
     //increments page number for search and then runs query
     let page = this.state.page;
     page++;
-    this.setState({ page: page }, function() {
+    this.setState({ page: page }, function () {
       this.getArticles(query);
     });
   };
+
+  changeSearchType(searchType) {
+    this.setState({ searchType: searchType })
+  }
 
   render() {
     return (
@@ -189,56 +130,31 @@ export default class Articles extends Component {
               <H1 className="page-header text-center">New York Times Best Seller Searcher</H1>
               <H4 className="text-center">Search for and save books of interest</H4>
             </Jumbotron>
-            <Panel>
-              <PanelHeading>
-                <H3>Search</H3>
-              </PanelHeading>
-              <PanelBody>
-                <Form style={{ marginBottom: '30px' }}>
-                  <FormGroup>
-                    <Label htmlFor="topic">Enter a topic to search for:</Label>
-                    <Input
-                      onChange={this.handleInputChange}
-                      name="topic"
-                      value={this.state.topic}
-                      placeholder="Topic"
-                    />
-                  </FormGroup>
-                  <FormGroup>
-                    <Label htmlFor="sYear">Enter a beginning date to search for (optional):</Label>
-                    <Input
-                      onChange={this.handleInputChange}
-                      type="date"
-                      name="sYear"
-                      value={this.state.sYear}
-                      placeholder="Start Year"
-                    />
-                  </FormGroup>
-                  <FormGroup>
-                    <Label htmlFor="eYear">Enter an end date to search for (optional):</Label>
-                    <Input
-                      onChange={this.handleInputChange}
-                      type="date"
-                      name="eYear"
-                      value={this.state.eYear}
-                      placeholder="End Year"
-                    />
-                  </FormGroup>
 
-              
+            <Tabs>
+              <TabList>
+                <Tab onClick={() => this.changeSearchType(this.articleType)}> Article</Tab>
+                <Tab onClick={() => this.changeSearchType(this.bookType)}> Books</Tab>
+              </TabList>
+              <TabPanel>
+                <p>
+                  f
+              </p>
+                <ArticleSearch parent={this} updateResults={this.updateResults} />
+              </TabPanel>
+              <TabPanel>
+                <p>
+                  g
+              </p>
+                <BookSearch parent={this} updateResults={this.updateResults} />
+              </TabPanel>
+            </Tabs>
 
-                  <FormBtn disabled={!this.state.topic} onClick={this.handleFormSubmit} type="info">
-                    Submit
-                  </FormBtn>
 
-                  <Tabs>
-                    <Tab> Article</Tab>
-                    <Tab> Books</Tab>
-                  </Tabs>
 
-                </Form>
-              </PanelBody>
-            </Panel>
+
+
+
             {this.state.noResults ? (
               <H1>No results Found. Please try again</H1>
             ) : this.state.results.length > 0 ? (
@@ -264,8 +180,8 @@ export default class Articles extends Component {
                 </PanelBody>
               </Panel>
             ) : (
-              ''
-            )}
+                  ''
+                )}
           </Col>
         </Row>
       </Container>
