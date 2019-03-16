@@ -15,7 +15,7 @@ class LoggedIn extends Component {
         style={{ position: 'fixed', zIndex: 100, width: '100%' }}
       >
         <Link className="navbar-brand" to="/">
-          NYT Article Search
+          NYT Articles and Book Searcher
         </Link>
         <ul className="navbar-nav " style={{ float: 'right' }}>
           <li className="nav-item">

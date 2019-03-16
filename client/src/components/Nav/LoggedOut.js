@@ -15,7 +15,7 @@ class LoggedOut extends Component {
         style={{ position: 'fixed', zIndex: 100, width: '100%' }}
       >
         <Link className="navbar-brand" to="/">
-          NYT Article Search
+          NYT ARTICLES AND BOOKS Searcher
         </Link>
       </nav>
     );
