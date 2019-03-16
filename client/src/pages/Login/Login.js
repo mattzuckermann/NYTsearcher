@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
-// import ReactDOM from 'react-dom';
 import axios from 'axios';
+import Jumbotron from '../../components/Jumbotron';
+import { H1, H2 } from '../../components/Headings';
+import { Container, Row, Col } from '../../components/Grid';
+import { Form, Input, FormBtn, FormGroup, Label } from '../../components/Form';
+import { Panel, PanelHeading, PanelBody } from '../../components/Panel';
 import { Link } from 'react-router-dom';
 import './../../components/Login/Login.css';
 
@@ -13,6 +17,13 @@ class Login extends Component {
       message: '',
     };
   }
+
+  componentDidMount() {
+    if (localStorage.getItem('jwtToken') !== null) {
+      this.props.history.push('/');
+    }
+  }
+
   onChange = e => {
     const state = this.state;
     state[e.target.name] = e.target.value;
@@ -26,9 +37,8 @@ class Login extends Component {
     axios
       .post('/api/auth/login', { username, password })
       .then(result => {
-
         localStorage.setItem('jwtToken', result.data.token);
-        localStorage.setItem('user',username);
+        localStorage.setItem('user', username);
         this.setState({ message: '' });
         this.props.history.push('/');
       })
@@ -47,52 +57,76 @@ class Login extends Component {
   render() {
     const { username, password, message } = this.state;
     return (
-      <div className="container-fluid">
-        <div className="jumbotron" />
-        <div>
-          <form className="form-signin" onSubmit={this.onSubmit}>
-            {message !== '' && (
-              <div className="alert alert-warning alert-dismissible" role="alert">
-                {message}
-              </div>
-            )}
-            <h2 className="form-signin-heading">Please sign in</h2>
-            <label htmlFor="inputEmail" className="sr-only">
-              Email address
-            </label>
-            <input
-              type="email"
-              className="form-control"
-              placeholder="Email address"
-              name="username"
-              value={username}
-              onChange={this.onChange}
-              required
-            />
-            <label htmlFor="inputPassword" className="sr-only">
-              Password
-            </label>
-            <input
-              type="password"
-              className="form-control"
-              placeholder="Password"
-              name="password"
-              value={password}
-              onChange={this.onChange}
-              required
-            />
-            <button className="btn btn-lg btn-primary btn-block" type="submit">
-              Login
-            </button>
-            <p>
-              Not a member?{' '}
-              <Link to="/register">
-                <span className="glyphicon glyphicon-plus-sign" aria-hidden="true" /> Register here
-              </Link>
-            </p>
-          </form>
-        </div>
-      </div>
+      <Container fluid>
+        <Row>
+          <Col size="sm-10" offset="sm-1">
+            <Jumbotron>
+              <H1 className="text-center">Welcome to Best Seller Searcher!</H1>
+              <hr style={{ width: '60%' }} />
+            </Jumbotron>
+            <Panel>
+              <PanelBody>
+                <Form className="form-signin" style={{ marginBottom: '30px' }}>
+                  {message !== '' && (
+                    <div className="alert alert-warning alert-dismissible" role="alert">
+                      {message}
+                    </div>
+                  )}
+
+                  <H2 className="form-signin-heading">Please sign in</H2>
+
+                  <FormGroup>
+                    <Label htmlFor="inputEmail" className="sr-only">
+                      Email address
+                    </Label>
+                    <Input
+                      type="email"
+                      className="form-control"
+                      placeholder="Email address"
+                      name="username"
+                      value={username}
+                      onChange={this.onChange}
+                      required
+                    />
+                  </FormGroup>
+
+                  <FormGroup>
+                    <Label htmlFor="inputPassword" className="sr-only">
+                      Password
+                    </Label>
+                    <Input
+                      type="password"
+                      className="form-control"
+                      placeholder="Password"
+                      name="password"
+                      value={password}
+                      onChange={this.onChange}
+                      required
+                    />
+                  </FormGroup>
+
+                  <button
+                    disabled={!username || !password}
+                    className="btn btn-lg btn-primary btn-block"
+                    onClick={this.onSubmit}
+                    type="info"
+                  >
+                    Login
+                  </button>
+
+                  <p>
+                    Not a member?{' '}
+                    <Link to="/register">
+                      <span className="glyphicon glyphicon-plus-sign" aria-hidden="true" /> Register
+                      here
+                    </Link>
+                  </p>
+                </Form>
+              </PanelBody>
+            </Panel>
+          </Col>
+        </Row>
+      </Container>
     );
   }
 }

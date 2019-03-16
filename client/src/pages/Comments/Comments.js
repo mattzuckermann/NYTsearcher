@@ -13,7 +13,9 @@ class Comments extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      article: {},
+      article: {
+        comments: [],
+      },
     };
   }
 
@@ -136,6 +138,16 @@ class Comments extends Component {
                 <br />
                 <br />
               </PanelBody>
+              <section>
+                {this.state.article.comments.map(comment => (
+                  <div>
+                    <div>Subject: {comment.subject}</div>
+                    <div>Author: {comment.author}</div>
+                    <div>Comment: {comment.comment}</div>
+                    <div>======================</div>
+                  </div>
+                ))}
+              </section>
             </Panel>
           </Col>
         </Row>
