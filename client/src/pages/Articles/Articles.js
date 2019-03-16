@@ -29,7 +29,7 @@ export default class Articles extends Component {
   };
 
   componentDidMount() {
-    axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
+    /*axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
     axios
       .get('/api/article/user')
       .then(res => {
@@ -39,7 +39,7 @@ export default class Articles extends Component {
         if (error.response.status === 401) {
           this.props.history.push('/login');
         }
-      });
+      });*/
   }
 
 
