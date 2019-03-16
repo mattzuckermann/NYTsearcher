@@ -22,6 +22,8 @@ https://github.com/group1-project3
 - Axios
 - Moment
 - React Router Dom
+- Passport
+- JSON Web Token
 
 ## Features
 
