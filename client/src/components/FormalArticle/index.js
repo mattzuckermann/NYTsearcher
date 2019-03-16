@@ -1,0 +1,1 @@
+export {FormalArticle} from "./FormalArticle";
