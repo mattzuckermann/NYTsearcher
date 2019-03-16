@@ -2,11 +2,6 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 class LoggedOut extends Component {
-  logout = () => {
-    localStorage.removeItem('jwtToken');
-    window.location.reload();
-  };
-
   render() {
     return (
       <nav

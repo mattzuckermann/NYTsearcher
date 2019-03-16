@@ -26,10 +26,11 @@ class Login extends Component {
     axios
       .post('/api/auth/login', { username, password })
       .then(result => {
-
         localStorage.setItem('jwtToken', result.data.token);
-        localStorage.setItem('user',username);
+        localStorage.setItem('user', username);
         this.setState({ message: '' });
+      })
+      .then(() => {
         this.props.history.push('/');
       })
       .catch(error => {
