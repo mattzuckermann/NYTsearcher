@@ -13,6 +13,13 @@ class Login extends Component {
       message: '',
     };
   }
+
+  componentDidMount() {
+    if (localStorage.getItem('jwtToken') !== null) {
+      this.props.history.push('/');
+    }
+  }
+
   onChange = e => {
     const state = this.state;
     state[e.target.name] = e.target.value;
@@ -26,9 +33,8 @@ class Login extends Component {
     axios
       .post('/api/auth/login', { username, password })
       .then(result => {
-
         localStorage.setItem('jwtToken', result.data.token);
-        localStorage.setItem('user',username);
+        localStorage.setItem('user', username);
         this.setState({ message: '' });
         this.props.history.push('/');
       })

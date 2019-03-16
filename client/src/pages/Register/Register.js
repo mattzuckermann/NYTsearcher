@@ -12,6 +12,13 @@ class Register extends Component {
       password: '',
     };
   }
+
+  componentDidMount() {
+    if (localStorage.getItem('jwtToken') !== null) {
+      this.props.history.push('/');
+    }
+  }
+
   onChange = e => {
     const state = this.state;
     state[e.target.name] = e.target.value;
