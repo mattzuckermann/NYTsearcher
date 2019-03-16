@@ -5,12 +5,9 @@ import { Link } from 'react-router-dom';
 import './nav.css';
 
 class Nav extends Component {
-  isLoggedIn = () => {
-    return localStorage.getItem('jwtToken') !== null;
-  };
 
   render() {
-    return <div>{this.isLoggedIn() ? <LoggedIn /> : <LoggedOut />}</div>;
+    return <div>{this.props.loggedin ? <LoggedIn /> : <LoggedOut />}</div>;
   }
 }
 
