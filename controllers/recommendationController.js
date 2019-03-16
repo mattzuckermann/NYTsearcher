@@ -10,7 +10,7 @@ module.exports = {
             .catch(err => res.status(422).json(err));
     },
     createRecommendation: function (req, res) {
-        console.log(req.body.data);
+        console.log(req.body);
         db.Recommendation.create(req.body)
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
@@ -22,7 +22,7 @@ module.exports = {
             .catch(err => res.status(422).json(err));
     },
     getUser: function(req,res){
-        db.User.findOne({user : req.params.user})
+        db.User.findOne({username : req.params.user})
         .then(dbModel => res.json(dbModel))
         .catch(err => res.status(422).json(err));
     }

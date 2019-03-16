@@ -29,7 +29,7 @@ export default class Articles extends Component {
   };
 
   componentDidMount() {
-    axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
+    /*axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
     axios
       .get('/api/article/user')
       .then(res => {
@@ -39,7 +39,7 @@ export default class Articles extends Component {
         if (error.response.status === 401) {
           this.props.history.push('/login');
         }
-      });
+      });*/
   }
 
 
@@ -66,6 +66,45 @@ export default class Articles extends Component {
       })
       .catch(err => console.log(err));
   };
+
+  handleFormSubmit = event => {
+
+    event.preventDefault();
+    let { topic, sYear, eYear } = this.state;
+    let query = { topic, sYear, eYear };
+    this.getArticles(query);
+  };
+
+  getArticles = query => {
+
+    let { topic, sYear, eYear } = query
+    let queryUrl = `https://api.nytimes.com/svc/search/v2/articlesearch.json?sort=newest&page=${this.state.page}`
+    let key = `&api-key=0kc43d2ELOWiqzQYxbWK24FwYJwHXyJk`;
+
+    //removing spaces and building the query url conditionally
+    //based on presence of optional search terms
+    if (topic.indexOf(' ') >= 0) {
+      topic = topic.replace(/\s/g, '+');
+    }
+    if (topic) {
+      queryUrl += `&fq=${topic}`
+    }
+    if (sYear) {
+      queryUrl += `&begin_date=${sYear}`
+    }
+    if (eYear) {
+      queryUrl += `&end_date=${eYear}`
+    }
+    queryUrl += key;
+    var self = this;
+    //calling the API
+    API
+      .queryNYT(queryUrl)
+      .then(results => {
+        self.props.updateResults(self.props.parent, results, query);
+      })
+      .catch(err => console.log(err))
+  }
 
   getBooks = query => {
     let key = `&api-key=TZBzEuyISaV432LqBahDZC1YwILc41s7`;
@@ -94,15 +133,15 @@ export default class Articles extends Component {
       .catch(err => console.log(err))
   }
 
-  updateResults(parent, results, query) {
+  updateResults(results, query) {
 
-    parent.setState({
-      results: [...parent.state.results, ...results.data.response.docs],
+    this.setState({
+      results: [...this.state.results, ...results.data.response.docs],
       previousSearch: query
     }, function () {
-      parent.state.results.length === 0 ? parent.setState({ noResults: true }) : parent.setState({ noResults: false })
+      this.state.results.length === 0 ? this.setState({ noResults: true }) : this.setState({ noResults: false })
     });
-    console.log(parent.state.results);
+    console.log(this.state.results);
   }
 
   //function that is called when user clicks the get more results button
@@ -137,17 +176,60 @@ export default class Articles extends Component {
                 <Tab onClick={() => this.changeSearchType(this.bookType)}> Books</Tab>
               </TabList>
               <TabPanel>
-                <p>
-                  f
-              </p>
-                <ArticleSearch parent={this} updateResults={this.updateResults} />
+
+
+                <Panel>
+                  <PanelHeading>
+                    <H3>Search</H3>
+                  </PanelHeading>
+                  <PanelBody>
+                    <Form style={{ marginBottom: '30px' }}>
+                      <FormGroup>
+                        <Label htmlFor="topic">Enter a topic to search for:</Label>
+                        <Input
+                          onChange={this.handleInputChange}
+                          name="topic"
+                          value={this.state.topic}
+                          placeholder="Topic"
+                        />
+                      </FormGroup>
+                      <FormGroup>
+                        <Label htmlFor="sYear">Enter a beginning date to search for (optional):</Label>
+                        <Input
+                          onChange={this.handleInputChange}
+                          type="date"
+                          name="sYear"
+                          value={this.state.sYear}
+                          placeholder="Start Year"
+                        />
+                      </FormGroup>
+                      <FormGroup>
+                        <Label htmlFor="eYear">Enter an end date to search for (optional):</Label>
+                        <Input
+                          onChange={this.handleInputChange}
+                          type="date"
+                          name="eYear"
+                          value={this.state.eYear}
+                          placeholder="End Year"
+                        />
+                      </FormGroup>
+                      <FormBtn disabled={!this.state.topic} onClick={this.handleFormSubmit} type="info">
+                        Submit
+                  </FormBtn>
+                    </Form>
+                  </PanelBody>
+                </Panel>
+
+
+
+
+
+
+
+
+
               </TabPanel>
-              <TabPanel>
-                <p>
-                  g
-              </p>
-                <BookSearch parent={this} updateResults={this.updateResults} />
-              </TabPanel>
+
             </Tabs>
 
 

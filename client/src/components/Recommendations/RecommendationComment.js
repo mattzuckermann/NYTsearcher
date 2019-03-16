@@ -6,7 +6,7 @@ export class RecommendationComment extends Component {
     receiver: '',
     message: '',
     articleData : '',
-    userFound : true
+    userFound : false
   };
 
   constructor(props) {
@@ -24,15 +24,16 @@ export class RecommendationComment extends Component {
 
   handleSubmit(event) {
 
-    var user = localStorage.getItem("user");
-    API.getUser(this.state.receiver).then(user => {
-      console.log(user);
-      this.setState({userFound : user === null});
-      if (user === null){
+    var sender = localStorage.getItem("user");
 
+    API.getUser(this.state.receiver).then(receiver => {
+
+      this.setState({userFound : receiver.data === null});
+      if (this.state.userFound){
+          
       } else {
         API.createRecommendation({
-          sender: user,
+          sender: sender,
           receiver: this.state.receiver,
           message: this.state.message,
           title : this.props.articleData.title,
@@ -56,7 +57,7 @@ export class RecommendationComment extends Component {
               name="receiver"
               value={this.state.receiver}
               onChange={this.handleChange}
-            /> <div> { this.state.userFound ? <div></div> : <div> Receiver Not Found</div>}</div>
+            /> <div> { this.state.userFound ?  <div> Receiver Not Found</div> : <div></div> }</div>
             <div>
               <div>
                 <label> Make a Comment!</label>
