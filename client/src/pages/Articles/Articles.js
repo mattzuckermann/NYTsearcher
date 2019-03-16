@@ -6,15 +6,12 @@ import { Panel, PanelHeading, PanelBody } from '../../components/Panel';
 import { Form, Input, FormBtn, FormGroup, Label } from '../../components/Form';
 import API from '../../utils/API';
 import axios from 'axios';
-import { Article } from '../../components/Article';
 import { FormalArticle } from '../../components/FormalArticle';
 import { Tabs } from 'react-tabs';
 import { TabList } from 'react-tabs';
 import { Tab } from 'react-tabs';
 import { TabPanel } from 'react-tabs';
-import { ArticleSearch } from "../../components/Article/ArticleSearchComponents/ArticleSearch";
 import 'react-tabs/style/react-tabs.css';
-import { BookSearch } from '../../components/Article/ArticleSearchComponents/BookSearch';
 
 export default class Articles extends Component {
 
@@ -32,13 +29,23 @@ export default class Articles extends Component {
   };
 
   componentDidMount() {
-    
+   
+    axios
+      .get('/api/articles/')
+      .then(res => {
+
+      })
+      .catch(error => {
+        if (error.response.status === 401) {
+          this.props.history.push('/login');
+        }
+      });
   }
 
 
   saveArticle = article => {
     var user = localStorage.getItem("user");
-    console.log(user);
+
     //creating new article object
     let newArticle = {
       title: article.headline.main,
