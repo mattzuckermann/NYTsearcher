@@ -1,36 +1,25 @@
-.btn {
-  border: 1px solid darkcyan;
-  background: white;
-}
-
-#btn1,#btn2 {
-  color: darkcyan;   
-}
-
-#btn1:hover, #btn2:hover {
-  color: #fff;
-}
-
-.btn::before{
+.navbar {
+    color: white;
+    text-decoration: none;
+    text-transform: uppercase;
+    overflow: hidden;
+    transition: 1s all ease;
+  }
+  
+  .navbar::before {
+    background: #19647E;
     content: "";
     position: absolute;
-    left: 0;
+    top: 50%;
+    left: 50%;
     width: 100%;
-    height: 0%;
-    background: darkcyan;
+    height: 0;
+    transition: all 0.6s ease;
+    transform: translate(-50%,-50%);
     z-index: -1;
-    transition: 0.8s;
-}
-#btn1::before {
-    top:0;
-    border-radius: 00 50% 50%;
-}
-
-#btn2::before {
-    bottom: 0;
-    border-radius: 50% 50% 0 0;
-}
-
-#btn1:hover::before {
-    height: 180%;
-}
+  }
+  
+  .navbar:hover::before{
+    height: 100%;
+  }
+  
