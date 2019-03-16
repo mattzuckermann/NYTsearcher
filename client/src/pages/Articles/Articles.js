@@ -25,21 +25,14 @@ export default class Articles extends Component {
     page: '0', //page of search results
     results: [], //array of results returned from api
     previousSearch: {}, //previous search term saved after search completed
-    noResults: false, //boolean used as flag for conditional rendering
+    noResults: false,
+    topic : '',
+    sYear : '',
+    eYear : '' //boolean used as flag for conditional rendering
   };
 
   componentDidMount() {
-    /*axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
-    axios
-      .get('/api/article/user')
-      .then(res => {
-        console.log(res);
-      })
-      .catch(error => {
-        if (error.response.status === 401) {
-          this.props.history.push('/login');
-        }
-      });*/
+    
   }
 
 
@@ -96,15 +89,21 @@ export default class Articles extends Component {
       queryUrl += `&end_date=${eYear}`
     }
     queryUrl += key;
+
     var self = this;
     //calling the API
     API
       .queryNYT(queryUrl)
       .then(results => {
-        self.props.updateResults(self.props.parent, results, query);
+        self.updateResults(results, query);
       })
       .catch(err => console.log(err))
   }
+
+  handleInputChange = event => {
+    let { name, value } = event.target;
+    this.setState({ [name]: value });
+  };
 
   getBooks = query => {
     let key = `&api-key=TZBzEuyISaV432LqBahDZC1YwILc41s7`;
