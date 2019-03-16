@@ -21,7 +21,7 @@ export default class SavedArticles extends Component {
   componentDidMount() {
     axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
     axios
-      .get('/api/article/user')
+      .get('/api/articles')
       .then(res => {
         // console.log(res);
       })
