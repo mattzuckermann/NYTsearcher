@@ -26,3 +26,8 @@ code {
 .btn-warning {
   margin-bottom: 200px;
 }
+
+input[type=text] {
+  width: 130px;
+}
+

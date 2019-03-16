@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import LoggedIn from './LoggedIn';
 import LoggedOut from './LoggedOut';
 import { Link } from 'react-router-dom';
+import './nav.css';
 
 class Nav extends Component {
   isLoggedIn = () => {
