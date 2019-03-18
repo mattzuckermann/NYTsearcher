@@ -9,13 +9,16 @@ import { Link } from 'react-router-dom';
 import './../../components/Login/Login.css';
 
 class Login extends Component {
-  constructor() {
-    super();
+
+
+
+  constructor(props) {
+    super(props);
     this.state = {
       username: '',
       password: '',
       message: '',
-    };
+    }
   }
 
   componentDidMount() {
@@ -33,12 +36,14 @@ class Login extends Component {
   onSubmit = e => {
     e.preventDefault();
     const { username, password } = this.state;
+    var self = this;
 
     axios
       .post('/api/auth/login', { username, password })
       .then(result => {
         localStorage.setItem('jwtToken', result.data.token);
         localStorage.setItem('user', username);
+        self.props.updateLogin(self.props.parent);
         this.setState({ message: '' });
       })
       .then(() => {
@@ -54,6 +59,7 @@ class Login extends Component {
       password: '',
       message: '',
     });
+
   };
 
   render() {

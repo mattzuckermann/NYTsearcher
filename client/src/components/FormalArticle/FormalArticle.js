@@ -9,7 +9,6 @@ export class FormalArticle extends Component {
 
   constructor(props){
     super(props);
-    console.log(props);
   }
 
   state = {
@@ -50,6 +49,7 @@ export class FormalArticle extends Component {
             Comment
           </button>
         </Link>
+        
         <button type="button" className="btn btn-primary" onClick={this.props.onClick}>
           {this.props.type}
         </button>
