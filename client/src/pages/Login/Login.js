@@ -80,13 +80,13 @@ class Login extends Component {
                   <H2 className="form-signin-heading">Please sign in</H2>
 
                   <FormGroup>
-                    <Label htmlFor="inputEmail" className="sr-only">
-                      Email address
+                    <Label htmlFor="inputUsername" className="sr-only">
+                      Username
                     </Label>
                     <Input
-                      type="email"
+                      type="Username"
                       className="form-control"
-                      placeholder="Email address"
+                      placeholder="Username"
                       name="username"
                       value={username}
                       onChange={this.onChange}
