@@ -1,14 +1,10 @@
 const path = require('path');
 const router = require('express').Router();
-const apiRoutes = require('./api');
-const auth = require('./auth.js');
 const axios = require('axios');
+const apiRoutes = require('./api');
 
 // API Routes
 router.use('/api', apiRoutes);
-
-// Authentication Routes
-router.use('/api/auth', auth);
 
 router.use('/api/query/', function(req, res) {
   axios.get(req.body.url).then(function(data) {

@@ -32,7 +32,7 @@ class Register extends Component {
   onSubmit = e => {
     e.preventDefault();
     const { username, password } = this.state;
-    axios.post('/api/auth/register', { username, password }).then(results => {
+    axios.post('/api/authentication/register', { username, password }).then(results => {
       this.props.history.push('/login');
     });
 
@@ -101,7 +101,7 @@ class Register extends Component {
                     Already a member?{' '}
                     <Link to="/login">
                       <span className="glyphicon glyphicon-plus-sign" aria-hidden="true" /> Login
-                      here here
+                      here
                     </Link>
                   </p>
                 </Form>
