@@ -21,16 +21,7 @@ class Comments extends Component {
 
   componentDidMount() {
     axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
-    axios
-      .get(`/api/article/${this.props.match.params.id}`)
-      .then(res => {
-        this.setState({ article: res.data });
-      })
-      .catch(error => {
-        if (error.response.status === 401) {
-          this.props.history.push('/login');
-        }
-      });
+    this.getArticle(this.props.match.params.id);
   }
 
   //capturing state of inputs on change
@@ -42,7 +33,7 @@ class Comments extends Component {
   handleFormSubmit = event => {
     event.preventDefault();
     axios
-      .post(`/api/article/comment/${this.props.match.params.id}`, {
+      .post(`/api/comments/save/${this.state.article._id}`, {
         subject: this.state.subjectForm,
         author: this.state.authorForm,
         comment: this.state.commentForm,
@@ -62,9 +53,19 @@ class Comments extends Component {
     window.location.reload();
   };
 
+  //function that queries API server and gets article
+  getArticle = id => {
+    const user = localStorage.getItem('user');
+    API.getArticleU(user, id)
+      .then(result => {
+        this.setState({ article: result.data });
+      })
+      .catch(err => console.log(err));
+  };
+
   //function that queries API server and deletes articles
   deleteArticle = id => {
-    var user = localStorage.getItem('user');
+    const user = localStorage.getItem('user');
     API.deleteArticleU(user, id)
       .then(results => {
         this.props.history.push('/savedArticles');

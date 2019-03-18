@@ -12,32 +12,40 @@ import { Tabs } from 'react-tabs';
 import { TabList } from 'react-tabs';
 import { Tab } from 'react-tabs';
 import { TabPanel } from 'react-tabs';
-import { ArticleSearch } from "../../components/Article/ArticleSearchComponents/ArticleSearch";
+import { ArticleSearch } from '../../components/Article/ArticleSearchComponents/ArticleSearch';
 import 'react-tabs/style/react-tabs.css';
 import { BookSearch } from '../../components/Article/ArticleSearchComponents/BookSearch';
 
 export default class Articles extends Component {
-
-  articleType = "articles";
-  bookType = "books";
+  articleType = 'articles';
+  bookType = 'books';
 
   state = {
     page: '0', //page of search results
     results: [], //array of results returned from api
     previousSearch: {}, //previous search term saved after search completed
     noResults: false,
-    topic : '',
-    sYear : '',
-    eYear : '' //boolean used as flag for conditional rendering
+    topic: '',
+    sYear: '',
+    eYear: '', //boolean used as flag for conditional rendering
   };
 
   componentDidMount() {
-    
+    axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
+    axios
+      .get('/api/articles/findAll')
+      .then(res => {
+        console.log(res);
+      })
+      .catch(error => {
+        if (error.response.status === 401) {
+          this.props.history.push('/login');
+        }
+      });
   }
 
-
   saveArticle = article => {
-    var user = localStorage.getItem("user");
+    var user = localStorage.getItem('user');
     console.log(user);
     //creating new article object
     let newArticle = {
@@ -45,9 +53,8 @@ export default class Articles extends Component {
       url: article.web_url,
       summary: article.snippet,
       date: article.pub_date,
-      user: user
+      user: user,
     };
-
 
     API.saveArticleU(user, newArticle)
       .then(results => {
@@ -61,7 +68,6 @@ export default class Articles extends Component {
   };
 
   handleFormSubmit = event => {
-
     event.preventDefault();
     let { topic, sYear, eYear } = this.state;
     let query = { topic, sYear, eYear };
@@ -69,9 +75,10 @@ export default class Articles extends Component {
   };
 
   getArticles = query => {
-
-    let { topic, sYear, eYear } = query
-    let queryUrl = `https://api.nytimes.com/svc/search/v2/articlesearch.json?sort=newest&page=${this.state.page}`
+    let { topic, sYear, eYear } = query;
+    let queryUrl = `https://api.nytimes.com/svc/search/v2/articlesearch.json?sort=newest&page=${
+      this.state.page
+    }`;
     let key = `&api-key=0kc43d2ELOWiqzQYxbWK24FwYJwHXyJk`;
 
     //removing spaces and building the query url conditionally
@@ -80,25 +87,24 @@ export default class Articles extends Component {
       topic = topic.replace(/\s/g, '+');
     }
     if (topic) {
-      queryUrl += `&fq=${topic}`
+      queryUrl += `&fq=${topic}`;
     }
     if (sYear) {
-      queryUrl += `&begin_date=${sYear}`
+      queryUrl += `&begin_date=${sYear}`;
     }
     if (eYear) {
-      queryUrl += `&end_date=${eYear}`
+      queryUrl += `&end_date=${eYear}`;
     }
     queryUrl += key;
 
     var self = this;
     //calling the API
-    API
-      .queryNYT(queryUrl)
+    API.queryNYT(queryUrl)
       .then(results => {
         self.updateResults(results, query);
       })
-      .catch(err => console.log(err))
-  }
+      .catch(err => console.log(err));
+  };
 
   handleInputChange = event => {
     let { name, value } = event.target;
@@ -107,39 +113,47 @@ export default class Articles extends Component {
 
   getBooks = query => {
     let key = `&api-key=TZBzEuyISaV432LqBahDZC1YwILc41s7`;
-    let queryUrl = "https://api.nytimes.com/svc/books/v3/reviews.json?title=";
+    let queryUrl = 'https://api.nytimes.com/svc/books/v3/reviews.json?title=';
     let { topic } = query;
     if (topic.indexOf(' ') >= 0) {
       topic = topic.replace(/\s/g, '+');
     }
     if (topic) {
-      queryUrl += `  ${topic}`
+      queryUrl += `  ${topic}`;
     }
     queryUrl += key;
     console.log(queryUrl);
-    API
-      .queryNYT(queryUrl)
+    API.queryNYT(queryUrl)
       .then(results => {
         console.log(results);
-        this.setState({
-          results: [...this.state.results, ...results.data.results],
-          previousSearch: query,
-          topic: ''
-        }, function () {
-          this.state.results.length === 0 ? this.setState({ noResults: true }) : this.setState({ noResults: false })
-        });
+        this.setState(
+          {
+            results: [...this.state.results, ...results.data.results],
+            previousSearch: query,
+            topic: '',
+          },
+          function() {
+            this.state.results.length === 0
+              ? this.setState({ noResults: true })
+              : this.setState({ noResults: false });
+          }
+        );
       })
-      .catch(err => console.log(err))
-  }
+      .catch(err => console.log(err));
+  };
 
   updateResults(results, query) {
-
-    this.setState({
-      results: [...this.state.results, ...results.data.response.docs],
-      previousSearch: query
-    }, function () {
-      this.state.results.length === 0 ? this.setState({ noResults: true }) : this.setState({ noResults: false })
-    });
+    this.setState(
+      {
+        results: [...this.state.results, ...results.data.response.docs],
+        previousSearch: query,
+      },
+      function() {
+        this.state.results.length === 0
+          ? this.setState({ noResults: true })
+          : this.setState({ noResults: false });
+      }
+    );
     console.log(this.state.results);
   }
 
@@ -150,13 +164,13 @@ export default class Articles extends Component {
     //increments page number for search and then runs query
     let page = this.state.page;
     page++;
-    this.setState({ page: page }, function () {
+    this.setState({ page: page }, function() {
       this.getArticles(query);
     });
   };
 
   changeSearchType(searchType) {
-    this.setState({ searchType: searchType })
+    this.setState({ searchType: searchType });
   }
 
   render() {
@@ -175,8 +189,6 @@ export default class Articles extends Component {
                 <Tab onClick={() => this.changeSearchType(this.bookType)}> Books</Tab>
               </TabList>
               <TabPanel>
-
-
                 <Panel>
                   <PanelHeading>
                     <H3>Search</H3>
@@ -193,7 +205,9 @@ export default class Articles extends Component {
                         />
                       </FormGroup>
                       <FormGroup>
-                        <Label htmlFor="sYear">Enter a beginning date to search for (optional):</Label>
+                        <Label htmlFor="sYear">
+                          Enter a beginning date to search for (optional):
+                        </Label>
                         <Input
                           onChange={this.handleInputChange}
                           type="date"
@@ -212,29 +226,18 @@ export default class Articles extends Component {
                           placeholder="End Year"
                         />
                       </FormGroup>
-                      <FormBtn disabled={!this.state.topic} onClick={this.handleFormSubmit} type="info">
+                      <FormBtn
+                        disabled={!this.state.topic}
+                        onClick={this.handleFormSubmit}
+                        type="info"
+                      >
                         Submit
-                  </FormBtn>
+                      </FormBtn>
                     </Form>
                   </PanelBody>
                 </Panel>
-
-
-
-
-
-
-
-
-
               </TabPanel>
-
             </Tabs>
-
-
-
-
-
 
             {this.state.noResults ? (
               <H1>No results Found. Please try again</H1>
@@ -261,8 +264,8 @@ export default class Articles extends Component {
                 </PanelBody>
               </Panel>
             ) : (
-                  ''
-                )}
+              ''
+            )}
           </Col>
         </Row>
       </Container>

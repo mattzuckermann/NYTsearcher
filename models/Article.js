@@ -7,7 +7,7 @@ const articleSchema = new Schema({
   url: { type: String, required: true },
   summary: { type: String, required: false },
   date: { type: Date, required: true },
-  user : {type: String, required: true },
+  user: { type: String, required: true },
   comments: [
     {
       type: Schema.Types.ObjectId,
