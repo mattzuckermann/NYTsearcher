@@ -55,7 +55,6 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   removeU(req, res) {
-    console.log(req.body);
     db.Article.findById({ user: req.body.user, _id: req.body.id })
       .then(dbModel => dbModel.remove())
       .then(dbModel => res.json(dbModel))

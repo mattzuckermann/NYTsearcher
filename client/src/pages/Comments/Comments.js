@@ -50,7 +50,8 @@ class Comments extends Component {
       author: '',
       comment: '',
     });
-    window.location.reload();
+    console.log(this.state.comments);
+   // window.location.reload();
   };
 
   //function that queries API server and gets article
@@ -125,6 +126,8 @@ class Comments extends Component {
                       placeholder="Comment"
                     />
                   </FormGroup>
+
+
                   <FormBtn
                     disabled={
                       !this.state.subjectForm || !this.state.authorForm || !this.state.commentForm
@@ -135,10 +138,16 @@ class Comments extends Component {
                     Submit
                   </FormBtn>
                 </Form>
+
+
                 <Link to={`/savedArticles`}>See All Saved Articles</Link>
+
+
                 <br />
                 <br />
               </PanelBody>
+
+
               <section>
                 {this.state.article.comments.map(comment => (
                   <div>
@@ -149,6 +158,7 @@ class Comments extends Component {
                   </div>
                 ))}
               </section>
+
             </Panel>
           </Col>
         </Row>

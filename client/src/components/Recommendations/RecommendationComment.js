@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
- import API from "../../utils/API";
+import API from "../../utils/API";
+import './Recommendations.css';
 
 export class RecommendationComment extends Component {
   state = {
     receiver: '',
     message: '',
     articleData : '',
-    userFound : false
+    userFound : false,
+    setting: 0
   };
 
   constructor(props) {
@@ -28,10 +30,11 @@ export class RecommendationComment extends Component {
 
     API.getUser(this.state.receiver).then(receiver => {
 
-      this.setState({userFound : receiver.data === null});
-      if (this.state.userFound){
-          
+      var userFound = receiver.data === null;
+      if (userFound){
+          this.setState({setting : 1});
       } else {
+        this.setState({setting : 2});
         API.createRecommendation({
           sender: sender,
           receiver: this.state.receiver,
@@ -46,18 +49,39 @@ export class RecommendationComment extends Component {
     });
     event.preventDefault();
   }
+
+  changeMessageNotification (setting){
+    switch(setting){
+      case (0):
+          return <div></div>
+      case (1):
+          return <div> Recipient Not Found</div>
+      case (2):
+          return <div> Message Sent!</div>
+    }
+         
+
+  }
+
+
   render() {
     return (
-      <div className="recommendContainer">
+      <div className="recommendationContainer">
         {this.props.commentsVisible ? (
           <form onSubmit={this.handleSubmit} id="usrform">
+            <div>
             Send To:{' '}
             <textarea
               type="text"
               name="receiver"
+              rows = "1"
               value={this.state.receiver}
               onChange={this.handleChange}
-            /> <div> { this.state.userFound ?  <div> Receiver Not Found</div> : <div></div> }</div>
+            /> 
+            </div>
+            <div> { 
+                this.changeMessageNotification(this.state.setting)
+              }</div>
             <div>
               <div>
                 <label> Make a Comment!</label>
@@ -68,7 +92,7 @@ export class RecommendationComment extends Component {
                   value={this.state.messageBody}
                   onChange={this.handleChange}
                   lass="comments"
-                  rows="12"
+                  rows="6"
                   cols="50"
                   form="usrform"
                 />
