@@ -4,7 +4,7 @@ import { H1, H2 } from '../../components/Headings';
 import { Container, Row, Col } from '../../components/Grid';
 import { Form, Input, FormBtn, FormGroup, Label } from '../../components/Form';
 import { Panel, PanelHeading, PanelBody } from '../../components/Panel';
-import axios from 'axios';
+import API from '../../utils/API';
 import { Link } from 'react-router-dom';
 import './../../components/Login/Login.css';
 
@@ -32,7 +32,7 @@ class Register extends Component {
   onSubmit = e => {
     e.preventDefault();
     const { username, password } = this.state;
-    axios.post('/api/authentication/register', { username, password }).then(results => {
+    API.registerUser(username, password).then(() => {
       this.props.history.push('/login');
     });
 

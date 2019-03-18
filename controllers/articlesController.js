@@ -31,14 +31,14 @@ module.exports = {
   },
 
   findAllU(req, res) {
-    var user = req.body.user;
+    const user = req.body.user;
     db.Article.find({ user })
       .sort({ date: -1 })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
   findByIdU(req, res) {
-    var user = req.body.user;
+    const user = req.body.user;
     db.Article.findOne({ user, _id: req.body.id })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));

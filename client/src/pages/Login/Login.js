@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import Jumbotron from '../../components/Jumbotron';
 import { H1, H2 } from '../../components/Headings';
 import { Container, Row, Col } from '../../components/Grid';
-import { Form, Input, FormBtn, FormGroup, Label } from '../../components/Form';
-import { Panel, PanelHeading, PanelBody } from '../../components/Panel';
+import { Form, Input, FormGroup, Label } from '../../components/Form';
+import { Panel, PanelBody } from '../../components/Panel';
 import { Link } from 'react-router-dom';
+import API from '../../utils/API';
 import './../../components/Login/Login.css';
 
 class Login extends Component {
@@ -33,10 +33,8 @@ class Login extends Component {
   onSubmit = e => {
     e.preventDefault();
     const { username, password } = this.state;
-    var self = this;
-
-    axios
-      .post('/api/authentication/login', { username, password })
+    const self = this;
+    API.loginUser(username, password)
       .then(result => {
         localStorage.setItem('jwtToken', result.data.token);
         localStorage.setItem('user', username);

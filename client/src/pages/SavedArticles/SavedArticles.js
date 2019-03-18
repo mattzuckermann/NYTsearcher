@@ -5,7 +5,6 @@ import { H1, H3 } from '../../components/Headings';
 import { Panel, PanelHeading, PanelBody } from '../../components/Panel';
 import API from '../../utils/API';
 import axios from 'axios';
-import { Article } from '../../components/Article';
 import { FormalArticle } from '../../components/FormalArticle';
 
 export default class SavedArticles extends Component {
@@ -20,11 +19,9 @@ export default class SavedArticles extends Component {
 
   componentDidMount() {
     axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
-    axios
-      .get('/api/articles')
-      .then(res => {
-        // console.log(res);
-      })
+    const user = localStorage.getItem('user');
+    API.getArticlesU(user)
+      .then(res => {})
       .catch(error => {
         if (error.response.status === 401) {
           this.props.history.push('/login');
@@ -34,7 +31,7 @@ export default class SavedArticles extends Component {
 
   //function that queries the API server and retrieves saved articles
   loadArticles = () => {
-    var user = localStorage.getItem('user');
+    const user = localStorage.getItem('user');
     console.log(user);
     API.getArticlesU(user).then(results => {
       this.setState({ savedArticles: results.data });
@@ -43,7 +40,7 @@ export default class SavedArticles extends Component {
 
   //function that queries API server and deletes articles
   deleteArticle = id => {
-    var user = localStorage.getItem('user');
+    const user = localStorage.getItem('user');
     API.deleteArticleU(user, id)
       .then(results => {
         //once deleted, they are removed from the state and articles are rendered

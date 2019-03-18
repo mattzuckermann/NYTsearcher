@@ -21,7 +21,17 @@ class Comments extends Component {
 
   componentDidMount() {
     axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
-    this.getArticle(this.props.match.params.id);
+    const user = localStorage.getItem('user');
+    const id = this.props.match.params.id;
+    API.getArticleU(user, id)
+      .then(result => {
+        this.setState({ article: result.data });
+      })
+      .catch(error => {
+        if (error.response.status === 401) {
+          this.props.history.push('/login');
+        }
+      });
   }
 
   //capturing state of inputs on change
@@ -32,36 +42,20 @@ class Comments extends Component {
 
   handleFormSubmit = event => {
     event.preventDefault();
-    axios
-      .post(`/api/comments/save/${this.state.article._id}`, {
-        subject: this.state.subjectForm,
-        author: this.state.authorForm,
-        comment: this.state.commentForm,
-      })
+    const { article, subjectForm, authorForm, commentForm } = this.state;
+    API.saveComment(article._id, subjectForm, authorForm, commentForm)
       .then(res => {
-        this.setState({ comments: res.data });
+        this.setState({ comments: res.data.comments });
       })
       .catch(error => {
         console.log(error);
       });
 
     this.setState({
-      subject: '',
-      author: '',
-      comment: '',
+      subjectForm: '',
+      authorForm: '',
+      commentForm: '',
     });
-    console.log(this.state.comments);
-   // window.location.reload();
-  };
-
-  //function that queries API server and gets article
-  getArticle = id => {
-    const user = localStorage.getItem('user');
-    API.getArticleU(user, id)
-      .then(result => {
-        this.setState({ article: result.data });
-      })
-      .catch(err => console.log(err));
   };
 
   //function that queries API server and deletes articles
@@ -104,7 +98,7 @@ class Comments extends Component {
                     <Input
                       onChange={this.handleInputChange}
                       name="subjectForm"
-                      value={this.state.subject}
+                      value={this.state.subjectForm}
                       placeholder="Subject"
                     />
                   </FormGroup>
@@ -113,7 +107,7 @@ class Comments extends Component {
                     <Input
                       onChange={this.handleInputChange}
                       name="authorForm"
-                      value={this.state.author}
+                      value={this.state.authorForm}
                       placeholder="Author"
                     />
                   </FormGroup>
@@ -122,11 +116,10 @@ class Comments extends Component {
                     <Input
                       onChange={this.handleInputChange}
                       name="commentForm"
-                      value={this.state.comment}
+                      value={this.state.commentForm}
                       placeholder="Comment"
                     />
                   </FormGroup>
-
 
                   <FormBtn
                     disabled={
@@ -139,14 +132,11 @@ class Comments extends Component {
                   </FormBtn>
                 </Form>
 
-
                 <Link to={`/savedArticles`}>See All Saved Articles</Link>
-
 
                 <br />
                 <br />
               </PanelBody>
-
 
               <section>
                 {this.state.article.comments.map(comment => (
@@ -158,7 +148,6 @@ class Comments extends Component {
                   </div>
                 ))}
               </section>
-
             </Panel>
           </Col>
         </Row>

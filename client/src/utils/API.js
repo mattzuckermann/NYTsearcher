@@ -1,10 +1,5 @@
 import axios from 'axios';
 
-// TO USE WHEN AUTHENTICATING EVERY ROUTE
-// const passport = require('passport');
-// require('../config/passport')(passport);
-// axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
-
 //abstracted API methods
 export default {
   getArticles: function() {
@@ -22,7 +17,12 @@ export default {
   queryNYT: function(queryUrl) {
     return axios.post('/api/query/', { url: queryUrl });
   },
-
+  registerUser: function(username, password) {
+    return axios.post('/api/authentication/register', { username, password });
+  },
+  loginUser: function(username, password) {
+    return axios.post('/api/authentication/login', { username, password });
+  },
   createUser: function(id) {
     return axios.post('/api/recommendations/' + id);
   },
@@ -35,7 +35,13 @@ export default {
   getRecommendation: function(id) {
     return axios.get('/api/recommendations/' + id);
   },
-
+  saveComment: function(id, subject, author, comment) {
+    return axios.post(`/api/comments/save/${id}`, {
+      subject,
+      author,
+      comment,
+    });
+  },
   getArticlesU: function(user) {
     return axios.post('/api/articles/findAll', { user: user });
   },
