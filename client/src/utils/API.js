@@ -43,17 +43,15 @@ export default {
     });
   },
   getArticlesU: function(user) {
-    return axios.post('/api/articles/findAll', { user: user });
+    return axios.post('/api/articles/findAll', { user });
   },
   getArticleU: function(user, id) {
-    return axios.post('/api/articles/find/:id', { user: user, id: id });
+    return axios.post('/api/articles/find/:id', { user, id });
   },
   deleteArticleU: function(user, id) {
-    return axios.post('/api/articles/delete', { user: user, id: id });
+    return axios.post('/api/articles/delete', { user, id });
   },
   saveArticleU: function(user, articleData) {
-    console.log(user);
-    console.log(articleData);
-    return axios.post('/api/articles/create', { user: user, articleData: articleData });
+    return axios.post('/api/articles/create', { user, articleData });
   },
 };
