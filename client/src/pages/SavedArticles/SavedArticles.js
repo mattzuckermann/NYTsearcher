@@ -5,7 +5,7 @@ import { H1, H3 } from '../../components/Headings';
 import { Panel, PanelHeading, PanelBody } from '../../components/Panel';
 import API from '../../utils/API';
 import axios from 'axios';
-import { FormalArticle } from '../../components/FormalArticle';
+import { SavedArticle } from '../../components/SavedArticle';
 
 export default class SavedArticles extends Component {
   state = {
@@ -67,7 +67,7 @@ export default class SavedArticles extends Component {
               <PanelBody>
                 {this.state.savedArticles.length > 0 ? (
                   this.state.savedArticles.map((article, i) => (
-                    <FormalArticle
+                    <SavedArticle
                       key={i}
                       _id={article._id}
                       title={article.title}

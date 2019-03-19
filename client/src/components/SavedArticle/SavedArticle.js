@@ -4,7 +4,7 @@ import { ListItem } from '../List';
 import React, { Component } from 'react';
 import { RecommendationComment } from '../Recommendations/RecommendationComment';
 
-export class FormalArticle extends Component {
+export class SavedArticle extends Component {
   state = {
     commentsVisible: false,
   };
@@ -44,6 +44,11 @@ export class FormalArticle extends Component {
                 Read
               </button>
             </a>
+            <Link to={`/savedArticles/${this.props._id}`}>
+              <button type="button" className="btn btn-dark">
+                Comment
+              </button>
+            </Link>
 
             <button type="button" className="btn btn-primary" onClick={this.props.onClick}>
               {this.props.type}
