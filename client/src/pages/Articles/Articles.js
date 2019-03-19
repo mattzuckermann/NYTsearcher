@@ -40,7 +40,7 @@ export default class Articles extends Component {
   }
 
   saveArticle = article => {
-    var user = localStorage.getItem('user');
+    const user = localStorage.getItem('user');
 
     //creating new article object
     let newArticle = {
@@ -92,7 +92,7 @@ export default class Articles extends Component {
     }
     queryUrl += key;
 
-    var self = this;
+    const self = this;
     //calling the API
     API.queryNYT(queryUrl)
       .then(results => {

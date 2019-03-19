@@ -40,9 +40,11 @@ module.exports = {
   findByIdU(req, res) {
     const user = req.body.user;
     db.Article.findOne({ user, _id: req.body.id })
+      .populate('comments')
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
+
   createU(req, res) {
     db.Article.create(req.body.articleData)
       .then(dbModel => res.json(dbModel))
