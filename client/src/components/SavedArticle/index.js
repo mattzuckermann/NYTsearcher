@@ -1,0 +1,1 @@
+export { SavedArticle } from './SavedArticle';
