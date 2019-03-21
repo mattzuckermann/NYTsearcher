@@ -11,7 +11,7 @@ https://github.com/group1-project3
 
 ## Expected Behavior
 
-< Insert GIF of working app > 
+![alt text](https://github.com/group1-project3/Project-3/blob/master/workingapp.gif?raw=true "Working App Gif")
 
 ## Technologies used
 - ESLint
