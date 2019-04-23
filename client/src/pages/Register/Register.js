@@ -60,12 +60,12 @@ class Register extends Component {
 
                   <FormGroup>
                     <Label htmlFor="inputEmail" className="sr-only">
-                      Email address
+                      Username
                     </Label>
                     <Input
                       type="email"
                       className="form-control"
-                      placeholder="Email address"
+                      placeholder="Username"
                       name="username"
                       value={username}
                       onChange={this.onChange}
