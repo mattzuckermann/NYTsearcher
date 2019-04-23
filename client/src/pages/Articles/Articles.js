@@ -27,16 +27,12 @@ export default class Articles extends Component {
     eYear: '', //boolean used as flag for conditional rendering
   };
 
-  componentDidMount() {
-    axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
-    axios
-      .get('/api/authentication/loggedIn')
-      .then(res => {})
-      .catch(error => {
-        if (error.response.status === 401) {
-          this.props.history.push('/login');
-        }
-      });
+  async componentDidMount() {
+    await axios.defaults.headers.common['Authorization'];
+    const jwt = await localStorage.getItem('jwtToken');
+    if (jwt === null) {
+      this.props.history.push('/login');
+    }
   }
 
   saveArticle = article => {
