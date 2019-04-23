@@ -147,10 +147,21 @@ class Comments extends Component {
               <section>
                 {this.state.article.comments.map(comment => (
                   <div>
-                    <div>Subject: {comment.subject}</div>
-                    <div>Author: {comment.author}</div>
-                    <div>Comment: {comment.comment}</div>
-                    <div>======================</div>
+                    <Article
+                    // _id={this.state.article._id}
+                    // title={this.state.article.title}
+                    // url={this.state.article.url}
+                    // summary={this.state.article.summary}
+                    // date={this.state.article.date}
+                    // type="Delete"
+                    // onClick={() => this.deleteArticle(this.state.article._id)}
+                    />
+                    <div>
+                      <div>Subject: {comment.subject}</div>
+                      <div>Author: {comment.author}</div>
+                      <div>Comment: {comment.comment}</div>
+                      <div>======================</div>
+                    </div>
                   </div>
                 ))}
               </section>
