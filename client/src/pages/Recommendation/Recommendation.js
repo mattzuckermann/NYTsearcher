@@ -3,12 +3,21 @@ import Jumbotron from '../../components/Jumbotron';
 import { Container, Row, Col } from '../../components/Grid';
 import { H1 } from '../../components/Headings';
 import API from '../../utils/API';
+import axios from 'axios';
 import { MessagePanel } from '../../components/Message';
 
 export default class Recommendation extends Component {
   state = {
     savedArticles: [],
   };
+
+  async componentDidMount() {
+    await axios.defaults.headers.common['Authorization'];
+    const jwt = await localStorage.getItem('jwtToken');
+    if (jwt === null) {
+      this.props.history.push('/login');
+    }
+  }
 
   componentWillMount() {
     this.loadArticles();
