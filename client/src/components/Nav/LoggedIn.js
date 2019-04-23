@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 
 class LoggedIn extends Component {
   logout = () => {
-    localStorage.removeItem('jwtToken');
-    localStorage.removeItem('user');
-    window.location.reload();
+    localStorage
+      .removeItem('jwtToken')
+      .then(localStorage.removeItem('user').then(window.location.reload()));
   };
 
   render() {
