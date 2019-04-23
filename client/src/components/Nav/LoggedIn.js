@@ -3,9 +3,8 @@ import { Link } from 'react-router-dom';
 
 class LoggedIn extends Component {
   logout = async () => {
-    await localStorage.removeItem('jwtToken').then();
-    await localStorage.removeItem('user');
-    await window.location.reload();
+    await Promise.all([localStorage.removeItem('jwtToken'), localStorage.removeItem('user')]);
+    window.location.reload();
   };
 
   render() {
