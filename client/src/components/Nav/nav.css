@@ -1,12 +1,12 @@
 .navbar {
-    color: white;
-    text-decoration: none;
-    text-transform: uppercase;
-    overflow: hidden;
-    transition: 1s all ease;
-  }
-  
-  .navbar::before {
+  color: white;
+  text-decoration: none;
+  text-transform: uppercase;
+  overflow: hidden;
+  transition: 1s all ease;
+}
+
+/* .navbar::before {
     background: #19647E;
     content: "";
     position: absolute;
@@ -17,9 +17,8 @@
     transition: all 0.6s ease;
     transform: translate(-50%,-50%);
     z-index: -1;
-  }
-  
-  .navbar:hover::before{
-    height: 100%;
-  }
-  
+  } */
+
+.navbar:hover::before {
+  height: 100%;
+}
