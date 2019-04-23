@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import moment from 'moment';
 import { ListItem } from '../List';
 import React, { Component } from 'react';

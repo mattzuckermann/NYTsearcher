@@ -15,7 +15,7 @@ import 'react-tabs/style/react-tabs.css';
 
 export default class Articles extends Component {
   articleType = 'articles';
-  bookType = 'books';
+  // bookType = 'books';
 
   state = {
     page: '0', //page of search results
@@ -175,13 +175,13 @@ export default class Articles extends Component {
           <Col size="sm-10" offset="sm-1">
             <Jumbotron>
               <H1 className="page-header text-center">New York Times Best Seller Searcher</H1>
-              <H4 className="text-center">Search for and save books of interest</H4>
+              <H4 className="text-center">Search for and save articles of interest</H4>
             </Jumbotron>
 
             <Tabs>
               <TabList>
                 <Tab onClick={() => this.changeSearchType(this.articleType)}> Article</Tab>
-                <Tab onClick={() => this.changeSearchType(this.bookType)}> Books</Tab>
+                {/* <Tab onClick={() => this.changeSearchType(this.bookType)}> Books</Tab> */}
               </TabList>
               <TabPanel>
                 <Panel>

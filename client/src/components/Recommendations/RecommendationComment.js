@@ -1,14 +1,15 @@
+/* eslint-disable default-case */
 import React, { Component } from 'react';
-import API from "../../utils/API";
+import API from '../../utils/API';
 import './Recommendations.css';
 
 export class RecommendationComment extends Component {
   state = {
     receiver: '',
     message: '',
-    articleData : '',
-    userFound : false,
-    setting: 0
+    articleData: '',
+    userFound: false,
+    setting: 0,
   };
 
   constructor(props) {
@@ -25,44 +26,38 @@ export class RecommendationComment extends Component {
   }
 
   handleSubmit(event) {
-
-    var sender = localStorage.getItem("user");
+    var sender = localStorage.getItem('user');
 
     API.getUser(this.state.receiver).then(receiver => {
-
       var userFound = receiver.data === null;
-      if (userFound){
-          this.setState({setting : 1});
+      if (userFound) {
+        this.setState({ setting: 1 });
       } else {
-        this.setState({setting : 2});
+        this.setState({ setting: 2 });
         API.createRecommendation({
           sender: sender,
           receiver: this.state.receiver,
           message: this.state.message,
-          title : this.props.articleData.title,
-          url : this.props.articleData.url
+          title: this.props.articleData.title,
+          url: this.props.articleData.url,
         }).then(result => {
           console.log(result);
         });
       }
-      
     });
     event.preventDefault();
   }
 
-  changeMessageNotification (setting){
-    switch(setting){
-      case (0):
-          return <div></div>
-      case (1):
-          return <div> Recipient Not Found</div>
-      case (2):
-          return <div> Message Sent!</div>
+  changeMessageNotification(setting) {
+    switch (setting) {
+      case 0:
+        return <div />;
+      case 1:
+        return <div> Recipient Not Found</div>;
+      case 2:
+        return <div> Message Sent!</div>;
     }
-         
-
   }
-
 
   render() {
     return (
@@ -70,18 +65,16 @@ export class RecommendationComment extends Component {
         {this.props.commentsVisible ? (
           <form onSubmit={this.handleSubmit} id="usrform">
             <div>
-            Send To:{' '}
-            <textarea
-              type="text"
-              name="receiver"
-              rows = "1"
-              value={this.state.receiver}
-              onChange={this.handleChange}
-            /> 
+              Send To:{' '}
+              <textarea
+                type="text"
+                name="receiver"
+                rows="1"
+                value={this.state.receiver}
+                onChange={this.handleChange}
+              />
             </div>
-            <div> { 
-                this.changeMessageNotification(this.state.setting)
-              }</div>
+            <div> {this.changeMessageNotification(this.state.setting)}</div>
             <div>
               <div>
                 <label> Make a Comment!</label>
