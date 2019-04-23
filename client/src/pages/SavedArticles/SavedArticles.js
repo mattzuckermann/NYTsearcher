@@ -17,14 +17,18 @@ export default class SavedArticles extends Component {
     this.loadArticles();
   }
 
-  componentDidMount() {
-    axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
-    const user = localStorage.getItem('user');
+  async componentDidMount() {
+    await axios.defaults.headers.common['Authorization'];
+    const jwt = await localStorage.getItem('jwtToken');
+    if (jwt === null) {
+      this.props.history.push('/login');
+    }
+    const user = await localStorage.getItem('user');
     API.getArticlesU(user)
       .then(res => {})
       .catch(error => {
         if (error.response.status === 401) {
-          this.props.history.push('/login');
+          console.log(error.response);
         }
       });
   }
