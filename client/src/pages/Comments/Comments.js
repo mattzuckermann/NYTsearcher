@@ -19,19 +19,25 @@ class Comments extends Component {
     };
   }
 
-  componentDidMount() {
-    axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
-    const user = localStorage.getItem('user');
-    const id = this.props.match.params.id;
-    API.getArticleU(user, id)
-      .then(result => {
-        this.setState({ article: result.data });
-      })
-      .catch(error => {
-        if (error.response.status === 401) {
-          this.props.history.push('/login');
-        }
-      });
+  async componentDidMount() {
+    await axios.defaults.headers.common['Authorization'];
+    const jwt = await localStorage.getItem('jwtToken');
+    if (jwt === null) {
+      this.props.history.push('/login');
+    } else {
+      const user = localStorage.getItem('user');
+      const id = this.props.match.params.id;
+      await Promise.all([user, id]);
+      API.getArticleU(user, id)
+        .then(result => {
+          this.setState({ article: result.data });
+        })
+        .catch(error => {
+          if (error.response.status === 401) {
+            console.log(error.response);
+          }
+        });
+    }
   }
 
   //capturing state of inputs on change
