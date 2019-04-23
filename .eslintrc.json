@@ -6,6 +6,7 @@
   "extends": ["airbnb", "prettier"],
   "plugins": ["prettier"],
   "rules": {
+    "prefer-destructuring": 0,
     "prettier/prettier": ["error"],
     "comma-dangle": [2, "always-multiline"],
     "func-names": 0,
