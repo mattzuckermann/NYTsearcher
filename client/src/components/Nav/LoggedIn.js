@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 class LoggedIn extends Component {
-  logout = () => {
-    localStorage
-      .removeItem('jwtToken')
-      .then(localStorage.removeItem('user').then(window.location.reload()));
+  logout = async () => {
+    await localStorage.removeItem('jwtToken').then();
+    await localStorage.removeItem('user');
+    await window.location.reload();
   };
 
   render() {
