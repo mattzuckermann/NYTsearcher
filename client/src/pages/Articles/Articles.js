@@ -60,9 +60,9 @@ export default class Articles extends Component {
 
   handleFormSubmit = event => {
     event.preventDefault();
-    let { topic, sYear, eYear, results } = this.state;
-    results = [];
+    let { topic, sYear, eYear } = this.state;
     let query = { topic, sYear, eYear };
+    this.setState({ results: [] });
     this.getArticles(query);
   };
 
