@@ -30,7 +30,7 @@ export default class Articles extends Component {
   componentDidMount() {
     axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
     axios
-      .get('/api/authentication')
+      .get('/api/authentication/loggedIn')
       .then(res => {})
       .catch(error => {
         if (error.response.status === 401) {

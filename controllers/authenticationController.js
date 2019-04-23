@@ -48,4 +48,7 @@ module.exports = {
       }
     );
   },
+  loggedIn() {
+    console.log('Checking if properly logged in...');
+  },
 };
