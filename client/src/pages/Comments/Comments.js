@@ -137,34 +137,25 @@ class Comments extends Component {
                     Submit
                   </FormBtn>
                 </Form>
-
                 <Link to={`/savedArticles`}>See All Saved Articles</Link>
-
+                <br />
                 <br />
                 <br />
               </PanelBody>
-
-              <section>
-                {this.state.article.comments.map(comment => (
-                  <div>
+              <PanelBody>
+                <PanelHeading>
+                  <H3>Comments Section</H3>
+                </PanelHeading>
+                <section>
+                  {this.state.article.comments.map(comment => (
                     <Article
-                    // _id={this.state.article._id}
-                    // title={this.state.article.title}
-                    // url={this.state.article.url}
-                    // summary={this.state.article.summary}
-                    // date={this.state.article.date}
-                    // type="Delete"
-                    // onClick={() => this.deleteArticle(this.state.article._id)}
+                      // _id={this.state.article._id}
+                      title={`Subject: ${comment.subject}  |  Author: ${comment.author}`}
+                      summary={`Comment: ${comment.comment}`}
                     />
-                    <div>
-                      <div>Subject: {comment.subject}</div>
-                      <div>Author: {comment.author}</div>
-                      <div>Comment: {comment.comment}</div>
-                      <div>======================</div>
-                    </div>
-                  </div>
-                ))}
-              </section>
+                  ))}
+                </section>
+              </PanelBody>
             </Panel>
           </Col>
         </Row>
