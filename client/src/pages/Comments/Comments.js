@@ -149,8 +149,7 @@ class Comments extends Component {
                 <section>
                   {this.state.article.comments.map(comment => (
                     <Article
-                      // _id={this.state.article._id}
-                      title={`Subject: ${comment.subject}  |  Author: ${comment.author}`}
+                      title={`|| Subject: ${comment.subject} || Author: ${comment.author} ||`}
                       summary={`Comment: ${comment.comment}`}
                     />
                   ))}
