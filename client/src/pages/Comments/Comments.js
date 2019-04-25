@@ -148,6 +148,10 @@ class Comments extends Component {
                 {this.state.article.comments.length === 0 ? (
                   <PanelHeading>
                     <H1>There are no comments to show</H1>
+                    <br />
+                    <br />
+                    <br />
+                    <br />
                   </PanelHeading>
                 ) : (
                   <Panel>
