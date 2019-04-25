@@ -114,7 +114,6 @@ export default class Articles extends Component {
       queryUrl += `  ${topic}`;
     }
     queryUrl += key;
-    console.log(queryUrl);
     API.queryNYT(queryUrl)
       .then(results => {
         console.log(results);
@@ -146,7 +145,6 @@ export default class Articles extends Component {
           : this.setState({ noResults: false });
       }
     );
-    console.log(this.state.results);
   }
 
   //function that is called when user clicks the get more results button
@@ -232,7 +230,7 @@ export default class Articles extends Component {
             </Tabs>
 
             {this.state.noResults ? (
-              <H1>No results Found. Please try again</H1>
+              <H1>No results found. Please try again</H1>
             ) : this.state.results.length > 0 ? (
               <Panel>
                 <PanelHeading>

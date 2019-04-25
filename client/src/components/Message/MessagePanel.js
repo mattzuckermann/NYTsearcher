@@ -17,7 +17,6 @@ export class MessagePanel extends Component {
   loadMessages = () => {
     var user = localStorage.getItem('user');
     API.getRecommendation(user).then(results => {
-      console.log(results);
       this.setState({ messages: results.data });
     });
   };

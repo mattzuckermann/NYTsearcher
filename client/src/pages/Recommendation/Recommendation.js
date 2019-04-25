@@ -24,8 +24,7 @@ export default class Recommendation extends Component {
   }
 
   loadArticles = () => {
-    var user = localStorage.getItem('user');
-    console.log(user);
+    const user = localStorage.getItem('user');
     API.getArticlesU(user).then(results => {
       this.setState({ savedArticles: results.data });
     });

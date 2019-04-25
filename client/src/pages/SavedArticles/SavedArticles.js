@@ -20,7 +20,6 @@ export default class SavedArticles extends Component {
   //function that queries the API server and retrieves saved articles
   loadArticles = () => {
     const user = localStorage.getItem('user');
-    console.log(user);
     API.getArticlesU(user).then(results => {
       this.setState({ savedArticles: results.data });
     });
