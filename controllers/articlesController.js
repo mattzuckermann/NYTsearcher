@@ -55,10 +55,25 @@ module.exports = {
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
-  removeU(req, res) {
-    db.Article.findById({ user: req.body.user, _id: req.body.id })
-      .then(dbModel => dbModel.remove())
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
+  async removeU(req, res) {
+    try {
+      // Store comments array from current article ID
+      const commentsIdArr = await db.Article.findById({
+        user: req.body.user,
+        _id: req.body.id,
+      }).then(dbModel => dbModel.comments);
+
+      // Loop through commentsIdArr and delete each comment associated with the respective ID
+      await commentsIdArr.forEach(commentId => {
+        db.Comment.findById({ _id: commentId }).then(dbModel => dbModel.remove());
+      });
+
+      // Find article and delete it
+      await db.Article.findById({ user: req.body.user, _id: req.body.id })
+        .then(dbModel => dbModel.remove())
+        .then(dbModel => res.json(dbModel));
+    } catch {
+      err => res.status(422).json(err);
+    }
   },
 };
