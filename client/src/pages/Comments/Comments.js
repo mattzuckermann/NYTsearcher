@@ -80,13 +80,10 @@ class Comments extends Component {
         <Row>
           <Col size="sm-10" offset="sm-1">
             <Jumbotron>
-              <H1 className="text-center">Saved New York Times Articles</H1>
+              <H1 className="text-center">Leave A Comment</H1>
               <hr style={{ width: '60%' }} />
             </Jumbotron>
             <Panel>
-              <PanelHeading>
-                <H3>Comment On Article</H3>
-              </PanelHeading>
               <PanelBody>
                 <Article
                   _id={this.state.article._id}
@@ -97,7 +94,14 @@ class Comments extends Component {
                   type="Delete"
                   onClick={() => this.deleteArticle(this.state.article._id)}
                 />
-
+                <Link to={`/savedArticles`}>See All Saved Articles</Link>
+                <br />
+                <br />
+                <br />
+                <br />
+                <PanelHeading>
+                  <H3>Comment On Article</H3>
+                </PanelHeading>
                 <Form style={{ marginBottom: '30px' }}>
                   <FormGroup>
                     <Label htmlFor="subjectForm">Enter a subject for the comment:</Label>
@@ -137,23 +141,29 @@ class Comments extends Component {
                     Submit
                   </FormBtn>
                 </Form>
-                <Link to={`/savedArticles`}>See All Saved Articles</Link>
-                <br />
                 <br />
                 <br />
               </PanelBody>
               <PanelBody>
-                <PanelHeading>
-                  <H3>Comments Section</H3>
-                </PanelHeading>
-                <section>
-                  {this.state.article.comments.map(comment => (
-                    <Article
-                      title={`|| Subject: ${comment.subject} || Author: ${comment.author} ||`}
-                      summary={`Comment: ${comment.comment}`}
-                    />
-                  ))}
-                </section>
+                {this.state.article.comments.length === 0 ? (
+                  <PanelHeading>
+                    <H1>There are no comments to show</H1>
+                  </PanelHeading>
+                ) : (
+                  <Panel>
+                    <PanelHeading>
+                      <H3>Comments Section</H3>
+                    </PanelHeading>
+                    <PanelBody>
+                      {this.state.article.comments.map(comment => (
+                        <Article
+                          title={`|| Subject: ${comment.subject} || Author: ${comment.author} ||`}
+                          summary={`Comment: ${comment.comment}`}
+                        />
+                      ))}
+                    </PanelBody>
+                  </Panel>
+                )}
               </PanelBody>
             </Panel>
           </Col>
