@@ -17,6 +17,15 @@ export default class SavedArticles extends Component {
     this.loadArticles();
   }
 
+  //function that queries the API server and retrieves saved articles
+  loadArticles = () => {
+    const user = localStorage.getItem('user');
+    console.log(user);
+    API.getArticlesU(user).then(results => {
+      this.setState({ savedArticles: results.data });
+    });
+  };
+
   async componentDidMount() {
     await axios.defaults.headers.common['Authorization'];
     const jwt = await localStorage.getItem('jwtToken');
@@ -32,15 +41,6 @@ export default class SavedArticles extends Component {
         }
       });
   }
-
-  //function that queries the API server and retrieves saved articles
-  loadArticles = () => {
-    const user = localStorage.getItem('user');
-    console.log(user);
-    API.getArticlesU(user).then(results => {
-      this.setState({ savedArticles: results.data });
-    });
-  };
 
   //function that queries API server and deletes articles
   deleteArticle = id => {
