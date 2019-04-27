@@ -60,12 +60,12 @@ export default class SavedArticles extends Component {
         <Row>
           <Col size="sm-10" offset="sm-1">
             <Jumbotron>
-              <H1 className="text-center">Saved New York Times Articles</H1>
+              <H1 className="text-center">Saved Articles</H1>
               <hr style={{ width: '60%' }} />
             </Jumbotron>
             <Panel>
               <PanelHeading>
-                <H3>Saved Articles</H3>
+                <H3>Your Articles</H3>
               </PanelHeading>
               <PanelBody>
                 {this.state.savedArticles.length > 0 ? (
