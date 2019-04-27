@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Navbar, Nav } from 'react-bootstrap';
+import siteLogo from '../../images/favicon.png';
 
 class LoggedIn extends Component {
   logout = async () => {
@@ -9,44 +10,53 @@ class LoggedIn extends Component {
 
   render() {
     return (
-      <nav
-        className="navbar navbar-dark bg-primary"
-        style={{ position: 'fixed', zIndex: 100, width: '100%' }}
-      >
-        <Link className="navbar-brand" to="/">
+      <Navbar className="navbar navbar-dark bg-primary" expand="xl">
+        <Navbar.Brand className="navbar-brand titleSite" href="/">
           NYT Articles and Book Searcher
-        </Link>
-        <ul className="navbar-nav " style={{ float: 'right' }}>
-          <li className="nav-item">
-            <Link to="/recommendation">
-              <button type="button" className="btn btn-info">
-                Recommendation
-              </button>
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/">
-              <button type="button" className="btn btn-info">
+        </Navbar.Brand>
+        <Navbar.Brand className="navbar-brand logoSite" href="/">
+          <img
+            src={siteLogo}
+            style={{ width: 55, height: 'auto', backgroundColor: 'white', borderRadius: 4 }}
+            alt="site logo"
+          />
+          <div
+            style={{
+              fontFamily: 'gothic script',
+              fontSize: '60px',
+              padding: '0px 3px',
+              webkitTextStroke: '2px #333333',
+            }}
+          >
+            NYT
+          </div>
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="mr-auto">
+            <Nav.Link style={{ marginRight: '10px' }} className="nav-item" href="/">
+              <button type="button" className="btn btn-dark">
                 Home
               </button>
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/savedArticles">
-              <button type="button" className="btn btn-info">
+            </Nav.Link>
+            <Nav.Link style={{ marginRight: '10px' }} className="nav-item" href="/savedArticles">
+              <button type="button" className="btn btn-dark">
                 Saved Articles
               </button>
-            </Link>
-          </li>
-          <Link to="/login">
-            <li className="nav-item">
-              <button onClick={this.logout} type="button" className="btn btn-info">
+            </Nav.Link>
+            <Nav.Link style={{ marginRight: '10px' }} className="nav-item" href="/recommendation">
+              <button type="button" className="btn btn-dark">
+                Recommendations
+              </button>
+            </Nav.Link>
+            <Nav.Link style={{ marginRight: '10px' }} className="nav-item" href="/recommendation">
+              <button onClick={this.logout} type="button" className="btn btn-dark">
                 Logout
               </button>
-            </li>
-          </Link>
-        </ul>
-      </nav>
+            </Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
     );
   }
 }

@@ -1,20 +1,23 @@
-import React from "react";
-
+import React from 'react';
+// import 'index.css';
 
 export default class Jumbotron extends React.Component {
-  state={
-    navbarHeight: 0
-  }
-
-  componentDidMount() {
-    this.setState({navbarHeight: document.querySelector('.navbar').clientHeight})
-  }
+  state = {
+    navbarHeight: 0,
+  };
 
   render() {
     return (
-      <div style={{ height: 200, clear: 'both', marginTop: this.state.navbarHeight }} className="jumbotron">
+      <div
+        style={{
+          height: 'auto',
+          clear: 'both',
+          marginTop: '35px',
+        }}
+        className="jumbotron"
+      >
         {this.props.children}
       </div>
-    )
+    );
   }
 }

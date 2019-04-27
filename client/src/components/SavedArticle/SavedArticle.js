@@ -40,21 +40,39 @@ export class SavedArticle extends Component {
             style={{ float: 'right' }}
           >
             <a href={this.props.url} target="_blank" rel="noopener noreferrer">
-              <button type="button" className="btn btn-info">
+              <button
+                type="button"
+                className="btn btn-info"
+                style={{ padding: '5px', width: '100px' }}
+              >
                 Read
               </button>
             </a>
             <Link to={`/savedArticles/${this.props._id}`}>
-              <button type="button" className="btn btn-dark">
+              <button
+                type="button"
+                className="btn btn-dark"
+                style={{ padding: '5px', width: '100px' }}
+              >
                 Comment
               </button>
             </Link>
 
-            <button type="button" className="btn btn-primary" onClick={this.props.onClick}>
+            <button
+              type="button"
+              className="btn btn-primary"
+              style={{ padding: '5px', width: '100px' }}
+              onClick={this.props.onClick}
+            >
               {this.props.type}
             </button>
 
-            <button type="button" className="btn btn-primary" onClick={this.openCommentField}>
+            <button
+              type="button"
+              className="btn btn-primary"
+              style={{ padding: '5px', width: '100px' }}
+              onClick={this.openCommentField}
+            >
               Recommend
             </button>
           </div>

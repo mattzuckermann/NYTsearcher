@@ -2,6 +2,32 @@
   color: white;
   text-decoration: none;
   text-transform: uppercase;
-  overflow: hidden;
   transition: 1s all ease;
+}
+
+.logoSite {
+  display: none;
+}
+
+.btn {
+  width: 175px;
+  padding: 10px 0px;
+}
+
+@media screen and (max-width: 783px) {
+  .mr-auto {
+    display: inline-block;
+  }
+}
+
+@media screen and (max-width: 477px) {
+  .logoSite {
+    display: contents;
+  }
+  .titleSite {
+    display: none;
+  }
+  #basic-navbar-nav {
+    text-align: center;
+  }
 }
