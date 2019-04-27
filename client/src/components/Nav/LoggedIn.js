@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Navbar, Nav } from 'react-bootstrap';
-import siteLogo from '../../images/favicon.png';
+// import siteLogo from '../../images/favicon.png';
 
 class LoggedIn extends Component {
   logout = async () => {
@@ -16,7 +16,7 @@ class LoggedIn extends Component {
         </Navbar.Brand>
         <Navbar.Brand className="navbar-brand logoSite" href="/">
           <img
-            src={siteLogo}
+            // src={siteLogo}
             style={{ width: 55, height: 'auto', backgroundColor: 'white', borderRadius: 4 }}
             alt="site logo"
           />
