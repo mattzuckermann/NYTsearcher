@@ -22,14 +22,6 @@ class LoggedOut extends Component {
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
       </Navbar>
-      // <nav
-      //   className="navbar navbar-dark bg-primary"
-      //   style={{ position: 'fixed', zIndex: 100, width: '100%' }}
-      // >
-      //   <Link className="navbar-brand " to="/">
-      //     NYT ARTICLES AND BOOKS Searcher
-      //   </Link>
-      // </nav>
     );
   }
 }
