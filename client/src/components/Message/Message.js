@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './Message.css';
-
+//TEST
 export class Message extends Component {
   addToRecommendations(add) {
     console.log(add);
