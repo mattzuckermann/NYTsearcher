@@ -5,47 +5,46 @@ import SavedArticles from './pages/SavedArticles';
 import NoMatch from './pages/NoMatch';
 import Nav from './components/Nav';
 import Recommendation from './pages/Recommendation';
-import Login from "./pages/Login"
-import Register from "./pages/Register"
-import Comments from "./pages/Comments"
+import Login from './pages/Login';
+import Register from './pages/Register';
+import Comments from './pages/Comments';
 
 class App extends Component {
-
-
   state = {
-    loggedin: ''
-  }
+    loggedin: '',
+  };
 
   componentDidMount() {
     this.updateLogin(this);
-  };
-
-  updateLogin (scope){
-    scope.setState({loggedin : localStorage.getItem('jwtToken') !== null})
   }
 
+  updateLogin(scope) {
+    scope.setState({ loggedin: localStorage.getItem('jwtToken') !== null });
+  }
 
   render() {
-    return (<Router>
-      <div>
-        <Nav loggedin = {this.state.loggedin} />
+    return (
+      <Router>
+        <div>
+          <Nav loggedin={this.state.loggedin} />
 
-        <Switch>
-
-          <Route exact path="/(|articles)" component={Articles} />
-          <Route exact path="/savedArticles" component={SavedArticles} />
-          <Route exact path="/savedArticles/:id" component={Comments} />
-          <Route exact path="/recommendation" component={Recommendation} />
-          <Route exact path="/register" component={Register} />
-          <Route exact path="/login"  render={(props) => <Login {...props} parent={this} updateLogin = {this.updateLogin}/>}/>
-          <Route component={NoMatch} />
-        </Switch>
-
-
-      </div>
-    </Router>);
+          <Switch>
+            <Route exact path="/(|articles)" component={Articles} />
+            <Route exact path="/savedArticles" component={SavedArticles} />
+            <Route exact path="/savedArticles/:id" component={Comments} />
+            <Route exact path="/recommendation" component={Recommendation} />
+            <Route exact path="/register" component={Register} />
+            <Route
+              exact
+              path="/login"
+              render={props => <Login {...props} parent={this} updateLogin={this.updateLogin} />}
+            />
+            <Route component={NoMatch} />
+          </Switch>
+        </div>
+      </Router>
+    );
   }
-
 }
 
 export default App;

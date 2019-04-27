@@ -19,7 +19,7 @@ export class Message extends Component {
         </div>
         <div className="messageBody">
           <div>{this.props.message}</div>
-          <div style={{ float: 'right' }}>
+          {/* <div style={{ float: 'right' }}>
             <button
               type="button"
               className="btn btn-primary"
@@ -37,7 +37,7 @@ export class Message extends Component {
               {' '}
               Decline
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
     );
