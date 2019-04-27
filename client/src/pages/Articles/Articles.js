@@ -15,16 +15,24 @@ import 'react-tabs/style/react-tabs.css';
 
 export default class Articles extends Component {
   articleType = 'articles';
-  // bookType = 'books';
+  bookType = 'books';
 
   state = {
     page: '0', //page of search results
-    results: [], //array of results returned from api
+    results: [], //array of results returned from api (articles)
     previousSearch: {}, //previous search term saved after search completed
     noResults: false,
     topic: '',
     sYear: '',
     eYear: '', //boolean used as flag for conditional rendering
+    // ==========================
+    pageBook: '0', //page of search results
+    resultsBook: [], //array of results returned from api (articles)
+    previousSearchBook: {}, //previous search term saved after search completed
+    noResultsBook: false,
+    topicBook: '',
+    sYearBook: '',
+    eYearBook: '', //boolean used as flag for conditional rendering
   };
 
   async componentDidMount() {
@@ -39,7 +47,7 @@ export default class Articles extends Component {
     const user = localStorage.getItem('user');
 
     //creating new article object
-    let newArticle = {
+    const newArticle = {
       title: article.headline.main,
       url: article.web_url,
       summary: article.snippet,
@@ -58,12 +66,43 @@ export default class Articles extends Component {
       .catch(err => console.log(err));
   };
 
+  saveBook = book => {
+    const user = localStorage.getItem('user');
+
+    //creating new article object
+    const newArticle = {
+      title: book.book_title,
+      url: book.url,
+      summary: book.summary,
+      date: book.publication_dt,
+      user: user,
+    };
+
+    API.saveArticleU(user, newArticle)
+      .then(results => {
+        //removing the saved article from the results in state
+        let unsavedArticles = this.state.results.filter(
+          article => article.headline.main !== newArticle.title
+        );
+        this.setState({ results: unsavedArticles });
+      })
+      .catch(err => console.log(err));
+  };
+
   handleFormSubmit = event => {
     event.preventDefault();
-    let { topic, sYear, eYear } = this.state;
-    let query = { topic, sYear, eYear };
+    const { topic, sYear, eYear } = this.state;
+    const query = { topic, sYear, eYear };
     this.setState({ results: [] });
     this.getArticles(query);
+  };
+
+  handleFormSubmitBook = event => {
+    event.preventDefault();
+    const { topicBook, sYearBook, eYearBook } = this.state;
+    const query = { topicBook, sYearBook, eYearBook };
+    this.setState({ resultsBook: [] });
+    this.getBooks(query);
   };
 
   getArticles = query => {
@@ -106,12 +145,12 @@ export default class Articles extends Component {
   getBooks = query => {
     let key = `&api-key=TZBzEuyISaV432LqBahDZC1YwILc41s7`;
     let queryUrl = 'https://api.nytimes.com/svc/books/v3/reviews.json?title=';
-    let { topic } = query;
-    if (topic.indexOf(' ') >= 0) {
-      topic = topic.replace(/\s/g, '+');
+    let { topicBook } = query;
+    if (topicBook.indexOf(' ') >= 0) {
+      topicBook = topicBook.replace(/\s/g, '+');
     }
-    if (topic) {
-      queryUrl += `  ${topic}`;
+    if (topicBook) {
+      queryUrl += `${topicBook}`;
     }
     queryUrl += key;
     API.queryNYT(queryUrl)
@@ -119,14 +158,14 @@ export default class Articles extends Component {
         console.log(results);
         this.setState(
           {
-            results: [...this.state.results, ...results.data.results],
-            previousSearch: query,
-            topic: '',
+            resultsBook: [...this.state.resultsBook, ...results.data.results],
+            previousSearchBook: query,
+            topicBook: '',
           },
           function() {
-            this.state.results.length === 0
-              ? this.setState({ noResults: true })
-              : this.setState({ noResults: false });
+            this.state.resultsBook.length === 0
+              ? this.setState({ noResultsBook: true })
+              : this.setState({ noResultsBook: false });
           }
         );
       })
@@ -159,6 +198,17 @@ export default class Articles extends Component {
     });
   };
 
+  getMoreResultsBook = () => {
+    let { topicBook, eYearBook, sYearBook } = this.state.previousSearch;
+    let query = { topicBook, eYearBook, sYearBook };
+    //increments page number for search and then runs query
+    let page = this.state.pageBook;
+    page++;
+    this.setState({ page: page }, function() {
+      this.getArticles(query);
+    });
+  };
+
   changeSearchType(searchType) {
     this.setState({ searchType: searchType });
   }
@@ -169,14 +219,13 @@ export default class Articles extends Component {
         <Row>
           <Col size="sm-10" offset="sm-1">
             <Jumbotron>
-              <H1 className="page-header text-center">New York Times Best Seller Searcher</H1>
-              <H4 className="text-center">Search for and save articles of interest</H4>
+              <H1 className="text-center">New York Times Best Seller Searcher</H1>
+              <H4 className="text-center">Search • Save • Recommend</H4>
             </Jumbotron>
-
             <Tabs>
               <TabList>
                 <Tab onClick={() => this.changeSearchType(this.articleType)}> Article</Tab>
-                {/* <Tab onClick={() => this.changeSearchType(this.bookType)}> Books</Tab> */}
+                <Tab onClick={() => this.changeSearchType(this.bookType)}> Books</Tab>
               </TabList>
               <TabPanel>
                 <Panel>
@@ -186,7 +235,7 @@ export default class Articles extends Component {
                   <PanelBody>
                     <Form style={{ marginBottom: '30px' }}>
                       <FormGroup>
-                        <Label htmlFor="topic">Enter a topic to search for:</Label>
+                        <Label htmlFor="topic">Enter an article to search for:</Label>
                         <Input
                           onChange={this.handleInputChange}
                           name="topic"
@@ -226,36 +275,115 @@ export default class Articles extends Component {
                     </Form>
                   </PanelBody>
                 </Panel>
+                {this.state.noResults ? (
+                  <H1>No results found. Please try again</H1>
+                ) : this.state.results.length > 0 ? (
+                  <Panel>
+                    <PanelHeading>
+                      <H3>Results</H3>
+                    </PanelHeading>
+                    <PanelBody>
+                      {this.state.results.map((article, i) => (
+                        <FormalArticle
+                          key={i}
+                          title={article.headline.main}
+                          url={article.web_url}
+                          summary={article.snippet}
+                          date={article.pub_date}
+                          type="Save"
+                          onClick={() => this.saveArticle(article)}
+                        />
+                      ))}
+                      <FormBtn type="warning" additional="btn-block" onClick={this.getMoreResults}>
+                        Get more results
+                      </FormBtn>
+                    </PanelBody>
+                  </Panel>
+                ) : (
+                  ''
+                )}
+              </TabPanel>
+              <TabPanel>
+                <Panel>
+                  <PanelHeading>
+                    <H3>Search</H3>
+                  </PanelHeading>
+                  <PanelBody>
+                    <Form style={{ marginBottom: '30px' }}>
+                      <FormGroup>
+                        <Label htmlFor="topic">Enter a book to search for:</Label>
+                        <Input
+                          onChange={this.handleInputChange}
+                          name="topicBook"
+                          value={this.state.topicBook}
+                          placeholder="Topic"
+                        />
+                      </FormGroup>
+                      <FormGroup>
+                        <Label htmlFor="sYear">
+                          Enter a beginning date to search for (optional):
+                        </Label>
+                        <Input
+                          onChange={this.handleInputChange}
+                          type="date"
+                          name="sYearBook"
+                          value={this.state.sYearBook}
+                          placeholder="Start Year"
+                        />
+                      </FormGroup>
+                      <FormGroup>
+                        <Label htmlFor="eYear">Enter an end date to search for (optional):</Label>
+                        <Input
+                          onChange={this.handleInputChange}
+                          type="date"
+                          name="eYearBook"
+                          value={this.state.eYearBook}
+                          placeholder="End Year"
+                        />
+                      </FormGroup>
+                      <FormBtn
+                        disabled={!this.state.topicBook}
+                        onClick={this.handleFormSubmitBook}
+                        type="info"
+                      >
+                        Submit
+                      </FormBtn>
+                    </Form>
+                  </PanelBody>
+                </Panel>
+                {this.state.noResultsBook ? (
+                  <H1>No results found. Please try again</H1>
+                ) : this.state.resultsBook.length > 0 ? (
+                  <Panel>
+                    <PanelHeading>
+                      <H3>Results</H3>
+                    </PanelHeading>
+                    <PanelBody>
+                      {this.state.resultsBook.map((book, i) => (
+                        <FormalArticle
+                          key={i}
+                          title={book.book_title}
+                          url={book.url}
+                          summary={book.summary}
+                          date={book.publication_dt}
+                          type="Save"
+                          onClick={() => this.saveBook(book)}
+                        />
+                      ))}
+                      <FormBtn
+                        type="warning"
+                        additional="btn-block"
+                        onClick={this.getMoreResultsBook}
+                      >
+                        Get more results
+                      </FormBtn>
+                    </PanelBody>
+                  </Panel>
+                ) : (
+                  ''
+                )}
               </TabPanel>
             </Tabs>
-
-            {this.state.noResults ? (
-              <H1>No results found. Please try again</H1>
-            ) : this.state.results.length > 0 ? (
-              <Panel>
-                <PanelHeading>
-                  <H3>Results</H3>
-                </PanelHeading>
-                <PanelBody>
-                  {this.state.results.map((article, i) => (
-                    <FormalArticle
-                      key={i}
-                      title={article.headline.main}
-                      url={article.web_url}
-                      summary={article.snippet}
-                      date={article.pub_date}
-                      type="Save"
-                      onClick={() => this.saveArticle(article)}
-                    />
-                  ))}
-                  <FormBtn type="warning" additional="btn-block" onClick={this.getMoreResults}>
-                    Get more results
-                  </FormBtn>
-                </PanelBody>
-              </Panel>
-            ) : (
-              ''
-            )}
           </Col>
         </Row>
       </Container>
