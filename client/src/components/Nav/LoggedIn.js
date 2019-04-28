@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Navbar, Nav } from 'react-bootstrap';
-import siteLogo from '../../images/favicon.png';
+import siteLogo from './images/favicon.png';
 
 class LoggedIn extends Component {
   logout = async () => {
@@ -25,7 +25,7 @@ class LoggedIn extends Component {
               fontFamily: 'gothic script',
               fontSize: '60px',
               padding: '0px 3px',
-              webkitTextStroke: '2px #333333',
+              WebkitTextStroke: '2px #333333',
             }}
           >
             NYT
@@ -34,12 +34,12 @@ class LoggedIn extends Component {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            <Nav.Link style={{ marginRight: '10px' }} className="nav-item" href="/">
+            <Nav.Link style={{ marginRight: '10px' }} className="nav-item" href="/search">
               <button type="button" className="btn btn-dark">
                 Home
               </button>
             </Nav.Link>
-            <Nav.Link style={{ marginRight: '10px' }} className="nav-item" href="/savedArticles">
+            <Nav.Link style={{ marginRight: '10px' }} className="nav-item" href="/articles">
               <button type="button" className="btn btn-dark">
                 Saved Articles
               </button>
@@ -49,7 +49,7 @@ class LoggedIn extends Component {
                 Recommendations
               </button>
             </Nav.Link>
-            <Nav.Link style={{ marginRight: '10px' }} className="nav-item" href="/recommendation">
+            <Nav.Link style={{ marginRight: '10px' }} className="nav-item">
               <button onClick={this.logout} type="button" className="btn btn-dark">
                 Logout
               </button>

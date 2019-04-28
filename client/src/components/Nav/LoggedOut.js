@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Navbar } from 'react-bootstrap';
 import './nav.css';
-import siteLogo from '../../images/favicon.png';
+import siteLogo from './images/favicon.png';
 
 class LoggedOut extends Component {
   render() {
