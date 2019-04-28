@@ -3,7 +3,6 @@ export default function userAgentIsMobile() {
     typeof window !== `undefined` &&
     navigator &&
     (navigator.userAgent.match(/Android/i) ||
-      navigator.userAgent.match(/Mac/i) ||
       navigator.userAgent.match(/webOS/i) ||
       navigator.userAgent.match(/iPhone/i) ||
       navigator.userAgent.match(/iPad/i) ||
