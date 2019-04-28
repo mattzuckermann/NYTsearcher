@@ -29,6 +29,7 @@ class App extends Component {
           <Nav loggedin={this.state.loggedin} />
 
           <Switch>
+            <Route exact path="/" component={Articles} />
             <Route exact path="/search" component={Articles} />
             <Route exact path="/articles" component={SavedArticles} />
             <Route exact path="/recommendation" component={Recommendation} />
