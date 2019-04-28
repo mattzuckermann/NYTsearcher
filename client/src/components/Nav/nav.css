@@ -30,4 +30,12 @@
   #basic-navbar-nav {
     text-align: center;
   }
+  .btn {
+    width: 290px;
+    padding: 10px 0px;
+  }
+  .btn-group {
+    width: 100%;
+    overflow: visible;
+  }
 }

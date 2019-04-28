@@ -1,7 +1,7 @@
-import { Link } from 'react-router-dom';
 import moment from 'moment';
 import { ListItem } from '../List';
 import React, { Component } from 'react';
+import { Row, Col } from '../Grid';
 import { RecommendationComment } from '../Recommendations/RecommendationComment';
 
 export class SavedArticle extends Component {
@@ -30,52 +30,64 @@ export class SavedArticle extends Component {
           </div>
         </a>
         <ListItem className="list-group-item">
-          <div className=" w-75" style={{ display: 'inline-block' }}>
-            <h5 className="mb-1">{this.props.summary}</h5>
-          </div>
-          <div
-            className="btn-group"
-            role="group"
-            aria-label="Basic example"
-            style={{ float: 'right' }}
-          >
-            <a href={this.props.url} target="_blank" rel="noopener noreferrer">
-              <button
-                type="button"
-                className="btn btn-info"
-                style={{ padding: '5px', width: '100px' }}
+          <Row>
+            <Col size="lg-12" offset="sm-1">
+              <div className=" w-75" style={{ display: 'inline-block' }}>
+                <h5 className="mb-1">{this.props.summary}</h5>
+              </div>
+            </Col>
+          </Row>
+          <Row>
+            <Col size="lg-12" offset="sm-1">
+              <div
+                className="btn-group"
+                role="group"
+                aria-label="Basic example"
+                style={{ float: 'right' }}
               >
-                Read
-              </button>
-            </a>
-            <Link to={`/savedArticles/${this.props._id}`}>
-              <button
-                type="button"
-                className="btn btn-dark"
-                style={{ padding: '5px', width: '100px' }}
-              >
-                Comment
-              </button>
-            </Link>
-
-            <button
-              type="button"
-              className="btn btn-primary"
-              style={{ padding: '5px', width: '100px' }}
-              onClick={this.props.onClick}
-            >
-              {this.props.type}
-            </button>
-
-            <button
-              type="button"
-              className="btn btn-primary"
-              style={{ padding: '5px', width: '100px' }}
-              onClick={this.openCommentField}
-            >
-              Recommend
-            </button>
-          </div>
+                <Row>
+                  <Col size="md-12">
+                    <a href={this.props.url} target="_blank" rel="noopener noreferrer">
+                      <button
+                        type="button"
+                        className="btn btn-info"
+                        style={{ padding: '5px', width: '100px' }}
+                      >
+                        Read
+                      </button>
+                    </a>
+                    <a href={`${this.props._id}`}>
+                      <button
+                        type="button"
+                        className="btn btn-dark"
+                        style={{ padding: '5px', width: '100px' }}
+                      >
+                        Comment
+                      </button>
+                    </a>
+                    {/* </Col>
+                  <Col size="md-6"> */}
+                    <button
+                      type="button"
+                      className="btn btn-primary"
+                      style={{ padding: '5px', width: '100px' }}
+                      onClick={this.openCommentField}
+                    >
+                      Recommend
+                    </button>
+                    <button
+                      type="button"
+                      className="btn btn-danger"
+                      style={{ padding: '5px', width: '100px' }}
+                      onClick={this.props.onClick}
+                    >
+                      {this.props.type}
+                    </button>
+                  </Col>
+                </Row>
+              </div>
+            </Col>
+          </Row>
         </ListItem>
         <RecommendationComment
           articleData={this.props}
