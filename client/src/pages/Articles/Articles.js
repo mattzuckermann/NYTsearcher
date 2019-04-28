@@ -66,28 +66,28 @@ export default class Articles extends Component {
       .catch(err => console.log(err));
   };
 
-  // saveBook = book => {
-  //   const user = localStorage.getItem('user');
+  saveBook = book => {
+    const user = localStorage.getItem('user');
 
-  //   //creating new article object
-  //   const newArticle = {
-  //     title: book.book_title,
-  //     url: book.url,
-  //     summary: book.summary,
-  //     date: book.publication_dt,
-  //     user: user,
-  //   };
+    //creating new article object
+    const newArticle = {
+      title: book.book_title,
+      url: book.url,
+      summary: book.summary,
+      date: book.publication_dt,
+      user: user,
+    };
 
-  //   API.saveArticleU(user, newArticle)
-  //     .then(results => {
-  //       //removing the saved article from the results in state
-  //       let unsavedArticles = this.state.results.filter(
-  //         article => article.headline.main !== newArticle.title
-  //       );
-  //       this.setState({ results: unsavedArticles });
-  //     })
-  //     .catch(err => console.log(err));
-  // };
+    API.saveArticleU(user, newArticle)
+      .then(results => {
+        //removing the saved article from the results in state
+        let unsavedArticles = this.state.results.filter(
+          article => article.headline.main !== newArticle.title
+        );
+        this.setState({ results: unsavedArticles });
+      })
+      .catch(err => console.log(err));
+  };
 
   handleFormSubmit = event => {
     event.preventDefault();
@@ -97,13 +97,13 @@ export default class Articles extends Component {
     this.getArticles(query);
   };
 
-  // handleFormSubmitBook = event => {
-  //   event.preventDefault();
-  //   const { topicBook, sYearBook, eYearBook } = this.state;
-  //   const query = { topicBook, sYearBook, eYearBook };
-  //   this.setState({ resultsBook: [] });
-  //   this.getBooks(query);
-  // };
+  handleFormSubmitBook = event => {
+    event.preventDefault();
+    const { topicBook, sYearBook, eYearBook } = this.state;
+    const query = { topicBook, sYearBook, eYearBook };
+    this.setState({ resultsBook: [] });
+    this.getBooks(query);
+  };
 
   getArticles = query => {
     let { topic, sYear, eYear } = query;
@@ -142,35 +142,35 @@ export default class Articles extends Component {
     this.setState({ [name]: value });
   };
 
-  // getBooks = query => {
-  //   let key = `&api-key=TZBzEuyISaV432LqBahDZC1YwILc41s7`;
-  //   let queryUrl = 'https://api.nytimes.com/svc/books/v3/reviews.json?title=';
-  //   let { topicBook } = query;
-  //   if (topicBook.indexOf(' ') >= 0) {
-  //     topicBook = topicBook.replace(/\s/g, '+');
-  //   }
-  //   if (topicBook) {
-  //     queryUrl += `${topicBook}`;
-  //   }
-  //   queryUrl += key;
-  //   API.queryNYT(queryUrl)
-  //     .then(results => {
-  //       console.log(results);
-  //       this.setState(
-  //         {
-  //           resultsBook: [...this.state.resultsBook, ...results.data.results],
-  //           previousSearchBook: query,
-  //           topicBook: '',
-  //         },
-  //         function() {
-  //           this.state.resultsBook.length === 0
-  //             ? this.setState({ noResultsBook: true })
-  //             : this.setState({ noResultsBook: false });
-  //         }
-  //       );
-  //     })
-  //     .catch(err => console.log(err));
-  // };
+  getBooks = query => {
+    let key = `&api-key=TZBzEuyISaV432LqBahDZC1YwILc41s7`;
+    let queryUrl = 'https://api.nytimes.com/svc/books/v3/reviews.json?title=';
+    let { topicBook } = query;
+    if (topicBook.indexOf(' ') >= 0) {
+      topicBook = topicBook.replace(/\s/g, '+');
+    }
+    if (topicBook) {
+      queryUrl += `${topicBook}`;
+    }
+    queryUrl += key;
+    API.queryNYT(queryUrl)
+      .then(results => {
+        console.log(results);
+        this.setState(
+          {
+            resultsBook: [...this.state.resultsBook, ...results.data.results],
+            previousSearchBook: query,
+            topicBook: '',
+          },
+          function() {
+            this.state.resultsBook.length === 0
+              ? this.setState({ noResultsBook: true })
+              : this.setState({ noResultsBook: false });
+          }
+        );
+      })
+      .catch(err => console.log(err));
+  };
 
   updateResults(results, query) {
     this.setState(
@@ -198,16 +198,16 @@ export default class Articles extends Component {
     });
   };
 
-  // getMoreResultsBook = () => {
-  //   let { topicBook, eYearBook, sYearBook } = this.state.previousSearch;
-  //   let query = { topicBook, eYearBook, sYearBook };
-  //   //increments page number for search and then runs query
-  //   let page = this.state.pageBook;
-  //   page++;
-  //   this.setState({ page: page }, function() {
-  //     this.getArticles(query);
-  //   });
-  // };
+  getMoreResultsBook = () => {
+    let { topicBook, eYearBook, sYearBook } = this.state.previousSearch;
+    let query = { topicBook, eYearBook, sYearBook };
+    //increments page number for search and then runs query
+    let page = this.state.pageBook;
+    page++;
+    this.setState({ page: page }, function() {
+      this.getArticles(query);
+    });
+  };
 
   changeSearchType(searchType) {
     this.setState({ searchType: searchType });
@@ -220,12 +220,12 @@ export default class Articles extends Component {
           <Col size="sm-10" offset="sm-1">
             <Jumbotron>
               <H1 className="text-center">New York Times Best Seller Searcher</H1>
-              <H4 className="text-center">Search • Save • Recommend</H4>
+              <H4 className="text-center">Search • Save • Share</H4>
             </Jumbotron>
             <Tabs>
               <TabList>
                 <Tab onClick={() => this.changeSearchType(this.articleType)}> Article</Tab>
-                {/* <Tab onClick={() => this.changeSearchType(this.bookType)}> Books</Tab> */}
+                <Tab onClick={() => this.changeSearchType(this.bookType)}> Books</Tab>
               </TabList>
               <TabPanel>
                 <Panel>
@@ -303,7 +303,7 @@ export default class Articles extends Component {
                   ''
                 )}
               </TabPanel>
-              {/* <TabPanel>
+              <TabPanel>
                 <Panel>
                   <PanelHeading>
                     <H3>Search</H3>
@@ -382,7 +382,7 @@ export default class Articles extends Component {
                 ) : (
                   ''
                 )}
-              </TabPanel> */}
+              </TabPanel>
             </Tabs>
           </Col>
         </Row>

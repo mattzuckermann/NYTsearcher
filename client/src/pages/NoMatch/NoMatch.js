@@ -1,23 +1,20 @@
-import React from "react";
-import { Col, Row, Container } from "../../components/Grid";
-import Jumbotron from "../../components/Jumbotron";
-import { H1 } from '../../components/Headings';
+import React from 'react';
+import { Col, Row, Container } from '../../components/Grid';
+import Jumbotron from '../../components/Jumbotron';
+import { H1, H3 } from '../../components/Headings';
 
-const NoMatch = () =>
+const NoMatch = () => (
   <Container fluid>
     <Row>
-      <Col size="sm-10" offset='sm-1'>
+      <Col size="sm-10" offset="sm-1">
         <Jumbotron>
-          <H1 className="text-center">404 OOPS!  You did something wrong</H1>
-          <H1 className="text-center">
-            <span role="img" aria-label="Face With Rolling Eyes Emoji">
-              🙄
-              <br/>
-            </span>
-          </H1>
+          <H1 className="text-center">404 ERROR</H1>
+          <br />
+          <H3 className="text-center">The page you were looking for was moved or doesn't exist.</H3>
         </Jumbotron>
       </Col>
     </Row>
-  </Container>;
+  </Container>
+);
 
 export default NoMatch;

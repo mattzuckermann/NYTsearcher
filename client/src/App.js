@@ -29,9 +29,8 @@ class App extends Component {
           <Nav loggedin={this.state.loggedin} />
 
           <Switch>
-            <Route exact path="/(|articles)" component={Articles} />
-            <Route exact path="/savedArticles" component={SavedArticles} />
-            <Route exact path="/savedArticles/:id" component={Comments} />
+            <Route exact path="/search" component={Articles} />
+            <Route exact path="/articles" component={SavedArticles} />
             <Route exact path="/recommendation" component={Recommendation} />
             <Route exact path="/register" component={Register} />
             <Route
@@ -39,6 +38,7 @@ class App extends Component {
               path="/login"
               render={props => <Login {...props} parent={this} updateLogin={this.updateLogin} />}
             />
+            <Route exact path="/:id" component={Comments} />
             <Route component={NoMatch} />
           </Switch>
         </div>

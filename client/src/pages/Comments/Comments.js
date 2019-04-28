@@ -62,6 +62,7 @@ class Comments extends Component {
       authorForm: '',
       commentForm: '',
     });
+    window.location.reload();
   };
 
   //function that queries API server and deletes articles
@@ -69,7 +70,7 @@ class Comments extends Component {
     const user = localStorage.getItem('user');
     API.deleteArticleU(user, id)
       .then(results => {
-        this.props.history.push('/savedArticles');
+        this.props.history.push('/articles');
       })
       .catch(err => console.log(err));
   };
@@ -94,7 +95,7 @@ class Comments extends Component {
                   type="Delete"
                   onClick={() => this.deleteArticle(this.state.article._id)}
                 />
-                <Link to={`/savedArticles`}>See All Saved Articles</Link>
+                <Link to={`/articles`}>See All Saved Articles</Link>
                 <br />
                 <br />
                 <br />

@@ -42,7 +42,7 @@ class Login extends Component {
         this.setState({ message: '' });
       })
       .then(() => {
-        this.props.history.push('/');
+        this.props.history.push('/search');
       })
       .catch(error => {
         if (error.response.status === 401) {
