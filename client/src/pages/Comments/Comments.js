@@ -5,6 +5,7 @@ import { H1, H3 } from '../../components/Headings';
 import { Panel, PanelHeading, PanelBody } from '../../components/Panel';
 import { Form, Input, FormBtn, FormGroup, Label } from '../../components/Form';
 import { Article } from '../../components/Article';
+import { ArticleComment } from '../../components/ArticleComment';
 import { Link } from 'react-router-dom';
 import API from '../../utils/API';
 import axios from 'axios';
@@ -161,7 +162,7 @@ class Comments extends Component {
                     </PanelHeading>
                     <PanelBody>
                       {this.state.article.comments.map(comment => (
-                        <Article
+                        <ArticleComment
                           title={`|| Subject: ${comment.subject} || Author: ${comment.author} ||`}
                           summary={`Comment: ${comment.comment}`}
                         />
