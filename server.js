@@ -20,7 +20,10 @@ app.use(routes);
 // Set up promises with mongoose
 mongoose.Promise = global.Promise;
 // Connect to the Mongo DB
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/nytreact');
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/nytreact', {
+  useCreateIndex: true,
+  useNewUrlParser: true,
+});
 
 // Start the API server
 const PORT = process.env.PORT || 3001;
