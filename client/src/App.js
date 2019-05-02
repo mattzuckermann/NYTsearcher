@@ -7,7 +7,7 @@ import Nav from './components/Nav';
 import Recommendation from './pages/Recommendation';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import Comments from './pages/Comments';
+// import Comments from './pages/Comments';
 
 class App extends Component {
   state = {
