@@ -29,7 +29,7 @@ class App extends Component {
           <Nav loggedin={this.state.loggedin} />
 
           <Switch>
-            {/* <Route exact path="/" component={Articles} /> */}
+            <Route exact path="/" component={Articles} />
             <Route exact path="/search" component={Articles} />
             <Route exact path="/articles" component={SavedArticles} />
             <Route exact path="/recommendation" component={Recommendation} />
@@ -39,7 +39,7 @@ class App extends Component {
               path="/login"
               render={props => <Login {...props} parent={this} updateLogin={this.updateLogin} />}
             />
-            <Route exact path="/:id" component={Comments} />
+            {/* <Route exact path="/:id" component={Comments} /> */}
             <Route component={NoMatch} />
           </Switch>
         </div>
