@@ -38,6 +38,7 @@ export default class Articles extends Component {
   async componentDidMount() {
     await axios.defaults.headers.common['Authorization'];
     const jwt = await localStorage.getItem('jwtToken');
+    console.log(process.env);
     if (jwt === null) {
       this.props.history.push('/login');
     }
