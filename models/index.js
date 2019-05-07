@@ -3,5 +3,5 @@ module.exports = {
   Article: require('./Article'),
   Comment: require('./Comment'),
   User: require('./User'),
-  Recommendation: require('./Recommendation'),
+  // Recommendation: require('./Recommendation'),
 };
