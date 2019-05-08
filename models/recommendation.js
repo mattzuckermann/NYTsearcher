@@ -10,4 +10,4 @@ const recSchema = new Schema({
   url: { type: String, required: false },
 });
 
-module.exports = mongoose.model('Recommendation', recSchema));
+module.exports = mongoose.model('Recommendation', recSchema);
