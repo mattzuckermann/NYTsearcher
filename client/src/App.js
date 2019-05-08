@@ -34,12 +34,12 @@ class App extends Component {
             <Route exact path="/articles" component={SavedArticles} />
             <Route exact path="/recommendation" component={Recommendation} />
             <Route exact path="/register" component={Register} />
-            <Route exact path="/:id" component={Comments} />
             <Route
               exact
               path="/login"
               render={props => <Login {...props} parent={this} updateLogin={this.updateLogin} />}
             />
+            <Route exact path="/:id" component={Comments} />
             <Route component={NoMatch} />
           </Switch>
         </div>
