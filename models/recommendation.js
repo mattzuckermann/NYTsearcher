@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+
 const Schema = mongoose.Schema;
 
 const recSchema = new Schema({
@@ -9,4 +10,4 @@ const recSchema = new Schema({
   url: { type: String, required: false },
 });
 
-const Recommendation = (module.exports = mongoose.model('Recommendation', recSchema));
+module.exports = mongoose.model('Recommendation', recSchema));
