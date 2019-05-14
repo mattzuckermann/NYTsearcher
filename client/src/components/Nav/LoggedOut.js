@@ -8,7 +8,7 @@ class LoggedOut extends Component {
     return (
       <Navbar className="navbar navbar-dark bg-primary">
         <Navbar.Brand className="navbar-brand titleSite" href="/">
-          NYT Articles and Book Searcher
+          Best Seller Searcher
         </Navbar.Brand>
         <Navbar.Brand className="navbar-brand logoSite" href="/">
           <img
