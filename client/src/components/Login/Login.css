@@ -40,3 +40,9 @@ body {
 .form-signin p {
   margin-top: 10px;
 }
+
+@media (max-width: 351px) {
+  .buttonMediaQuery {
+    width: 100%;
+  }
+}
