@@ -27,7 +27,7 @@ const App = () => {
     <Router>
       <div>
         <animated.div>
-          <Nav loggedin={loggedin} />
+          <Nav loggedin={loggedin} style={fade} />
         </animated.div>
         <animated.div style={fade}>
           <Switch>
