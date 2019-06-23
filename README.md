@@ -16,10 +16,6 @@ https://searcher-mczuckermann.herokuapp.com
 Link to Group Repo (Before Forking to my own profile):
 https://github.com/group1-project3
 
-## Expected Behavior
-
-![alt text](https://github.com/group1-project3/Project-3/blob/master/workingapp.gif?raw=true "Working App Gif")
-
 ## Technologies used
 - ESLint
 - Prettier
