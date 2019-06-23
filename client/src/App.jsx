@@ -42,7 +42,7 @@ const App = () => {
             <Route exact path="/:id" component={Comments} />
             <Route component={NoMatch} />
           </Switch>
-        </div>
+        </animated.div>
       </div>
     </Router>
   );
