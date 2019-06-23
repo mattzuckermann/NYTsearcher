@@ -25,27 +25,23 @@ const App = () => {
 
   return (
     <Router>
-      <div>
-        <animated.div>
-          <Nav loggedin={loggedin} style={fade} />
-        </animated.div>
-        <animated.div style={fade}>
-          <Switch>
-            <Route exact path="/" component={Articles} />
-            <Route exact path="/search" component={Articles} />
-            <Route exact path="/articles" component={SavedArticles} />
-            <Route exact path="/recommendation" component={Recommendation} />
-            <Route exact path="/register" component={Register} />
-            <Route
-              exact
-              path="/login"
-              render={props => <Login {...props} /*parent={this}*/ setLoggedin={setLoggedin} />}
-            />
-            <Route exact path="/:id" component={Comments} />
-            <Route component={NoMatch} />
-          </Switch>
-        </animated.div>
-      </div>
+      <animated.div style={fade}>
+        <Nav loggedin={loggedin} />
+        <Switch>
+          <Route exact path="/" component={Articles} />
+          <Route exact path="/search" component={Articles} />
+          <Route exact path="/articles" component={SavedArticles} />
+          <Route exact path="/recommendation" component={Recommendation} />
+          <Route exact path="/register" component={Register} />
+          <Route
+            exact
+            path="/login"
+            render={props => <Login {...props} /*parent={this}*/ setLoggedin={setLoggedin} />}
+          />
+          <Route exact path="/:id" component={Comments} />
+          <Route component={NoMatch} />
+        </Switch>
+      </animated.div>
     </Router>
   );
 };
