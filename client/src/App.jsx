@@ -26,7 +26,9 @@ const App = () => {
   return (
     <Router>
       <div>
-        <Nav loggedin={loggedin} />
+        <animated.div>
+          <Nav loggedin={loggedin} />
+        </animated.div>
         <animated.div style={fade}>
           <Switch>
             <Route exact path="/" component={Articles} />
