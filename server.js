@@ -23,10 +23,11 @@ mongoose.Promise = global.Promise;
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/nytreact', {
   useCreateIndex: true,
   useNewUrlParser: true,
+  useUnifiedTopology: true,
 });
 
 // Start the API server
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, function() {
-  console.log(`API Server now listening on PORT ${PORT}...`);
+  console.log(`API Server now listening on PORT http://localhost:${PORT}...`);
 });
