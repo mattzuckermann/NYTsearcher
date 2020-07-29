@@ -12,7 +12,7 @@ class LoggedIn extends Component {
     return (
       <Navbar className="navbar navbar-dark bg-primary" expand="xl">
         <Navbar.Brand className="navbar-brand titleSite" href="/">
-          Best Seller Searcher
+          NYT Searcher
         </Navbar.Brand>
         <Navbar.Brand className="navbar-brand logoSite" href="/">
           <img
