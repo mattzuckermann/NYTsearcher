@@ -32,7 +32,7 @@ const Register = props => {
       <Row>
         <Col size="sm-10" offset="sm-1">
           <Jumbotron>
-            <H1 className="text-center">Welcome to Best Seller Searcher!</H1>
+            <H1 className="text-center">Welcome to NYT Searcher!</H1>
             <hr style={{ width: '60%' }} />
           </Jumbotron>
           <Panel>
