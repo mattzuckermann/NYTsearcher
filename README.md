@@ -1,17 +1,20 @@
-#  Best Seller Finder
+#  BestSellerSearcher
 
 Authors: Wyatt Cochran, Matt Zuckerman, Case Griffiths, Rudy Rodriguez, Eric Chen
 
 ## Description
 
-This is a MERN (Mongo, Express, React, Node) full stack search engine that utilizes various APIs to return data to the user that can be saved and retrieved at a later date.
+This is a MERN stack search engine that utilizes various APIs to return data to the user that can be saved and retrieved at a later date.
 
-Link to Public Repo:
+Demo Login:
+Username - demo@demo.com
+Password - demo
+
+Link to Deployed Site (Continued making additions post coding boot camp (76 commits ahead of UCBE-CodingBootcamp-Group3)
+https://searcher-mczuckermann.herokuapp.com
+
+Link to Group Repo (Before Forking to my own profile):
 https://github.com/group1-project3
-
-## Expected Behavior
-
-![alt text](https://github.com/group1-project3/Project-3/blob/master/workingapp.gif?raw=true "Working App Gif")
 
 ## Technologies used
 - ESLint
@@ -30,13 +33,11 @@ https://github.com/group1-project3
 - Multi-API search and results return
 - User login / logout functionality
 - Persistent storage
-- Looks cool
-
 
 ## Installs
 
 Navigate to an empty folder on your local machine and clone the above repository using the command:
-> git clone https://github.com/group1-project3
+> git clone https://github.com/mczuckermann/BestSellerSearcher
 
 From the cloned repository, run the following terminal commands:
 
@@ -50,13 +51,3 @@ Open [http://localhost:3001](http://localhost:3001) to view it in the browser.
 The page will reload if you make edits.<br>
 You will also see any lint errors in the console.
 
-## Future Additions
-
-Here we can list any icebox ideas we were not able to get to during the project work.
-
-
-## Buy us a coffee
-
-Wether you use this project, have learned something from it, or just like it, please consider supporting it by buying us a coffee, so we can dedicate more time on open-source projects like this :)
-
-<a href="buymeacoff.ee/WFJGY849o" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a>
