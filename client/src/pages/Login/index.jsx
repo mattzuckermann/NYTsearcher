@@ -8,7 +8,7 @@ import { Panel, PanelBody } from '../../components/Panel';
 import { Form, Input, FormGroup, Label } from '../../components/Form';
 import { Link } from 'react-router-dom';
 
-const Login = props => {
+const Login = (props) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
@@ -19,10 +19,10 @@ const Login = props => {
     }
   }, []);
 
-  const onSubmit = e => {
+  const onSubmit = (e) => {
     e.preventDefault();
     API.loginUser(username, password)
-      .then(result => {
+      .then((result) => {
         localStorage.setItem('jwtToken', result.data.token);
         localStorage.setItem('user', username);
         props.setLoggedin(true);
@@ -31,7 +31,7 @@ const Login = props => {
       .then(() => {
         props.history.push('/search');
       })
-      .catch(error => {
+      .catch((error) => {
         if (error.response.status === 401) {
           setMessage('Login failed. Username or password not match');
         }
@@ -46,7 +46,7 @@ const Login = props => {
       <Row>
         <Col size="sm-10" offset="sm-1">
           <Jumbotron>
-            <H1 className="text-center">Welcome to Best Seller Searcher!</H1>
+            <H1 className="text-center">Welcome to NYT Searcher!</H1>
             <hr style={{ width: '60%' }} />
           </Jumbotron>
           <Panel>
@@ -70,7 +70,7 @@ const Login = props => {
                     placeholder="Username"
                     name="username"
                     value={username}
-                    onChange={e => setUsername(e.target.value)}
+                    onChange={(e) => setUsername(e.target.value)}
                     required
                   />
                 </FormGroup>
@@ -85,7 +85,7 @@ const Login = props => {
                     placeholder="Password"
                     name="password"
                     value={password}
-                    onChange={e => setPassword(e.target.value)}
+                    onChange={(e) => setPassword(e.target.value)}
                     required
                   />
                 </FormGroup>
