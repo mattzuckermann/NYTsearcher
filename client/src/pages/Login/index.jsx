@@ -17,7 +17,7 @@ const Login = (props) => {
     if (localStorage.getItem('jwtToken') !== null) {
       props.history.push('/');
     }
-  }, []);
+  }, [props.history]);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -25,7 +25,7 @@ const Login = (props) => {
       .then((result) => {
         localStorage.setItem('jwtToken', result.data.token);
         localStorage.setItem('user', username);
-        props.setLoggedin(true);
+        props.setLoggedIn(true);
         setMessage('');
       })
       .then(() => {

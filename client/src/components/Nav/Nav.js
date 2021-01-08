@@ -5,7 +5,7 @@ import './nav.css';
 
 class Nav extends Component {
   render() {
-    return <div>{this.props.loggedin ? <LoggedIn /> : <LoggedOut />}</div>;
+    return <div>{this.props.loggedIn ? <LoggedIn /> : <LoggedOut />}</div>;
   }
 }
 

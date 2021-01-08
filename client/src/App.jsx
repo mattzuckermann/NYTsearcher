@@ -11,13 +11,13 @@ import Register from './pages/Register';
 import Comments from './pages/Comments';
 
 const App = () => {
-  const [loggedin, setLoggedin] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
   const [mounting, setMounting] = useState(false);
 
   useEffect(() => {
-    setLoggedin(localStorage.getItem('jwtToken') !== null);
+    setLoggedIn(localStorage.getItem('jwtToken') !== null);
     setMounting(true);
-  });
+  }, []);
 
   const fade = useSpring({
     opacity: mounting ? 1 : 0,
@@ -26,7 +26,7 @@ const App = () => {
   return (
     <Router>
       <animated.div style={fade}>
-        <Nav loggedin={loggedin} />
+        <Nav loggedIn={loggedIn} />
         <Switch>
           <Route exact path="/" component={Articles} />
           <Route exact path="/search" component={Articles} />
@@ -36,7 +36,7 @@ const App = () => {
           <Route
             exact
             path="/login"
-            render={props => <Login {...props} /*parent={this}*/ setLoggedin={setLoggedin} />}
+            render={props => <Login {...props} /*parent={this}*/ setLoggedIn={setLoggedIn} />}
           />
           <Route exact path="/:id" component={Comments} />
           <Route component={NoMatch} />

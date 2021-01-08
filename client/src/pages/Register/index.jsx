@@ -16,7 +16,7 @@ const Register = props => {
     if (localStorage.getItem('jwtToken') !== null) {
       props.history.push('/');
     }
-  }, []);
+  }, [props.history]);
 
   const onSubmit = e => {
     e.preventDefault();
